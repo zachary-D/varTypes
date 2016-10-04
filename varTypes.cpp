@@ -262,4 +262,148 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
+
+	namespace chem
+	{
+		element::element(bool autoFill = true)
+		{
+			if(autoFill)
+			{
+				protons = 1;
+				lookupValues();
+			}
+		}
+
+		element::element(int _protons, bool autoFill = true)
+		{
+			setProtons(_protons);
+			if(autoFill) lookupValues();
+		}
+
+		element::element(int _protons, float _neutrons, bool autoFill = true)
+		{
+			setProtons(_protons);
+			setNeutrons(_neutrons);
+			if(autoFill) lookupValues();
+		}
+
+		element::element(int _protons, float _neutrons, int _electrons, bool autoFill = true)
+		{
+			setProtons(_protons);
+			setNeutrons(_neutrons);
+			setElectrons(_electrons);
+			if(autoFill) lookupValues();
+		}
+
+		element::element(int _protons, float _neutrons, int _electrons, float _atomicMass, bool autoFill = true)
+		{
+			setProtons(_protons);
+			setNeutrons(_neutrons);
+			setElectrons(_electrons);
+			setAtomicMass(_atomicMass);
+			if(autoFill) lookupValue();
+		}
+
+		element::element(string _symbol, bool autoFill = true)
+		{
+			setName(_name);
+			if(autoFill) lookupValues();
+		}
+
+		element::element(string _symbol, string _name, bool autoFill = true)
+		{
+			setName(_name);
+			setSymbol(_symbol);
+			if(autoFill) lookupValues();
+		}
+
+		element::element(string name, string symbol, int _protons, float _neutrons, int _electrons, float _atomicMass)
+		{
+			setName(_name);
+			setSymbol(_symbol);
+			setProtons(_protons);
+			setNeutrons(_neutrons);
+			setElectrons(_electrons);
+			setAtomicMass(_atomicMass);
+		}
+
+		element::setProtons(int _protons)
+		{
+			if(_protons <= 0) throw "protons<=0";
+			protons = _protons;
+		}
+
+		element::setNeutrons(float _neutrons)
+		{
+			if(_neutrons <= 0) throw "neutrons<=0";
+			neutrons = _neutrons;
+		}
+
+		element::setElectrons(int _electrons)
+		{
+			if(_electrons <= 0) throw "electrons<=0";
+			electrons = _electrons;
+		}
+
+		element::setName(string _name)
+		{
+			if(_name.length() == 0 || _name == null) throw "badname";
+			name = _name;
+		}
+
+		element::setSymbol(string _symbol)
+		{
+			if(_symbol.length() == 0 || _symbol == null) throw "badsymbol";
+			symbol = _symbol;
+		}
+
+		element::setAtomicMass(float _atomicMass)
+		{
+			if(_atomicMass <= 0) throw "atomicMass<=0";
+			atomicMass = _atomicMass;
+		}
+
+		element::getProtons()
+		{
+			return protons;
+		}
+
+		element::getNeutrons()
+		{
+			return neutrons;
+		}
+
+		element::getElectrons()
+		{
+			return electrons;
+		}
+
+		element::getName()
+		{
+			return name;
+		}
+
+		element::getSymbol()
+		{
+			return symbol;
+		}
+
+		element::getAtomicMass()
+		{
+			return atomicMass;
+		}
+
+		element::getCharge()
+		{
+			if(std::fmod(neutrons, 1) == 0)
+			{
+				
+			}
+		}
+		
+		element::lookupValues()
+		{
+			_DEBUG_ERROR("We haven't made the periodic table yet sooooo...");
+		}
+	}
 }
