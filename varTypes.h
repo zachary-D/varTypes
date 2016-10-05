@@ -4,8 +4,10 @@
 
 using namespace std;
 
+#ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#endif
 
 namespace var
 {
@@ -35,7 +37,10 @@ namespace var
 		coord2 negatedX();
 		coord2 negatedY();
 		coord2 negated();
+
+	#ifdef USING_CINDER
 		ci::Vec2f toVec2f();
+	#endif
 		string toString();
 		int getQuadrant();
 	};
@@ -65,7 +70,9 @@ namespace var
 		coord3 negatedXZ();
 		coord3 negatedYZ();
 		coord3 negated();*/
+	#ifdef USING_CINDER
 		ci::Vec3f toVec3f();
+	#endif
 		//coord3 toString();
 	};
 
@@ -78,9 +85,10 @@ namespace var
 		float R;
 		float G;
 		float B;
-
+	#ifdef USING_CINDER
 		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
 		ci::Color toCinderColor();	//Returns the color formatted in a way Cinder accepts
+	#endif
 	};
 
 	class square
@@ -131,7 +139,7 @@ namespace var
 			bool setElectrons(int _electrons);	//Sets the number of electrons in the element
 			bool setName(string _name);			//Sets the name of the element
 			bool setSymbol(string _symbol);		//Sets the sumbol of the element
-			float setAtomicMass(float _atomicMass)	//Sets the atomic mass of the element
+			bool setAtomicMass(float _atomicMass);	//Sets the atomic mass of the element
 
 			//Basic traits
 			int getProtons();			//Returns the number of protons in the element
@@ -146,6 +154,6 @@ namespace var
 
 			//Other
 			bool lookupValues();		//Tries to autofill values from the periodic table, if it is loaded.
-		}
+		};
 	};
 };

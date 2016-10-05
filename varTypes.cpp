@@ -4,10 +4,15 @@
 
 using namespace std;
 
+#ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#endif
 
+#ifdef USING_DEBUG
 #include "debug.h"
+#endif
+
 #include "varConv.h"
 #include "varTypes.h"
 
@@ -126,10 +131,12 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
+#ifdef USING_CINDER
 	ci::Vec2f coord2::toVec2f()
 	{
 		return ci::Vec2f(x, y);
 	}
+#endif
 
 	string coord2::toString()
 	{
@@ -196,10 +203,12 @@ namespace var
 		else return false;
 	}
 
+#ifdef USING_CINDER
 	ci::Vec3f coord3::toVec3f()
 	{
 		return ci::Vec3f(x, y, z);
 	}
+#endif
 
 	color_RGB::color_RGB()
 	{
@@ -215,6 +224,7 @@ namespace var
 		B = b;
 	}
 
+#ifdef USING_CINDER
 	ci::Color color_RGB::toColor()
 	{
 		return ci::Color(R, G, B);
@@ -224,6 +234,8 @@ namespace var
 	{
 		return ci::Color(R, G, B);
 	}
+
+#endif
 
 	square::square() {}
 	
@@ -301,12 +313,12 @@ namespace var
 			setNeutrons(_neutrons);
 			setElectrons(_electrons);
 			setAtomicMass(_atomicMass);
-			if(autoFill) lookupValue();
+			if(autoFill) lookupValues();
 		}
 
 		element::element(string _symbol, bool autoFill = true)
 		{
-			setName(_name);
+			setName(symbol);
 			if(autoFill) lookupValues();
 		}
 
@@ -317,7 +329,7 @@ namespace var
 			if(autoFill) lookupValues();
 		}
 
-		element::element(string name, string symbol, int _protons, float _neutrons, int _electrons, float _atomicMass)
+		element::element(string _name, string _symbol, int _protons, float _neutrons, int _electrons, float _atomicMass)
 		{
 			setName(_name);
 			setSymbol(_symbol);
@@ -327,73 +339,79 @@ namespace var
 			setAtomicMass(_atomicMass);
 		}
 
-		element::setProtons(int _protons)
+		bool element::setProtons(int _protons)
 		{
 			if(_protons <= 0) throw "protons<=0";
 			protons = _protons;
 		}
 
-		element::setNeutrons(float _neutrons)
+		bool element::setNeutrons(float _neutrons)
 		{
 			if(_neutrons <= 0) throw "neutrons<=0";
 			neutrons = _neutrons;
 		}
 
-		element::setElectrons(int _electrons)
+		bool element::setElectrons(int _electrons)
 		{
 			if(_electrons <= 0) throw "electrons<=0";
 			electrons = _electrons;
 		}
 
-		element::setName(string _name)
+		bool element::setName(string _name)
 		{
-			if(_name.length() == 0 || _name == null) throw "badname";
+			if(_name.length() == 0) throw "badname";
 			name = _name;
 		}
 
-		element::setSymbol(string _symbol)
+		bool element::setSymbol(string _symbol)
 		{
-			if(_symbol.length() == 0 || _symbol == null) throw "badsymbol";
+			if(_symbol.length() == 0) throw "badsymbol";
 			symbol = _symbol;
 		}
 
-		element::setAtomicMass(float _atomicMass)
+		bool element::setAtomicMass(float _atomicMass)
 		{
-			if(_atomicMass <= 0) throw "atomicMass<=0";
+			bool ret = true;
+			if(_atomicMass <= 0)
+			{
+				throw "atomicMass<=0";
+				ret = false;
+			}
 			atomicMass = _atomicMass;
+			return ret;
 		}
 
-		element::getProtons()
+		int element::getProtons()
 		{
 			return protons;
 		}
 
-		element::getNeutrons()
+		float element::getNeutrons()
 		{
 			return neutrons;
 		}
 
-		element::getElectrons()
+		int element::getElectrons()
 		{
 			return electrons;
 		}
 
-		element::getName()
+		string element::getName()
 		{
 			return name;
 		}
 
-		element::getSymbol()
+		string element::getSymbol()
 		{
 			return symbol;
 		}
 
-		element::getAtomicMass()
+		float element::getAtomicMass()
 		{
 			return atomicMass;
 		}
 
-		element::getCharge()
+		int element::getCharge()
 		{
 			if(std::fmod(neutrons, 1) == 0)
 			{
@@ -401,7 +419,7 @@ namespace var
 			}
 		}
 		
-		element::lookupValues()
+		bool element::lookupValues()
 		{
 			_DEBUG_ERROR("We haven't made the periodic table yet sooooo...");
 		}
