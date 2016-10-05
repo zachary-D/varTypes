@@ -34,9 +34,9 @@ namespace var
 	{
 		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
 		//ci::app::console() << endl << "X_:" + conv::toString(coord2(x + other.x, y + other.y).x) + " Y_:" + conv::toString(coord2(x + other.x, y + other.y).y) << endl << endl;
-		return coord2( x + other.x, y + other.y);
+		return coord2(x + other.x, y + other.y);
 	}
-	
+
 	coord2 coord2::operator-(const coord2 & other)
 	{
 		return coord2(x - other.x, y - other.y);
@@ -96,7 +96,7 @@ namespace var
 		y /= other.y;
 		return coord2(x, y);
 	}
-	
+
 	coord2 coord2::operator/=(const float & other)
 	{
 		x /= other;
@@ -146,7 +146,7 @@ namespace var
 	int coord2::getQuadrant()
 	{
 		//$$
-		if(x >= 0 && y >= 0) return 1; 
+		if(x >= 0 && y >= 0) return 1;
 		else if(x < 0 && y >= 0) return 2;
 		else if(x < 0 && y < 0) return 3;
 		else if(x >= 0 && y < 0) return 4;
@@ -237,8 +237,9 @@ namespace var
 
 #endif
 
-	square::square() {}
-	
+	square::square()
+	{}
+
 	square::square(coord2 _upperRight, coord2 _lowerLeft)
 	{
 		topY = _upperRight.y;
@@ -246,7 +247,7 @@ namespace var
 		bottomY = _lowerLeft.y;
 		leftX = _lowerLeft.x;
 	}
-	
+
 	square::square(float _leftX, float _rightX, float _bottomY, float _topY)
 	{
 		leftX = _leftX;
@@ -266,7 +267,7 @@ namespace var
 	}
 
 	coord2 square::getBottomLeft()
-	{ 
+	{
 		return coord2(leftX, bottomY);
 	}
 
@@ -277,7 +278,7 @@ namespace var
 
 	namespace chem
 	{
-		element::element(bool autoFill = true)
+		element::element(bool autoFill)
 		{
 			if(autoFill)
 			{
@@ -286,20 +287,20 @@ namespace var
 			}
 		}
 
-		element::element(int _protons, bool autoFill = true)
+		element::element(int _protons, bool autoFill)
 		{
 			setProtons(_protons);
 			if(autoFill) lookupValues();
 		}
 
-		element::element(int _protons, float _neutrons, bool autoFill = true)
+		element::element(int _protons, float _neutrons, bool autoFill)
 		{
 			setProtons(_protons);
 			setNeutrons(_neutrons);
 			if(autoFill) lookupValues();
 		}
 
-		element::element(int _protons, float _neutrons, int _electrons, bool autoFill = true)
+		element::element(int _protons, float _neutrons, int _electrons, bool autoFill )
 		{
 			setProtons(_protons);
 			setNeutrons(_neutrons);
@@ -307,7 +308,7 @@ namespace var
 			if(autoFill) lookupValues();
 		}
 
-		element::element(int _protons, float _neutrons, int _electrons, float _atomicMass, bool autoFill = true)
+		element::element(int _protons, float _neutrons, int _electrons, float _atomicMass, bool autoFill)
 		{
 			setProtons(_protons);
 			setNeutrons(_neutrons);
@@ -316,13 +317,13 @@ namespace var
 			if(autoFill) lookupValues();
 		}
 
-		element::element(string _symbol, bool autoFill = true)
+		element::element(string _symbol, bool autoFill)
 		{
 			setName(symbol);
 			if(autoFill) lookupValues();
 		}
 
-		element::element(string _symbol, string _name, bool autoFill = true)
+		element::element(string _symbol, string _name, bool autoFill)
 		{
 			setName(_name);
 			setSymbol(_symbol);
@@ -341,64 +342,126 @@ namespace var
 
 		bool element::setProtons(int _protons)
 		{
-			if(_protons <= 0) throw "protons<=0";
-			protons = _protons;
+			if(_protons == NULL || _protons <= 0)
+			{
+				_DEBUG_ERROR("Bad '_protons': Value cannot == NULL or <= 0.");
+				return false;
+			}
+			else
+			{
+				protons = _protons;
+				return true;
+			}
 		}
 
 		bool element::setNeutrons(float _neutrons)
 		{
-			if(_neutrons <= 0) throw "neutrons<=0";
-			neutrons = _neutrons;
+			if(_neutrons == NULL || _neutrons < 0)
+			{
+				_DEBUG_ERROR("Bad '_neutrons': Value cannot == NULL or < 0.");
+				return false;
+			}
+			else
+			{
+				neutrons = _neutrons;
+				return true;
+			}
 		}
 
 		bool element::setElectrons(int _electrons)
 		{
-			if(_electrons <= 0) throw "electrons<=0";
-			electrons = _electrons;
+			if(_electrons == NULL || _electrons < 0)
+			{
+				_DEBUG_ERROR("Bad '_electrons': Value cannot == 0 or < 0.");
+				return false;
+			}
+			else
+			{
+				electrons = _electrons;
+				return true;
+			}
 		}
 
 		bool element::setName(string _name)
 		{
-			if(_name.length() == 0) throw "badname";
-			name = _name;
+			if(_name.length() == 0)
+			{
+				_DEBUG_ERROR("Bad '_name': Value cannot be empty.");
+				return false;
+			}
+			else
+			{
+				name = _name;
+				return true;
+			}
 		}
 
 		bool element::setSymbol(string _symbol)
 		{
-			if(_symbol.length() == 0) throw "badsymbol";
-			symbol = _symbol;
+			if(_symbol.length() <= 0 || _symbol.length() > 3)
+			{
+				_DEBUG_ERROR("Bad '_symbol': Value cannot <= 0 or > 3.");
+				return false;
+			}
+			else
+			{
+				symbol = _symbol;
+				return true;
+			}
 		}
 
 		bool element::setAtomicMass(float _atomicMass)
 		{
-			bool ret = true;
-			if(_atomicMass <= 0)
+			if(_atomicMass == NULL || _atomicMass <= 0)
 			{
-				throw "atomicMass<=0";
-				ret = false;
+				_DEBUG_ERROR("Bad '_atomicMass': Value cannot == NULL or <= 0.");
+				return false;
 			}
-			atomicMass = _atomicMass;
-			return ret;
+			else
+			{
+				atomicMass = _atomicMass;
+				return true;
+			}
 		}
 
 		int element::getProtons()
 		{
+			if(protons == NULL)
+			{
+				_DEBUG_ERROR("'protons' == NULL.  Has its value not yet been set?\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
+				return 1;
+			}
 			return protons;
 		}
 
 		float element::getNeutrons()
 		{
-			return neutrons;
+			if(neutrons == NULL)
+			{
+				_DEBUG_ERROR("'neutrons' == NULL.  Has its value not yet been set?\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
+				return 1;
+			}
+			else return neutrons;
 		}
 
 		int element::getElectrons()
 		{
-			return electrons;
+			if(electrons == NULL)
+			{
+				_DEBUG_ERROR("'electrons' == NULL.  Has its value ont yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
+				return 1;
+			}
+			else return electrons;
 		}
 
 		string element::getName()
 		{
-			return name;
+			if(name.length() == 0)
+			{
+				_DEBUG_ERROR("'name.length()' == 0.  Has its value not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
+				return "Err";
+			}
+			else return name;
 		}
 
 		string element::getSymbol()
@@ -413,15 +476,16 @@ namespace var
 
 		int element::getCharge()
 		{
-			if(std::fmod(neutrons, 1) == 0)
+			if(std::fmod(neutrons, 1) == 0)		//If 'neutrons' is an integer
 			{
-				
+				return protons - electrons;
 			}
 		}
-		
+
 		bool element::lookupValues()
 		{
 			_DEBUG_ERROR("We haven't made the periodic table yet sooooo...");
+			return false
 		}
 	}
 }
