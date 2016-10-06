@@ -424,6 +424,22 @@ namespace var
 			}
 		}
 
+		bool element::setAtomicNumber(float _atomicNumber)
+		{
+			if(_atomicNumber == NULL || _atomicNumber <= 0)
+			{
+				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot == NULL or <= 0.");
+			}
+
+			if(protons != NULL && neutrons != NULL)
+			{
+				if(_atomicNumber != protons + neutrons)
+				{
+					_DEBUG_ERROR("Bad '_atomicNumber': Value is in conflict with existing 'protons' and 'neutrons' value.");
+				}
+			}
+		}
+
 		int element::getProtons()
 		{
 			if(protons == NULL)
@@ -466,6 +482,10 @@ namespace var
 
 		string element::getSymbol()
 		{
+			if(symbol.length() == 0)
+			{
+				_DEBUG_ERROR("'symbol.length()' == 0.  Has its value not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
+			}
 			return symbol;
 		}
 
@@ -476,16 +496,13 @@ namespace var
 
 		int element::getCharge()
 		{
-			if(std::fmod(neutrons, 1) == 0)		//If 'neutrons' is an integer
-			{
-				return protons - electrons;
-			}
+			return getProtons() - electrons;
 		}
 
 		bool element::lookupValues()
 		{
 			_DEBUG_ERROR("We haven't made the periodic table yet sooooo...");
-			return false
+			return false;
 		}
 	}
 }

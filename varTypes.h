@@ -131,6 +131,7 @@ namespace var
 			string name;				//The name of the element
 			string symbol;				//The atomic symbol of the element
 			float atomicMass;			//The atomic mass of the element
+			float atomicNumber;			//The atomic number of the element (technically the average of the isotopes)
 
 		public:
 			//Setting traits
@@ -140,6 +141,7 @@ namespace var
 			bool setName(string _name);			//Sets the name of the element
 			bool setSymbol(string _symbol);		//Sets the sumbol of the element
 			bool setAtomicMass(float _atomicMass);	//Sets the atomic mass of the element
+			bool setAtomicNumber(float _atomicNumber);	//Sets the atomic number of the element
 
 			//Basic traits
 			int getProtons();			//Returns the number of protons in the element
@@ -148,11 +150,13 @@ namespace var
 			string getName();			//Returns the name of the element
 			string getSymbol();			//Returns the atomic symbol of the element
 			float getAtomicMass();		//Returns the atomic mass of the element
+			float getAtomicNumber();	//Returns the atomic number of the element
 
 			//Inferred traits
 			int getCharge();			//The charge on the atom.  Not available for atoms with averaged neutrons (Will throw an error if this situation arises).
 
 			//Other
+			bool inferValues();			//Attempts to calculate all values possible from included information (i.e. protons from electrons and charge, etc.)
 			bool lookupValues();		//Tries to autofill values from the periodic table, if it is loaded.
 		};
 	};
