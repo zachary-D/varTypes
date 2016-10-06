@@ -350,6 +350,7 @@ namespace var
 			else
 			{
 				protons = _protons;
+				protonsSet = true;
 				return true;
 			}
 		}
@@ -364,6 +365,7 @@ namespace var
 			else
 			{
 				neutrons = _neutrons;
+				neutronsSet = true;
 				return true;
 			}
 		}
@@ -378,6 +380,7 @@ namespace var
 			else
 			{
 				electrons = _electrons;
+				electronsSet = true;
 				return true;
 			}
 		}
@@ -392,6 +395,7 @@ namespace var
 			else
 			{
 				name = _name;
+				nameSet = true;
 				return true;
 			}
 		}
@@ -406,6 +410,7 @@ namespace var
 			else
 			{
 				symbol = _symbol;
+				symbolSet = true;
 				return true;
 			}
 		}
@@ -420,6 +425,7 @@ namespace var
 			else
 			{
 				atomicMass = _atomicMass;
+				atomicMassSet = true;
 				return true;
 			}
 		}
@@ -442,6 +448,7 @@ namespace var
 			else
 			{
 				atomicNumber = _atomicNumber;
+				atomicNumberSet = true;
 				return true;
 			}
 		}
@@ -456,15 +463,16 @@ namespace var
 			else
 			{
 				charge = _charge;
+				chargeSet = true;
 				return true;
 			}
 		}
 
 		int element::getProtons()
 		{
-				if(protons == NULL)
+				if(protonsSet)
 				{
-					_DEBUG_ERROR("'protons' == NULL.  Has its value not yet been set?\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
+					_DEBUG_ERROR("'protons' has not yet been set.\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
 					return 1;
 				}
 			return protons;
@@ -472,9 +480,9 @@ namespace var
 
 		float element::getNeutrons()
 		{
-				if(neutrons == NULL)
+				if(neutronsSet)
 				{
-					_DEBUG_ERROR("'neutrons' == NULL.  Has its value not yet been set?\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
+					_DEBUG_ERROR("'neutrons'has not yet been set.\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
 					return 1;
 			}
 			else return neutrons;

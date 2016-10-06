@@ -127,13 +127,21 @@ namespace var
 
 		private:
 			int protons;				//The number of protons in the element
+			bool protonsSet = false;	//If the value of protons has been set
 			float neutrons;				//The number of neutrons in the element
+			bool neutronsSet = false;	//If the value of neutrons has been set
 			int electrons;				//The number of electron in (technically around) the element
+			bool electronsSet = false;	//If the value of electrons has been set
 			string name;				//The name of the element
+			bool nameSet = false;		//If the name has been set
 			string symbol;				//The atomic symbol of the element
+			bool symbolSet = false;		//If the symbol has been set
 			float atomicMass;			//The atomic mass of the element
+			bool atomicMassSet = false;	//If the value of atomicMass has been set
 			float atomicNumber;			//The atomic number of the element (technically the average of the isotopes)
+			bool atomicNumberSet = false;	//If the value of atomicNumber has been set
 			int charge;					//The charge of the element
+			bool chargeSet = false;		//If the value of charge has been set;
 
 		public:
 			//Setting traits
