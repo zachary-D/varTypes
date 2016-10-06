@@ -430,7 +430,6 @@ namespace var
 			{
 				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot == NULL or <= 0.");
 			}
-
 			if(protons != NULL && neutrons != NULL)
 			{
 				if(_atomicNumber != protons + neutrons)
@@ -456,112 +455,80 @@ namespace var
 
 		int element::getProtons()
 		{
-			if(protons == NULL)
-			{
-				inferValues();
 				if(protons == NULL)
 				{
 					_DEBUG_ERROR("'protons' == NULL.  Has its value not yet been set?\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
 					return 1;
 				}
-			}
 			return protons;
 		}
 
 		float element::getNeutrons()
 		{
-			if(neutrons == NULL)
-			{
-				inferValues();
 				if(neutrons == NULL)
 				{
 					_DEBUG_ERROR("'neutrons' == NULL.  Has its value not yet been set?\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
 					return 1;
-				}
 			}
 			else return neutrons;
 		}
 
 		int element::getElectrons()
 		{
-			if(electrons == NULL)
-			{
-				inferValues();
 				if(electrons == NULL)
 				{
 					_DEBUG_ERROR("'electrons' == NULL.  Has its value ont yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
 					return 1;
-				}
 			}
 			else return electrons;
 		}
 
 		string element::getName()
 		{
-			if(name.length() == 0)
-			{
-				inferValues();
 				if(name.length() == 0)
 				{
 					_DEBUG_ERROR("'name.length()' == 0.  Has its value not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
 					return "Err";
-				}
 			}
 			else return name;
 		}
 
 		string element::getSymbol()
 		{
-			if(symbol.length() == 0)
-			{
-				inferValues();
 				if(symbol.length() == 0)
 				{
 					_DEBUG_ERROR("'symbol.length()' == 0.  Has its value not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
 					return "Er";
-				}
 			}
 			else return symbol;
 		}
 
 		float element::getAtomicMass()
 		{
-			if(atomicMass == NULL)
-			{
-				inferValues();
 				if(atomicMass == NULL)
 				{
 					_DEBUG_ERROR("'atomicMass' == 0.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
 					return 1;
-				}
 			}
 			else return atomicMass;
 		}
 
 		float element::getAtomicNumber()
 		{
-			if(atomicNumber == NULL)
-			{
-				inferValues();
 				if(atomicNumber == NULL)
 				{
 					_DEBUG_ERROR("'atomicNumber' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
 					return 1;
-				}
 			}
 			else return atomicNumber;
 		}
 
 		int element::getCharge()
 		{
-			if(charge == NULL)
-			{
-				inferValues();
 				if(charge == NULL)
 				{
 					_DEBUG_ERROR("'charge' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
 					return 1;
-				}
 			}
 			else return charge;
 		}
