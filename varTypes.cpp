@@ -429,13 +429,20 @@ namespace var
 			if(_atomicNumber == NULL || _atomicNumber <= 0)
 			{
 				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot == NULL or <= 0.");
+				return false;
 			}
-			if(protons != NULL && neutrons != NULL)
+			else if(protons != NULL && neutrons != NULL)
 			{
 				if(_atomicNumber != protons + neutrons)
 				{
 					_DEBUG_ERROR("Bad '_atomicNumber': Value is in conflict with existing 'protons' and 'neutrons' value.");
+					return false;
 				}
+			}
+			else
+			{
+				atomicNumber = _atomicNumber;
+				return true;
 			}
 		}
 
@@ -594,6 +601,19 @@ namespace var
 		{
 			_DEBUG_ERROR("We haven't made the periodic table yet sooooo...");
 			return false;
+		}
+
+		string element::testOutput(bool multiLine)
+		{
+			string separator = " | ";
+			if(multiLine) separator = "\n";
+			string output = "";
+			if(protons == NULL)
+			{
+
+
+			}
+			return "N/A";
 		}
 	}
 }
