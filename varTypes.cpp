@@ -475,6 +475,12 @@ namespace var
 					return true;
 				}
 			}
+			else
+			{
+				atomicNumber = _atomicNumber;
+				atomicNumberSet = true;
+				return true;
+			}
 		}
 
 		bool element::setCharge(int _charge)
