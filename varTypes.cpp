@@ -554,46 +554,46 @@ namespace var
 			bool anyChanges = false;	//If there were any changes at all
 			do
 			{
-				if(protons == NULL)			//Calculating protons
+				if(protonsSet == false)			//Calculating protons
 				{
-					if(electrons != NULL && charge != NULL)
+					if(electronsSet == true && chargeSet == true)
 					{
 						setProtons(charge + electrons);
 						change = true;
 					}
-					else if(atomicNumber != NULL && neutrons != NULL && fmod(neutrons, 1) != 0)
+					else if(atomicNumberSet == true && neutronsSet == true && fmod(neutrons, 1) != 0)
 					{
 						setProtons(atomicNumber - neutrons);
 						change = true;
 					}
 				}
-				if(neutrons == NULL)		//Calculating neutrons
+				if(neutronsSet == false)		//Calculating neutrons
 				{
-					if(atomicNumber != NULL && protons != NULL)
+					if(atomicNumberSet == true && protonsSet == true)
 					{
 						setNeutrons(atomicNumber - protons);
 						change = true;
 					}
 				}
-				if(electrons == NULL)		//Calculating electrons
+				if(electronsSet == false)		//Calculating electrons
 				{
-					if(protons != NULL && charge != NULL)
+					if(protonsSet == true && chargeSet == true)
 					{
 						setElectrons(protons - charge);
 						charge = true;
 					}
 				}
-				if(atomicNumber == NULL)	//Calculating atomicNumber
+				if(atomicNumberSet == false)	//Calculating atomicNumber
 				{
-					if(protons != NULL && neutrons != NULL)
+					if(protonsSet == true && neutronsSet == true)
 					{
 						setAtomicNumber(protons + neutrons);
 						charge = true;
 					}
 				}
-				if(charge == NULL)			//Calculating charge
+				if(chargeSet == false)			//Calculating charge
 				{
-					if(protons != NULL && electrons != NULL)
+					if(protonsSet == true && electronsSet == true)
 					{
 						setCharge(protons - electrons);
 						charge = true;
@@ -611,17 +611,52 @@ namespace var
 			return false;
 		}
 
-		string element::testOutput(bool multiLine)
+		string element::toString(bool multiLine)
 		{
 			string separator = " | ";
 			if(multiLine) separator = "\n";
 			string output = "";
-			if(protons == NULL)
-			{
 
+			output.append("Name:");
+			if(nameSet) output.append(name);
+			else output.append("Not set");
+			output.append(separator);
+			
+			output.append("Symbol:");
+			if(symbolSet) output.append(symbol);
+			else output.append("Not set");
+			output.append(separator);
 
-			}
-			return "N/A";
+			output.append("Protons:");
+			if(protonsSet) output.append(conv::toString(getProtons()));
+			else output.append("Not set");
+			output.append(separator);
+
+			output.append("Neutrons:");
+			if(neutronsSet)	output.append(conv::toString(getNeutrons()));
+			else output.append("Not set");
+			output.append(separator);
+
+			output.append("Electrons:");
+			if(electronsSet) output.append(conv::toString(getElectrons()));
+			else output.append("Not set");
+			output.append(separator);
+
+			output.append("Charge:");
+			if(chargeSet) output.append(conv::toString(getCharge()));
+			else output.append("Not set");
+			output.append(separator);
+
+			output.append("Atomic Mass:");
+			if(atomicMassSet) output.append(conv::toString(getAtomicMass()));
+			else output.append("Not set");
+			output.append(separator);
+
+			output.append("Atomic Number:");
+			if(atomicNumberSet) output.append(conv::toString(getAtomicNumber()));
+			else output.append("Not set");
+
+			return output;
 		}
 	}
 }

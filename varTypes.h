@@ -167,7 +167,7 @@ namespace var
 			//Other
 			bool inferValues();			//Attempts to calculate all values possible from included information (i.e. protons from electrons and charge, etc.)
 			bool lookupValues();		//Tries to autofill values from the periodic table, if it is loaded.
-			string testOutput(bool multiLine = false);	//Converts all data from the element into a string.
+			string toString(bool multiLine = false);	//Converts all data from the element into a string.
 		};
 	};
 };
