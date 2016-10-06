@@ -470,7 +470,7 @@ namespace var
 
 		int element::getProtons()
 		{
-				if(protonsSet)
+				if(protonsSet == false)
 				{
 					_DEBUG_ERROR("'protons' has not yet been set.\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
 					return 1;
@@ -480,7 +480,7 @@ namespace var
 
 		float element::getNeutrons()
 		{
-				if(neutronsSet)
+			if(neutronsSet == false)
 				{
 					_DEBUG_ERROR("'neutrons'has not yet been set.\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
 					return 1;
@@ -490,9 +490,9 @@ namespace var
 
 		int element::getElectrons()
 		{
-				if(electrons == NULL)
+			if(electronsSet == false)
 				{
-					_DEBUG_ERROR("'electrons' == NULL.  Has its value ont yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
+					_DEBUG_ERROR("'electrons' has not yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
 					return 1;
 			}
 			else return electrons;
@@ -500,9 +500,9 @@ namespace var
 
 		string element::getName()
 		{
-				if(name.length() == 0)
+				if(nameSet == false)
 				{
-					_DEBUG_ERROR("'name.length()' == 0.  Has its value not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
+					_DEBUG_ERROR("'name' has not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
 					return "Err";
 			}
 			else return name;
@@ -510,9 +510,9 @@ namespace var
 
 		string element::getSymbol()
 		{
-				if(symbol.length() == 0)
+				if(symbolSet == false)
 				{
-					_DEBUG_ERROR("'symbol.length()' == 0.  Has its value not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
+					_DEBUG_ERROR("'symbol' has not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
 					return "Er";
 			}
 			else return symbol;
@@ -520,9 +520,9 @@ namespace var
 
 		float element::getAtomicMass()
 		{
-				if(atomicMass == NULL)
+				if(atomicMassSet == false)
 				{
-					_DEBUG_ERROR("'atomicMass' == 0.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+					_DEBUG_ERROR("'atomicMass' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
 					return 1;
 			}
 			else return atomicMass;
@@ -530,9 +530,9 @@ namespace var
 
 		float element::getAtomicNumber()
 		{
-				if(atomicNumber == NULL)
+				if(atomicNumberSet == false)
 				{
-					_DEBUG_ERROR("'atomicNumber' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+					_DEBUG_ERROR("'atomicNumber' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
 					return 1;
 			}
 			else return atomicNumber;
@@ -540,9 +540,9 @@ namespace var
 
 		int element::getCharge()
 		{
-				if(charge == NULL)
+				if(chargeSet == false)
 				{
-					_DEBUG_ERROR("'charge' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
+					_DEBUG_ERROR("'charge' has not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
 					return 1;
 			}
 			else return charge;
