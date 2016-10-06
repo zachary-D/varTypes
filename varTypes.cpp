@@ -368,7 +368,7 @@ namespace var
 		{
 			if(_protons <= 0)
 			{
-				_DEBUG_ERROR("Bad '_protons': Value cannot == NULL or <= 0.");
+				_DEBUG_ERROR("Bad '_protons': Value cannot <= 0.");
 				return false;
 			}
 			else
@@ -383,7 +383,7 @@ namespace var
 		{
 			if(_neutrons < 0)
 			{
-				_DEBUG_ERROR("Bad '_neutrons': Value cannot == NULL or < 0.");
+				_DEBUG_ERROR("Bad '_neutrons': Value cannot < 0.");
 				return false;
 			}
 			else
@@ -443,7 +443,7 @@ namespace var
 		{
 			if(_atomicMass <= 0)
 			{
-				_DEBUG_ERROR("Bad '_atomicMass': Value cannot == NULL or <= 0.");
+				_DEBUG_ERROR("Bad '_atomicMass': Value cannot <= 0.");
 				return false;
 			}
 			else
@@ -458,10 +458,10 @@ namespace var
 		{
 			if(_atomicNumber <= 0)
 			{
-				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot == NULL or <= 0.");
+				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot <= 0.");
 				return false;
 			}
-			else if(protons != NULL && neutrons != NULL)
+			else if(protonsSet == true && neutronsSet == true)
 			{
 				if(_atomicNumber != protons + neutrons)
 				{
@@ -570,6 +570,7 @@ namespace var
 			bool anyChanges = false;	//If there were any changes at all
 			do
 			{
+				change = false;
 				if(protonsSet == false)			//Calculating protons
 				{
 					if(electronsSet == true && chargeSet == true)
@@ -596,7 +597,7 @@ namespace var
 					if(protonsSet == true && chargeSet == true)
 					{
 						setElectrons(protons - charge);
-						charge = true;
+						change = true;
 					}
 				}
 				if(atomicNumberSet == false)	//Calculating atomicNumber
@@ -604,7 +605,7 @@ namespace var
 					if(protonsSet == true && neutronsSet == true)
 					{
 						setAtomicNumber(protons + neutrons);
-						charge = true;
+						change = true;
 					}
 				}
 				if(chargeSet == false)			//Calculating charge
@@ -612,7 +613,7 @@ namespace var
 					if(protonsSet == true && electronsSet == true)
 					{
 						setCharge(protons - electrons);
-						charge = true;
+						change = true;
 					}
 				}
 				if(change) anyChanges = true;

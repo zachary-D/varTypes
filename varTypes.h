@@ -116,7 +116,7 @@ namespace var
 		{
 		public:
 			//For all of these functions, if autoFill == true data will attempt to be sourced from the periodic table.  If false, any values not explicitly stated will be left null
-			element(bool autoFill = true);		//If autoFill == true, autofills with protons = 1
+			element(bool autoFill = false);		//If autoFill == true, autofills with protons = 1
 			element(int _protons, bool autoFill = true);	//Creates a instance with _protons
 			element(int _protons, float _neutrons, bool autoFill = true);
 			element(int _protons, float _neutrons, int _electrons, bool autoFill = true);
