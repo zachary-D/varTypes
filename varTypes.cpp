@@ -290,14 +290,22 @@ namespace var
 		element::element(int _protons, bool autoFill)
 		{
 			setProtons(_protons);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(int _protons, float _neutrons, bool autoFill)
 		{
 			setProtons(_protons);
 			setNeutrons(_neutrons);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(int _protons, float _neutrons, int _electrons, bool autoFill)
@@ -305,7 +313,11 @@ namespace var
 			setProtons(_protons);
 			setNeutrons(_neutrons);
 			setElectrons(_electrons);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(int _protons, float _neutrons, int _electrons, float _atomicMass, bool autoFill)
@@ -314,20 +326,32 @@ namespace var
 			setNeutrons(_neutrons);
 			setElectrons(_electrons);
 			setAtomicMass(_atomicMass);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(string _symbol, bool autoFill)
 		{
 			setName(symbol);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(string _symbol, string _name, bool autoFill)
 		{
 			setName(_name);
 			setSymbol(_symbol);
-			if(autoFill) lookupValues();
+			if(autoFill)
+			{
+				lookupValues();
+				inferValues();
+			}
 		}
 
 		element::element(string _name, string _symbol, int _protons, float _neutrons, int _electrons, float _atomicMass)
@@ -342,7 +366,7 @@ namespace var
 
 		bool element::setProtons(int _protons)
 		{
-			if(_protons == NULL || _protons <= 0)
+			if(_protons <= 0)
 			{
 				_DEBUG_ERROR("Bad '_protons': Value cannot == NULL or <= 0.");
 				return false;
@@ -357,7 +381,7 @@ namespace var
 
 		bool element::setNeutrons(float _neutrons)
 		{
-			if(_neutrons == NULL || _neutrons < 0)
+			if(_neutrons < 0)
 			{
 				_DEBUG_ERROR("Bad '_neutrons': Value cannot == NULL or < 0.");
 				return false;
@@ -372,7 +396,7 @@ namespace var
 
 		bool element::setElectrons(int _electrons)
 		{
-			if(_electrons == NULL || _electrons < 0)
+			if(_electrons < 0)
 			{
 				_DEBUG_ERROR("Bad '_electrons': Value cannot == 0 or < 0.");
 				return false;
@@ -417,7 +441,7 @@ namespace var
 
 		bool element::setAtomicMass(float _atomicMass)
 		{
-			if(_atomicMass == NULL || _atomicMass <= 0)
+			if(_atomicMass <= 0)
 			{
 				_DEBUG_ERROR("Bad '_atomicMass': Value cannot == NULL or <= 0.");
 				return false;
@@ -432,7 +456,7 @@ namespace var
 
 		bool element::setAtomicNumber(float _atomicNumber)
 		{
-			if(_atomicNumber == NULL || _atomicNumber <= 0)
+			if(_atomicNumber <= 0)
 			{
 				_DEBUG_ERROR("Bad '_atomicNumber': Value cannot == NULL or <= 0.");
 				return false;
@@ -444,46 +468,38 @@ namespace var
 					_DEBUG_ERROR("Bad '_atomicNumber': Value is in conflict with existing 'protons' and 'neutrons' value.");
 					return false;
 				}
-			}
-			else
-			{
-				atomicNumber = _atomicNumber;
-				atomicNumberSet = true;
-				return true;
+				else
+				{
+					atomicNumber = _atomicNumber;
+					atomicNumberSet = true;
+					return true;
+				}
 			}
 		}
 
 		bool element::setCharge(int _charge)
 		{
-			if(_charge == NULL)
-			{
-				_DEBUG_ERROR("Bad '_charge': Value is not defined.");
-				return false;
-			}
-			else
-			{
 				charge = _charge;
 				chargeSet = true;
 				return true;
-			}
 		}
 
 		int element::getProtons()
 		{
-				if(protonsSet == false)
-				{
-					_DEBUG_ERROR("'protons' has not yet been set.\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
-					return 1;
-				}
+			if(protonsSet == false)
+			{
+				_DEBUG_ERROR("'protons' has not yet been set.\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
+				return 1;
+			}
 			return protons;
 		}
 
 		float element::getNeutrons()
 		{
 			if(neutronsSet == false)
-				{
-					_DEBUG_ERROR("'neutrons'has not yet been set.\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
-					return 1;
+			{
+				_DEBUG_ERROR("'neutrons'has not yet been set.\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
+				return 1;
 			}
 			else return neutrons;
 		}
@@ -491,59 +507,59 @@ namespace var
 		int element::getElectrons()
 		{
 			if(electronsSet == false)
-				{
-					_DEBUG_ERROR("'electrons' has not yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
-					return 1;
+			{
+				_DEBUG_ERROR("'electrons' has not yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
+				return 1;
 			}
 			else return electrons;
 		}
 
 		string element::getName()
 		{
-				if(nameSet == false)
-				{
-					_DEBUG_ERROR("'name' has not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
-					return "Err";
+			if(nameSet == false)
+			{
+				_DEBUG_ERROR("'name' has not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
+				return "Err";
 			}
 			else return name;
 		}
 
 		string element::getSymbol()
 		{
-				if(symbolSet == false)
-				{
-					_DEBUG_ERROR("'symbol' has not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
-					return "Er";
+			if(symbolSet == false)
+			{
+				_DEBUG_ERROR("'symbol' has not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
+				return "Er";
 			}
 			else return symbol;
 		}
 
 		float element::getAtomicMass()
 		{
-				if(atomicMassSet == false)
-				{
-					_DEBUG_ERROR("'atomicMass' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
-					return 1;
+			if(atomicMassSet == false)
+			{
+				_DEBUG_ERROR("'atomicMass' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+				return 1;
 			}
 			else return atomicMass;
 		}
 
 		float element::getAtomicNumber()
 		{
-				if(atomicNumberSet == false)
-				{
-					_DEBUG_ERROR("'atomicNumber' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
-					return 1;
+			if(atomicNumberSet == false)
+			{
+				_DEBUG_ERROR("'atomicNumber' has not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+				return 1;
 			}
 			else return atomicNumber;
 		}
 
 		int element::getCharge()
 		{
-				if(chargeSet == false)
-				{
-					_DEBUG_ERROR("'charge' has not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
-					return 1;
+			if(chargeSet == false)
+			{
+				_DEBUG_ERROR("'charge' has not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
+				return 1;
 			}
 			else return charge;
 		}
@@ -621,7 +637,7 @@ namespace var
 			if(nameSet) output.append(name);
 			else output.append("Not set");
 			output.append(separator);
-			
+
 			output.append("Symbol:");
 			if(symbolSet) output.append(symbol);
 			else output.append("Not set");
