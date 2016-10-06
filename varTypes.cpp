@@ -300,7 +300,7 @@ namespace var
 			if(autoFill) lookupValues();
 		}
 
-		element::element(int _protons, float _neutrons, int _electrons, bool autoFill )
+		element::element(int _protons, float _neutrons, int _electrons, bool autoFill)
 		{
 			setProtons(_protons);
 			setNeutrons(_neutrons);
@@ -440,12 +440,30 @@ namespace var
 			}
 		}
 
+		bool element::setCharge(int _charge)
+		{
+			if(_charge == NULL)
+			{
+				_DEBUG_ERROR("Bad '_charge': Value is not defined.");
+				return false;
+			}
+			else
+			{
+				charge = _charge;
+				return true;
+			}
+		}
+
 		int element::getProtons()
 		{
 			if(protons == NULL)
 			{
-				_DEBUG_ERROR("'protons' == NULL.  Has its value not yet been set?\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
-				return 1;
+				inferValues();
+				if(protons == NULL)
+				{
+					_DEBUG_ERROR("'protons' == NULL.  Has its value not yet been set?\n Returning '1' in the place of 'protons'.  This may result in calculation errors.");
+					return 1;
+				}
 			}
 			return protons;
 		}
@@ -454,8 +472,12 @@ namespace var
 		{
 			if(neutrons == NULL)
 			{
-				_DEBUG_ERROR("'neutrons' == NULL.  Has its value not yet been set?\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
-				return 1;
+				inferValues();
+				if(neutrons == NULL)
+				{
+					_DEBUG_ERROR("'neutrons' == NULL.  Has its value not yet been set?\nReurning '1' in the place of 'neutrons'.  This may result in calculation errors.");
+					return 1;
+				}
 			}
 			else return neutrons;
 		}
@@ -464,8 +486,12 @@ namespace var
 		{
 			if(electrons == NULL)
 			{
-				_DEBUG_ERROR("'electrons' == NULL.  Has its value ont yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
-				return 1;
+				inferValues();
+				if(electrons == NULL)
+				{
+					_DEBUG_ERROR("'electrons' == NULL.  Has its value ont yet been set?\nReturning '1' in the place of 'electrons'.  This may result in calculation errors.");
+					return 1;
+				}
 			}
 			else return electrons;
 		}
@@ -474,8 +500,12 @@ namespace var
 		{
 			if(name.length() == 0)
 			{
-				_DEBUG_ERROR("'name.length()' == 0.  Has its value not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
-				return "Err";
+				inferValues();
+				if(name.length() == 0)
+				{
+					_DEBUG_ERROR("'name.length()' == 0.  Has its value not yet been set?\nReturning 'Err' in the place of 'name'.  This may result in errors.");
+					return "Err";
+				}
 			}
 			else return name;
 		}
@@ -484,19 +514,113 @@ namespace var
 		{
 			if(symbol.length() == 0)
 			{
-				_DEBUG_ERROR("'symbol.length()' == 0.  Has its value not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
+				inferValues();
+				if(symbol.length() == 0)
+				{
+					_DEBUG_ERROR("'symbol.length()' == 0.  Has its value not yet been set?\nReturning 'Er' in the place off 'name'.  This may result in errors.");
+					return "Er";
+				}
 			}
-			return symbol;
+			else return symbol;
 		}
 
 		float element::getAtomicMass()
 		{
-			return atomicMass;
+			if(atomicMass == NULL)
+			{
+				inferValues();
+				if(atomicMass == NULL)
+				{
+					_DEBUG_ERROR("'atomicMass' == 0.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+					return 1;
+				}
+			}
+			else return atomicMass;
+		}
+
+		float element::getAtomicNumber()
+		{
+			if(atomicNumber == NULL)
+			{
+				inferValues();
+				if(atomicNumber == NULL)
+				{
+					_DEBUG_ERROR("'atomicNumber' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'atomicMass'.  This may result in calculation errors.");
+					return 1;
+				}
+			}
+			else return atomicNumber;
 		}
 
 		int element::getCharge()
 		{
-			return getProtons() - electrons;
+			if(charge == NULL)
+			{
+				inferValues();
+				if(charge == NULL)
+				{
+					_DEBUG_ERROR("'charge' == NULL.  Has its value not yet been set?\nReturning 1 in the place of 'charge'.  THis may result in calculation errors.");
+					return 1;
+				}
+			}
+			else return charge;
+		}
+
+		bool element::inferValues()
+		{
+			bool change = false;		//If the current cycle has calculated any values
+			bool anyChanges = false;	//If there were any changes at all
+			do
+			{
+				if(protons == NULL)			//Calculating protons
+				{
+					if(electrons != NULL && charge != NULL)
+					{
+						setProtons(charge + electrons);
+						change = true;
+					}
+					else if(atomicNumber != NULL && neutrons != NULL && fmod(neutrons, 1) != 0)
+					{
+						setProtons(atomicNumber - neutrons);
+						change = true;
+					}
+				}
+				if(neutrons == NULL)		//Calculating neutrons
+				{
+					if(atomicNumber != NULL && protons != NULL)
+					{
+						setNeutrons(atomicNumber - protons);
+						change = true;
+					}
+				}
+				if(electrons == NULL)		//Calculating electrons
+				{
+					if(protons != NULL && charge != NULL)
+					{
+						setElectrons(protons - charge);
+						charge = true;
+					}
+				}
+				if(atomicNumber == NULL)	//Calculating atomicNumber
+				{
+					if(protons != NULL && neutrons != NULL)
+					{
+						setAtomicNumber(protons + neutrons);
+						charge = true;
+					}
+				}
+				if(charge == NULL)			//Calculating charge
+				{
+					if(protons != NULL && electrons != NULL)
+					{
+						setCharge(protons - electrons);
+						charge = true;
+					}
+				}
+				if(change) anyChanges = true;
+			}
+			while(change);
+			return anyChanges;
 		}
 
 		bool element::lookupValues()

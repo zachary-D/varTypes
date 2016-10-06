@@ -63,6 +63,7 @@ namespace var
 		float y;
 		float z;
 
+		//To be defined
 		/*coord3 negatedX();
 		coord3 negatedY();
 		coord3 negatedZ();
@@ -132,6 +133,7 @@ namespace var
 			string symbol;				//The atomic symbol of the element
 			float atomicMass;			//The atomic mass of the element
 			float atomicNumber;			//The atomic number of the element (technically the average of the isotopes)
+			int charge;					//The charge of the element
 
 		public:
 			//Setting traits
@@ -139,11 +141,12 @@ namespace var
 			bool setNeutrons(float _neutrons);	//Sets the number of neutrons in the element
 			bool setElectrons(int _electrons);	//Sets the number of electrons in the element
 			bool setName(string _name);			//Sets the name of the element
-			bool setSymbol(string _symbol);		//Sets the sumbol of the element
+			bool setSymbol(string _symbol);		//Sets the symbol of the element
 			bool setAtomicMass(float _atomicMass);	//Sets the atomic mass of the element
 			bool setAtomicNumber(float _atomicNumber);	//Sets the atomic number of the element
+			bool setCharge(int _charge);		//Sets the charge of the element
 
-			//Basic traits
+			//Returning traits
 			int getProtons();			//Returns the number of protons in the element
 			float getNeutrons();		//Returns the number of neutrons in the element
 			int getElectrons();			//Returns the number of electrons in the element
@@ -151,8 +154,6 @@ namespace var
 			string getSymbol();			//Returns the atomic symbol of the element
 			float getAtomicMass();		//Returns the atomic mass of the element
 			float getAtomicNumber();	//Returns the atomic number of the element
-
-			//Inferred traits
 			int getCharge();			//The charge on the atom.  Not available for atoms with averaged neutrons (Will throw an error if this situation arises).
 
 			//Other
