@@ -169,5 +169,22 @@ namespace var
 			bool lookupValues();		//Tries to autofill values from the periodic table, if it is loaded.
 			string toString(bool multiLine = false);	//Converts all data from the element into a string.
 		};
+
+		class compound_segment
+		{
+		public:
+
+		private:
+			int amount;			//The amount of the element in the 'segment' of the compound
+			element elem;
+
+		public:
+
+		};
+
+		class compound
+		{
+			
+		};
 	};
 };
