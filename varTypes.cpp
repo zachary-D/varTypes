@@ -398,7 +398,7 @@ namespace var
 		{
 			if(_electrons < 0)
 			{
-				_DEBUG_ERROR("Bad '_electrons': Value cannot == 0 or < 0.");
+				_DEBUG_ERROR("Bad '_electrons': Value cannot < 0.");
 				return false;
 			}
 			else
@@ -485,9 +485,9 @@ namespace var
 
 		bool element::setCharge(int _charge)
 		{
-				charge = _charge;
-				chargeSet = true;
-				return true;
+			charge = _charge;
+			chargeSet = true;
+			return true;
 		}
 
 		int element::getProtons()
@@ -681,5 +681,70 @@ namespace var
 
 			return output;
 		}
+
+		compound_segment::compound_segment()
+		{}
+
+		compound_segment::compound_segment(element _element)
+		{
+			setElement(_element);
+		}
+
+		compound_segment::compound_segment(element _element, int _subscript)
+		{
+			setElement(_element);
+			setSubscript(_subscript);
+		}
+
+		compound_segment::compound_segment(element _element, int _subscript, int _coefficient)
+		{
+			setElement(_element);
+			setSubscript(_subscript);
+			setCoefficient(_coefficient);
+		}
+
+		bool compound_segment::setElement(element _element)
+		{
+			elem = _element;
+			elemSet = true;
+			return true;
+		}
+
+		bool compound_segment::setSubscript(int _subscript)
+		{
+			if(_subscript <= 0)
+			{
+				_DEBUG_ERROR("Bad '_subscript': Value cannot <= 0.");
+				return false;
+			}
+			else
+			{
+				subscript = _subscript;
+				subscriptSet = true;
+				return true;
+			}
+		}
+
+		bool compound_segment::setCoefficient(int _coefficient)
+		{
+			if(_coefficient <= 0)
+			{
+				_DEBUG_ERROR("Bad '_coefficient': Value cannot be <= 0.");
+				return false;
+			}
+			else
+			{
+				coefficient = _coefficient;
+				coefficientSet = true;
+				return true;
+			}
+		}
+
+		bool compound_segment::getElement()
+		{
+			if(elemSet == false)
+			{
+				_DEBUG_ERROR("'elem' has not yet been set?\nReturning a blank element template in the place off 'elem'.  This may result in errors.");
+			}
 	}
 }

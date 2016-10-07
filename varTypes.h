@@ -173,13 +173,29 @@ namespace var
 		class compound_segment
 		{
 		public:
+			compound_segment();
+			compound_segment(element _element);
+			compound_segment(element _element, int _subscript);
+			compound_segment(element _element, int _subscript, int _coefficient);
 
 		private:
-			int amount;			//The amount of the element in the 'segment' of the compound
-			element elem;
+			element elem;			//The element
+			bool elemSet = false;	//If the value of 'elem' has been set
+			int subscript;			//The subscript on the element
+			bool subscriptSet = false;	//If the value of 'subscript' has been set
+			int coefficient;		//The coefficient on the element
+			bool coefficientSet = false;	//If the value of 'amount' has been set
 
 		public:
+			//Setting values
+			bool setElement(element _element);
+			bool setSubscript(int _subscript);
+			bool setCoefficient(int _coefficient);
 
+			//Retreving values
+			element getElement();
+			int getSubscript();
+			int getCoefficient();
 		};
 
 		class compound
