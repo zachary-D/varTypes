@@ -490,6 +490,46 @@ namespace var
 			return true;
 		}
 
+		bool element::isProtonsSet()
+		{
+			return protonsSet;
+		}
+
+		bool element::isNeutronsSet()
+		{
+			return neutronsSet;
+		}
+
+		bool element::isElectronsSet()
+		{
+			return electronsSet;
+		}
+
+		bool element::isNameSet()
+		{
+			return nameSet;
+		}
+
+		bool element::isSymbolSet()
+		{
+			return symbolSet;
+		}
+
+		bool element::isAtomicMassSet()
+		{
+			return atomicMassSet;
+		}
+
+		bool element::isAtomicNumberSet()
+		{
+			return atomicNumberSet;
+		}
+
+		bool element::isChargeSet()
+		{
+			return chargeSet;
+		}
+
 		int element::getProtons()
 		{
 			if(protonsSet == false)
@@ -740,11 +780,57 @@ namespace var
 			}
 		}
 
-		bool compound_segment::getElement()
+		bool compound_segment::setName(string _name)
 		{
-			if(elemSet == false)
+			if(_name.length() == 0)
 			{
-				_DEBUG_ERROR("'elem' has not yet been set?\nReturning a blank element template in the place off 'elem'.  This may result in errors.");
+				
 			}
+		}
+
+		bool compound_segment::isElementSet()
+		{
+			return elemSet;
+		}
+
+		bool compound_segment::isSubscriptSet()
+		{
+			return subscriptSet;
+		}
+
+		bool compound_segment::isCoefficientSet()
+		{
+			return coefficientSet;
+		}
+
+		element compound_segment::getElement()
+		{
+			if(isElementSet() == false)
+			{
+				_DEBUG_ERROR("'elem' has not yet been set.\nReturning a blank element template in the place off 'elem'.  This may result in errors.");
+				return element();
+			}
+			else return elem;
+		}
+
+		int compound_segment::getSubscript()
+		{
+			if(isSubscriptSet() == false)
+			{
+				_DEBUG_ERROR("'subscript' has not yet been set.\nReturning '1' in the place of 'subscript'.  This may result in errors.");
+				return 1;
+			}
+			else return subscript;
+		}
+
+		int compound_segment::getCoefficient()
+		{
+			if(isCoefficientSet() == false)
+			{
+				_DEBUG_ERROR("'coefficient' has not been set.\nReturning '1' in the place of 'coefficient'.  This may result in errors.");
+				return 1;
+			}
+			else return coefficient;
+		}
 	}
 }

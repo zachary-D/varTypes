@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -115,7 +116,7 @@ namespace var
 		class element
 		{
 		public:
-			//For all of these functions, if autoFill == true data will attempt to be sourced from the periodic table.  If false, any values not explicitly stated will be left null
+			//For all of these functions, if autoFill == true data will attempt to be sourced from the periodic table, and then any remaining information will be attempted to be calculated.  If false, any values not explicitly stated will be left null
 			element(bool autoFill = false);		//If autoFill == true, autofills with protons = 1
 			element(int _protons, bool autoFill = true);	//Creates a instance with _protons
 			element(int _protons, float _neutrons, bool autoFill = true);
@@ -144,7 +145,7 @@ namespace var
 			bool chargeSet = false;		//If the value of charge has been set;
 
 		public:
-			//Setting traits
+			//Setting values
 			bool setProtons(int _protons);		//Sets the number of protons in the element
 			bool setNeutrons(float _neutrons);	//Sets the number of neutrons in the element
 			bool setElectrons(int _electrons);	//Sets the number of electrons in the element
@@ -154,7 +155,17 @@ namespace var
 			bool setAtomicNumber(float _atomicNumber);	//Sets the atomic number of the element
 			bool setCharge(int _charge);		//Sets the charge of the element
 
-			//Returning traits
+			//Returning if values are defined.
+			bool isProtonsSet();		//Returns if the value of 'protons' is set
+			bool isNeutronsSet();		//Returns if the value of 'neutrons' is set
+			bool isElectronsSet();		//Returns if the value of 'electrons' is set
+			bool isNameSet();			//Returns if the value of 'name' is set
+			bool isSymbolSet();			//Returns if the value of 'symbol' is set
+			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
+			bool isAtomicNumberSet();	//Returns if the value of 'atomicNumber' is set
+			bool isChargeSet();			//Returns if the value of 'charge' is set
+			
+			//Returning values
 			int getProtons();			//Returns the number of protons in the element
 			float getNeutrons();		//Returns the number of neutrons in the element
 			int getElectrons();			//Returns the number of electrons in the element
@@ -185,22 +196,52 @@ namespace var
 			bool subscriptSet = false;	//If the value of 'subscript' has been set
 			int coefficient;		//The coefficient on the element
 			bool coefficientSet = false;	//If the value of 'amount' has been set
+			string name;			//The element's name
+			bool nameSet = false;	//If the value of 'name' has been set
+			float atomicMass;		//The atomic mass of the segment (taking the subscript into account, but not the coefficient.)
+			bool atomicMassSet = false;	//If the value of 'atomicMass' has been set
+			int charge;				//The charge of the segment (taking the subscript into account, but not the coefficient.)
+			bool chargeSet = false;	//If the value of 'charge' has been set
 
 		public:
 			//Setting values
-			bool setElement(element _element);
-			bool setSubscript(int _subscript);
-			bool setCoefficient(int _coefficient);
+			bool setElement(element _element);		//Sets the element
+			bool setSubscript(int _subscript);		//Sets the subscript
+			bool setCoefficient(int _coefficient);	//Sets the coefficient
+			bool setName(string _name);				//Sets the name
+			bool setAtomicMass(float _atomicMass);	//Sets the atomicMass
+			bool setCharge(int _charge);			//Sets the charge
+
+			//Returning if values are defined
+			bool isElementSet();		//Returns if the value of 'element' is set
+			bool isSubscriptSet();		//Returns if the value of 'subscript' is set
+			bool isCoefficientSet();	//Returns if the value of 'coefficient' is set
+			bool isNameSet();			//Returns if the value of 'name' is set
+			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
+			bool isChargeSet();			//Returns if the value of 'charge' is set
 
 			//Retreving values
-			element getElement();
-			int getSubscript();
-			int getCoefficient();
+			element getElement();		//Returns the element
+			int getSubscript();			//Returns the subscript
+			int getCoefficient();		//Returns the coefficient
+			string getName();			//Returns the name
+			float getAtomicMass();		//Returns the atomicMass
+			int getCharge();			//returns the charge
+
+			//Data functions
+			bool calculatValues();		//
 		};
 
 		class compound
 		{
-			
+		public:
+			compound();
+			compound(vector<element> _elements);
+
+		private:
+
+		public:
+
 		};
 	};
 };
