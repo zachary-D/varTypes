@@ -256,7 +256,7 @@ namespace var
 			//Retreving values - Element specific values
 			vector<element> getElements();		//Returns the element
 			int getSubscript();			//Returns the subscript
-			7
+
 			//Retreving values - Shared values
 			int getAmount();			//Returns the amount
 			string getName();			//Returns the name
