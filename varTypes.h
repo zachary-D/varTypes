@@ -124,7 +124,7 @@ namespace var
 			element(int _protons, float _neutrons, int _electrons, float _atomicMass, bool autoFill = true);
 			element(string _symbol, bool autoFill = true);
 			element(string _symbol, string _name, bool autoFill = true);
-			element(string _name, string _symbol, int _protons, float _neutrons, int _electrons, float _atomicMass);
+			element(string _symbol, string _name, int _protons, float _neutrons, int _electrons, float _atomicMass);
 
 		private:
 			int protons;				//The number of protons in the element

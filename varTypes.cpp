@@ -354,7 +354,7 @@ namespace var
 			}
 		}
 
-		element::element(string _name, string _symbol, int _protons, float _neutrons, int _electrons, float _atomicMass)
+		element::element(string _symbol, string _name, int _protons, float _neutrons, int _electrons, float _atomicMass)
 		{
 			setName(_name);
 			setSymbol(_symbol);
