@@ -722,65 +722,166 @@ namespace var
 			return output;
 		}
 
-		compound_segment::compound_segment()
-		{}
-
-		compound_segment::compound_segment(element _element)
+		compound::compound(bool _isElement = true)
 		{
-			setElement(_element);
+			isElement = _isElement;
+			isSegment = !_isElement;
 		}
 
-		compound_segment::compound_segment(element _element, int _subscript)
+		compound::compound(vector<element> _elements)
 		{
-			setElement(_element);
+			setElements(_elements);
+			isElement = true;
+			isSegment = false;
+		}
+
+		compound::compound(vector<element> _elements, int _subscript)
+		{
+			setElements(_elements);
 			setSubscript(_subscript);
+			isElement = true;
+			isSegment = false;
 		}
 
-		compound_segment::compound_segment(element _element, int _subscript, int _coefficient)
+		compound::compound(vector<element> _elements, int _subscript, int _amount)
 		{
-			setElement(_element);
+			setElements(_elements);
 			setSubscript(_subscript);
-			setCoefficient(_coefficient);
+			setAmount(_amount);
+			isElement = true;
+			isSegment = false;
 		}
 
-		bool compound_segment::setElement(element _element)
+		compound::compound(vector<compound> _segments)
 		{
-			elem = _element;
-			elemSet = true;
+			setSegments(_segments);
+			isSegment = true;
+			isElement = false;
+		}
+		
+		bool compound::getIsElement()
+		{
+			return isElement;
+		}
+
+		bool compound::getIsSegment()
+		{
+			return isSegment;
+		}
+
+		bool compound::setSegments(vector<compound> _segments)
+		{
+			if(getIsSegment())
+			{
+				segments = _segments;
+				return true;
+			}
+			else
+			{
+				_DEBUG_ERROR("Unable to set 'segments', segment is initialized as an element.");
+				return false;
+			}
+		}
+
+		bool compound::addSegment(compound _segment)
+		{
+			if(getIsSegment())
+			{
+				segments.push_back(_segment);
+				return true;
+			}
+			else
+			{
+				_DEBUG_ERROR("Unable to set 'segments', segment is initialized as an element.");
+				return false;
+			}
+		}
+
+		bool compound::removeSegment(int _segmentID)
+		{
+			if(segments.size() < _segmentID)
+			{
+				return false;
+			}
+			else
+			{
+				segments.erase(segments.begin() + _segmentID);
+				return true;
+			}
+		}
+
+		bool compound::setElements(vector<element> _elements)
+		{
+			if(getIsElement())
+			{
+				elements = _elements;
+				return true;
+			}
+			else
+			{
+				_DEBUG_ERROR("Unable to set 'element', segment is initialized as a sub-segment.");
+				return false;
+			}
+		}
+
+		bool compound::addElement(element _element)
+		{
+			elements.push_back(_element);
 			return true;
 		}
 
-		bool compound_segment::setSubscript(int _subscript)
+		bool compound::removeElement(int _elementID)
 		{
-			if(_subscript <= 0)
+			if(elements.size() < _elementID)
 			{
-				_DEBUG_ERROR("Bad '_subscript': Value cannot <= 0.");
 				return false;
 			}
 			else
 			{
-				subscript = _subscript;
-				subscriptSet = true;
-				return true;
+				elements.erase(elements.begin() + _elementID);
+				return false;
 			}
 		}
 
-		bool compound_segment::setCoefficient(int _coefficient)
+		bool compound::setSubscript(int _subscript)
 		{
-			if(_coefficient <= 0)
+			if(getIsElement())
 			{
-				_DEBUG_ERROR("Bad '_coefficient': Value cannot be <= 0.");
+				if(_subscript <= 0)
+				{
+					_DEBUG_ERROR("Bad '_subscript': Value cannot <= 0.");
+					return false;
+				}
+				else
+				{
+					subscript = _subscript;
+					subscriptSet = true;
+					return true;
+				}
+			}
+			else
+			{
+				_DEBUG_ERROR("Unable to set 'subscript', segment is initialized as a sub-segment.");
+				return false;
+			}
+		}
+
+		bool compound::setAmount(int _amount)
+		{
+			if(_amount <= 0)
+			{
+				_DEBUG_ERROR("Bad '_amount': Value cannot be <= 0.");
 				return false;
 			}
 			else
 			{
-				coefficient = _coefficient;
-				coefficientSet = true;
+				amount = _amount;
+				amountSet = true;
 				return true;
 			}
 		}
 
-		bool compound_segment::setName(string _name)
+		bool compound::setName(string _name)
 		{
 			if(_name.length() == 0)
 			{
@@ -788,32 +889,102 @@ namespace var
 			}
 		}
 
-		bool compound_segment::isElementSet()
+		bool compound::setAtomicMass(float _atomicMass)
 		{
-			return elemSet;
+			if(_atomicMass <= 0) return false;
+			else
+			{
+				atomicMass = _atomicMass;
+				return true;
+			}
 		}
 
-		bool compound_segment::isSubscriptSet()
+		bool compound::setCharge(int _charge)
+		{
+			charge = _charge;
+			return false;
+		}
+
+		bool compound::setMass(float grams)
+		{
+			if(grams <= 0) return false;
+			else
+			{
+				mass = grams;
+				massSet = true;
+			}
+		}
+
+		bool compound::setMols(float _mols)
+		{
+			if(_mols <= 0) return false;
+			else
+			{
+				mols = _mols;
+				molsSet = true;
+			}
+		}
+
+		bool compound::isElementSet()
+		{
+			if(elements.size() == 0) return false;
+			else return false;
+		}
+
+		bool compound::isSubscriptSet()
 		{
 			return subscriptSet;
 		}
 
-		bool compound_segment::isCoefficientSet()
+		bool compound::isAmountSet()
 		{
-			return coefficientSet;
+			return amountSet;
 		}
 
-		element compound_segment::getElement()
+		bool compound::isNameSet()
+		{
+			return isNameSet;
+		}
+
+		bool compound::isAtomicMassSet()
+		{
+			return isAtomicMassSet;
+		}
+
+		bool compound::isChargeSet()
+		{
+			return isChargeSet;
+		}
+
+		bool compound::isMassSet()
+		{
+			return massSet;
+		}
+
+		bool compound::isMolsSet()
+		{
+			return molsSet;
+		}
+
+		vector<compound> compound::getSegments()
+		{
+
+			return segments;
+		}
+
+		vector<element> compound::getElements()
 		{
 			if(isElementSet() == false)
 			{
-				_DEBUG_ERROR("'elem' has not yet been set.\nReturning a blank element template in the place off 'elem'.  This may result in errors.");
-				return element();
+				_DEBUG_ERROR("'elements' has not yet been set.\nReturning a vector with a blank element template in the place off 'elements'.  This may result in errors.");
+				vector<element> t;
+				t.push_back(element());
+				return t;
 			}
-			else return elem;
+			else return elements;
 		}
 
-		int compound_segment::getSubscript()
+		int compound::getSubscript()
 		{
 			if(isSubscriptSet() == false)
 			{
@@ -823,14 +994,177 @@ namespace var
 			else return subscript;
 		}
 
-		int compound_segment::getCoefficient()
+		int compound::getAmount()
 		{
-			if(isCoefficientSet() == false)
+			if(isAmountSet() == false)
 			{
-				_DEBUG_ERROR("'coefficient' has not been set.\nReturning '1' in the place of 'coefficient'.  This may result in errors.");
+				_DEBUG_ERROR("'amount' has not been set.\nReturning '1' in the place of 'amount'.  This may result in errors.");
 				return 1;
 			}
-			else return coefficient;
+			else return amount;
+		}
+
+		string compound::getName()
+		{
+			if(isNameSet() == false)
+			{
+				_DEBUG_ERROR("'amount' has not been set.\nReturning 'Err' in the place of 'name'.  This may result in errors.");
+				return "Err";
+			}
+			else return name;
+		}
+
+		float compound::getAtomicMass()
+		{
+			if(isAtomicMassSet() == false)
+			{
+				_DEBUG_ERROR("'amount' has not been set.\nReturning '1' in the place of 'atomicMass'.  This may result in errors.");
+				return 1;
+			}
+			else return atomicMass;
+		}
+
+		int compound::getCharge()
+		{
+			if(isChargeSet() == false)
+			{
+				_DEBUG_ERROR("'charge' has not been set.\nReturning '1' in the place of 'charge'.  This may result in errors.");
+				return 1;
+			}
+			else return charge;
+		}
+		float compound::getMass()
+		{
+			if(isMassSet() == false)
+			{
+				_DEBUG_ERROR("'mass' has not been set.\nReturning '1' in the place of 'mass'.  This may result in errors.");
+				return 1;
+			}
+			else return mass;
+		}
+
+		float compound::getMols()
+		{
+			if(isMolsSet() == false)
+			{
+				_DEBUG_ERROR("'mols' has not been set.\nReturning '1' in the place of 'mols'.  This may result in errors.");
+				return 1;
+			}
+			else return mols;
+		}
+
+		bool compound::calculateValues()
+		{
+			bool totalChange = false;
+			bool localChange = false;
+			bool canSetAtomicMass = true;
+			bool canSetCharge = true;
+			int charge = 0;
+			float atomicMass = 0;
+			do
+			{
+				if(getIsElement())			//Calulating traits that can be found as a sum of element properties
+				{
+					canSetAtomicMass = true;
+					canSetCharge = true;
+					charge = 0;
+					atomicMass = 0;
+					for(int x = 0; x < elements.size(); x++)
+					{
+						if(elements[x].inferValues()) localChange = true;
+						if(isAtomicMassSet() == false)
+						{
+							if(elements[x].isAtomicMassSet()) atomicMass += elements[x].getAtomicMass();
+							else canSetAtomicMass = false;
+						}
+						if(isChargeSet() == false)
+						{
+							if(elements[x].isChargeSet()) charge += elements[x].getCharge();
+							else canSetCharge = false;
+						}
+					}
+					if(canSetAtomicMass)
+					{
+						setAtomicMass(atomicMass);
+						localChange = true;
+					}
+					if(canSetCharge)
+					{
+						setCharge(charge);
+						localChange = true;
+					}
+				}
+				else if(getIsSegment())		//Calulating traits that can be found as a sum of segment properties
+				{
+					canSetAtomicMass = true;
+					canSetCharge = true;
+					charge = 0;
+					atomicMass = 0;
+					for(int x = 0; x < segments.size(); x++)
+					{
+						if(segments[x].calculateValues()) localChange = true;
+						if(isAtomicMassSet() == false)
+						{
+							if(segments[x].isAtomicMassSet()) atomicMass += segments[x].getAtomicMass();
+							else canSetAtomicMass = false;
+						}
+						if(isChargeSet() == false)
+						{
+							if(segments[x].isChargeSet()) charge += segments[x].getCharge();
+							else canSetCharge = false;
+						}
+					}
+					if(canSetAtomicMass)
+					{
+						setAtomicMass(atomicMass);
+						localChange = true;
+					}
+					if(canSetCharge)
+					{
+						setCharge(charge);
+						localChange = true;
+					}
+				}
+				if(isAtomicMassSet() == false)		//Calculating atomic mass
+				{
+					if(isMolsSet() == true && isMassSet() == true)		//From mass and mols
+					{
+						if(getMass() / getMols() > 0)		//Verifys that the calculated value is valid
+						{
+							setAtomicMass(getMass() / getMols());
+							localChange = true;
+						}
+						else _DEBUG_ERROR("Calculated atomic mass is <= 0!  Either the mass or mols is incorrect, if not both!");
+					}
+				}
+				if(isMassSet() == false)		//Calculating mass
+				{
+					if(isMolsSet() == true && isAtomicMassSet() == true)	//From mols and atomic mass
+					{
+						if(getMols() * getAtomicMass() > 0)		//Verifys that the calculated value is valid
+						{
+							setMass(getMols() * getAtomicMass());
+							localChange = true;
+						}
+						else _DEBUG_ERROR("Calculated mass is <= 0!  Either the mols or the atomic mass is incorrect, if not both!");
+					}
+				}
+				if(isMolsSet() == false)		//Calculating mols
+				{
+					if(isAtomicMassSet() == true && isMassSet() == true)	//From atomicMass and mass
+					{
+						if(getMass() / getAtomicMass() > 0)		//Verifys that the calculated value is valid
+						{
+							setMols(getMass() / getAtomicMass());
+							localChange == true;
+						}
+						else _DEBUG_ERROR("Calculated mols is <= 0!  Either the mass or atomic mass is incorrect, if not both!");
+					}
+				}
+				if(localChange) totalChange = true;
+			}
+			while(localChange);
+			return totalChange;
 		}
 	}
 }

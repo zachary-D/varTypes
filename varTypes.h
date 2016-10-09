@@ -181,67 +181,92 @@ namespace var
 			string toString(bool multiLine = false);	//Converts all data from the element into a string.
 		};
 
-		class compound_segment
+		class compound
 		{
 		public:
-			compound_segment();
-			compound_segment(element _element);
-			compound_segment(element _element, int _subscript);
-			compound_segment(element _element, int _subscript, int _coefficient);
+			compound(bool isElement = true);	//If true, initializes as an element.  If false, sets as a vector of compounds.
+			compound(vector<element> _elements);
+			compound(vector<element> _elements, int _subscript);
+			compound(vector<element> _elements, int _subscript, int _amount);
+			compound(vector<compound> _segments);
+			compound(vector<compound> _segments, int _amount);
 
 		private:
-			element elem;			//The element
-			bool elemSet = false;	//If the value of 'elem' has been set
+			//Vector<sub> specific values
+			bool isSegment;
+			vector<compound> segments;
+
+			//Element specific values
+			bool isElement;
+			vector<element> elements;			//The elements
 			int subscript;			//The subscript on the element
 			bool subscriptSet = false;	//If the value of 'subscript' has been set
-			int coefficient;		//The coefficient on the element
-			bool coefficientSet = false;	//If the value of 'amount' has been set
+			
+			//Shared values
+			int amount;				//The amount on the compound (i.e. the 2 in (NO_3)_2 )
+			bool amountSet = false;	//If the value of 'amount' has been set
 			string name;			//The element's name
 			bool nameSet = false;	//If the value of 'name' has been set
-			float atomicMass;		//The atomic mass of the segment (taking the subscript into account, but not the coefficient.)
+			float atomicMass;		//The atomic mass of the segment (taking the subscript into account, but not the amount.)
 			bool atomicMassSet = false;	//If the value of 'atomicMass' has been set
-			int charge;				//The charge of the segment (taking the subscript into account, but not the coefficient.)
+			int charge;				//The charge of the compound (taking the subscript into account, but not the amount.)
 			bool chargeSet = false;	//If the value of 'charge' has been set
+			float mass;				//The mass of the compound (in grams)
+			bool massSet = false;	//If the value of 'mass' has been set
+			float mols;				//The number of moles of the compound
+			bool molsSet = false;	//If the value of 'mols' has been set
 
 		public:
-			//Setting values
-			bool setElement(element _element);		//Sets the element
+			//Returning type
+			bool getIsElement();		//Returns if the type is element
+			bool getIsSegment();		//Returns if the type is segment
+
+			//Setting values - Segment specific values
+			bool setSegments(vector<compound> _segments);	//Sets the segments
+			bool addSegment(compound _segment);		//Adds the segment to the end
+			bool removeSegment(int _segmentID);		//Removes the segment at '_segmentID'
+
+			//Setting values - Element specific values
+			bool setElements(vector<element> _elements);	//Sets the elements
+			bool addElement(element _element);		//Adds the element to the end
+			bool removeElement(int _elementID);		//Removes the element at '_elementID'
 			bool setSubscript(int _subscript);		//Sets the subscript
-			bool setCoefficient(int _coefficient);	//Sets the coefficient
+
+			//Setting values - Shared values
+			bool setAmount(int _amount);			//Sets the amount
 			bool setName(string _name);				//Sets the name
 			bool setAtomicMass(float _atomicMass);	//Sets the atomicMass
 			bool setCharge(int _charge);			//Sets the charge
+			bool setMass(float grams);				//Sets the mass
+			bool setMols(float _mols);				//Sets the mols
 
 			//Returning if values are defined
 			bool isElementSet();		//Returns if the value of 'element' is set
 			bool isSubscriptSet();		//Returns if the value of 'subscript' is set
-			bool isCoefficientSet();	//Returns if the value of 'coefficient' is set
+			bool isAmountSet();			//Returns if the value of 'amount' is set
 			bool isNameSet();			//Returns if the value of 'name' is set
 			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
 			bool isChargeSet();			//Returns if the value of 'charge' is set
+			bool isMassSet();			//Returns if the value of 'mass' is set
+			bool isMolsSet();			//Returns if the value of 'mols' is set
 
-			//Retreving values
-			element getElement();		//Returns the element
+			//Retreving values - Segment specific values
+			vector<compound> getSegments();		//Returns the value segments
+
+			//Retreving values - Element specific values
+			vector<element> getElements();		//Returns the element
 			int getSubscript();			//Returns the subscript
-			int getCoefficient();		//Returns the coefficient
+			7
+			//Retreving values - Shared values
+			int getAmount();			//Returns the amount
 			string getName();			//Returns the name
 			float getAtomicMass();		//Returns the atomicMass
-			int getCharge();			//returns the charge
+			int getCharge();			//Returns the charge
+			float getMass();			//Returns the mass
+			float getMols();			//Returns the mols
 
 			//Data functions
-			bool calculatValues();		//
-		};
-
-		class compound
-		{
-		public:
-			compound();
-			compound(vector<element> _elements);
-
-		private:
-
-		public:
-
+			bool calculateValues();		//claulates every value possible based of existing values
 		};
 	};
 };
