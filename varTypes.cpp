@@ -490,6 +490,16 @@ namespace var
 			return true;
 		}
 
+		bool element::setDensity(float _density)
+		{
+			if(_density > 0)
+			{
+				density = _density;
+				densitySet = true;
+			}
+			else return false;
+		}
+
 		bool element::isProtonsSet()
 		{
 			return protonsSet;
@@ -528,6 +538,11 @@ namespace var
 		bool element::isChargeSet()
 		{
 			return chargeSet;
+		}
+
+		bool element::isDensitySet()
+		{
+			return densitySet;
 		}
 
 		int element::getProtons()
@@ -608,6 +623,16 @@ namespace var
 				return 1;
 			}
 			else return charge;
+		}
+
+		float element::getDensity()
+		{
+			if(isDensitySet()) return density;
+			else
+			{
+				_DEBUG_ERROR("'desity' has not been set.\nReturning '1' in the place of 'mass'.  This may result in errors.");
+				return 1;
+			}
 		}
 
 		bool element::inferValues()

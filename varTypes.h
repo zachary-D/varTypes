@@ -143,6 +143,8 @@ namespace var
 			bool atomicNumberSet = false;	//If the value of atomicNumber has been set
 			int charge;					//The charge of the element
 			bool chargeSet = false;		//If the value of charge has been set;
+			float density;				//The density of the element (at STP, in g/L)
+			bool densitySet = false;	//If the value of the density has been set
 
 		public:
 			//Setting values
@@ -154,6 +156,7 @@ namespace var
 			bool setAtomicMass(float _atomicMass);	//Sets the atomic mass of the element
 			bool setAtomicNumber(float _atomicNumber);	//Sets the atomic number of the element
 			bool setCharge(int _charge);		//Sets the charge of the element
+			bool setDensity(float _density);	//Sets the density of the element
 
 			//Returning if values are defined.
 			bool isProtonsSet();		//Returns if the value of 'protons' is set
@@ -164,7 +167,8 @@ namespace var
 			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
 			bool isAtomicNumberSet();	//Returns if the value of 'atomicNumber' is set
 			bool isChargeSet();			//Returns if the value of 'charge' is set
-			
+			bool isDensitySet();		//Returns if the value of 'density' is set
+
 			//Returning values
 			int getProtons();			//Returns the number of protons in the element
 			float getNeutrons();		//Returns the number of neutrons in the element
@@ -174,6 +178,7 @@ namespace var
 			float getAtomicMass();		//Returns the atomic mass of the element
 			float getAtomicNumber();	//Returns the atomic number of the element
 			int getCharge();			//The charge on the atom.  Not available for atoms with averaged neutrons (Will throw an error if this situation arises).
+			float getDensity();			//Returns the density of the element (in Liters)
 
 			//Other
 			bool inferValues();			//Attempts to calculate all values possible from included information (i.e. protons from electrons and charge, etc.)
