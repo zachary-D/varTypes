@@ -753,24 +753,24 @@ namespace var
 			isSegment = !_isElement;
 		}
 
-		compound::compound(vector<element> _elements)
+		compound::compound(element _element)
 		{
-			setElements(_elements);
+			setElement(_element);
 			isElement = true;
 			isSegment = false;
 		}
 
-		compound::compound(vector<element> _elements, int _subscript)
+		compound::compound(element _element, int _subscript)
 		{
-			setElements(_elements);
+			setElement(_element);
 			setSubscript(_subscript);
 			isElement = true;
 			isSegment = false;
 		}
 
-		compound::compound(vector<element> _elements, int _subscript, int _amount)
+		compound::compound(element _element, int _subscript, int _amount)
 		{
-			setElements(_elements);
+			setElement(_element);
 			setSubscript(_subscript);
 			setAmount(_amount);
 			isElement = true;
@@ -783,7 +783,7 @@ namespace var
 			isSegment = true;
 			isElement = false;
 		}
-		
+
 		bool compound::getIsElement()
 		{
 			return isElement;
@@ -835,35 +835,17 @@ namespace var
 			}
 		}
 
-		bool compound::setElements(vector<element> _elements)
+		bool compound::setElement(element _element)
 		{
 			if(getIsElement())
 			{
-				elements = _elements;
+				elementVal = _element;
+				elementSet = true;
 				return true;
 			}
 			else
 			{
-				_DEBUG_ERROR("Unable to set 'element', segment is initialized as a sub-segment.");
-				return false;
-			}
-		}
-
-		bool compound::addElement(element _element)
-		{
-			elements.push_back(_element);
-			return true;
-		}
-
-		bool compound::removeElement(int _elementID)
-		{
-			if(elements.size() < _elementID)
-			{
-				return false;
-			}
-			else
-			{
-				elements.erase(elements.begin() + _elementID);
+				_DEBUG_ERROR("Unable to set 'element', compond is initialized as a sub-compound.");
 				return false;
 			}
 		}
@@ -908,9 +890,12 @@ namespace var
 
 		bool compound::setName(string _name)
 		{
-			if(_name.length() == 0)
+			if(_name.length() == 0) return false;
+			else
 			{
-				
+				name = _name;
+				nameSet = true;
+				return true;
 			}
 		}
 
@@ -952,8 +937,7 @@ namespace var
 
 		bool compound::isElementSet()
 		{
-			if(elements.size() == 0) return false;
-			else return false;
+			return elementSet;
 		}
 
 		bool compound::isSubscriptSet()
@@ -997,16 +981,14 @@ namespace var
 			return segments;
 		}
 
-		vector<element> compound::getElements()
+		element compound::getElement()
 		{
 			if(isElementSet() == false)
 			{
-				_DEBUG_ERROR("'elements' has not yet been set.\nReturning a vector with a blank element template in the place off 'elements'.  This may result in errors.");
-				vector<element> t;
-				t.push_back(element());
-				return t;
+				_DEBUG_ERROR("'elements' has not yet been set.\nReturning a blank element template in the place off 'element'.  This may result in errors.");
+				return element();
 			}
-			else return elements;
+			else return elementVal;
 		}
 
 		int compound::getSubscript()
@@ -1082,49 +1064,28 @@ namespace var
 		{
 			bool totalChange = false;
 			bool localChange = false;
-			bool canSetAtomicMass = true;
-			bool canSetCharge = true;
-			int charge = 0;
-			float atomicMass = 0;
 			do
 			{
 				if(getIsElement())			//Calulating traits that can be found as a sum of element properties
 				{
-					canSetAtomicMass = true;
-					canSetCharge = true;
-					charge = 0;
-					atomicMass = 0;
-					for(int x = 0; x < elements.size(); x++)
+					if(elementVal.inferValues()) localChange = true;
+					if(isAtomicMassSet() == false && elementVal.isAtomicMassSet() == true)
 					{
-						if(elements[x].inferValues()) localChange = true;
-						if(isAtomicMassSet() == false)
-						{
-							if(elements[x].isAtomicMassSet()) atomicMass += elements[x].getAtomicMass();
-							else canSetAtomicMass = false;
-						}
-						if(isChargeSet() == false)
-						{
-							if(elements[x].isChargeSet()) charge += elements[x].getCharge();
-							else canSetCharge = false;
-						}
-					}
-					if(canSetAtomicMass)
-					{
-						setAtomicMass(atomicMass);
+						setAtomicMass(elementVal.getAtomicMass());
 						localChange = true;
 					}
-					if(canSetCharge)
+					if(isChargeSet() == false && elementVal.isChargeSet() == true)
 					{
-						setCharge(charge);
+						setCharge(elementVal.getCharge());
 						localChange = true;
-					}
+					 
 				}
 				else if(getIsSegment())		//Calulating traits that can be found as a sum of segment properties
 				{
-					canSetAtomicMass = true;
-					canSetCharge = true;
-					charge = 0;
-					atomicMass = 0;
+					bool canSetAtomicMass = true;
+					bool canSetCharge = true;
+					int charge = 0;
+					float atomicMass = 0;
 					for(int x = 0; x < segments.size(); x++)
 					{
 						if(segments[x].calculateValues()) localChange = true;
@@ -1133,11 +1094,13 @@ namespace var
 							if(segments[x].isAtomicMassSet()) atomicMass += segments[x].getAtomicMass();
 							else canSetAtomicMass = false;
 						}
+						else canSetAtomicMass = false;
 						if(isChargeSet() == false)
 						{
 							if(segments[x].isChargeSet()) charge += segments[x].getCharge();
 							else canSetCharge = false;
 						}
+						else canSetCharge = false;
 					}
 					if(canSetAtomicMass)
 					{

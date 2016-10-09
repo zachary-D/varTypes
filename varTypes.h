@@ -190,9 +190,9 @@ namespace var
 		{
 		public:
 			compound(bool isElement = true);	//If true, initializes as an element.  If false, sets as a vector of compounds.
-			compound(vector<element> _elements);
-			compound(vector<element> _elements, int _subscript);
-			compound(vector<element> _elements, int _subscript, int _amount);
+			compound(element _element);
+			compound(element _element, int _subscript);
+			compound(element _element, int _subscript, int _amount);
 			compound(vector<compound> _segments);
 			compound(vector<compound> _segments, int _amount);
 
@@ -203,7 +203,8 @@ namespace var
 
 			//Element specific values
 			bool isElement;
-			vector<element> elements;			//The elements
+			element elementVal;		//The element.  The trailing 'Val' is to distinguish it from the element class
+			bool elementSet = false;
 			int subscript;			//The subscript on the element
 			bool subscriptSet = false;	//If the value of 'subscript' has been set
 			
@@ -232,9 +233,7 @@ namespace var
 			bool removeSegment(int _segmentID);		//Removes the segment at '_segmentID'
 
 			//Setting values - Element specific values
-			bool setElements(vector<element> _elements);	//Sets the elements
-			bool addElement(element _element);		//Adds the element to the end
-			bool removeElement(int _elementID);		//Removes the element at '_elementID'
+			bool setElement(element _element);	//Sets the element
 			bool setSubscript(int _subscript);		//Sets the subscript
 
 			//Setting values - Shared values
@@ -259,7 +258,7 @@ namespace var
 			vector<compound> getSegments();		//Returns the value segments
 
 			//Retreving values - Element specific values
-			vector<element> getElements();		//Returns the element
+			element getElement();		//Returns the element
 			int getSubscript();			//Returns the subscript
 
 			//Retreving values - Shared values
