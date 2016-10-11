@@ -760,18 +760,18 @@ namespace var
 			isSegment = false;
 		}
 
-		compound::compound(vector<element> _elements, int _subscript)
+		compound::compound(vector<element> _elements, vector<int> _subscripts)
 		{
 			setElements(_elements);
-			setSubscript(_subscript);
+			setSubscripts(_subscripts);
 			isElement = true;
 			isSegment = false;
 		}
 
-		compound::compound(vector<element> _elements, int _subscript, int _amount)
+		compound::compound(vector<element> _elements, vector<int> _subscripts, int _amount)
 		{
 			setElements(_elements);
-			setSubscript(_subscript);
+			setSubscripts(_subscripts);
 			setAmount(_amount);
 			isElement = true;
 			isSegment = false;
@@ -868,20 +868,36 @@ namespace var
 			}
 		}
 
-		bool compound::setSubscript(int _subscript)
+		bool compound::setSubscript(int _elemID, int _subscript)
 		{
 			if(getIsElement())
 			{
-				if(_subscript <= 0)
+				if(_subscript <= 0)		//_subscript input validation
 				{
 					_DEBUG_ERROR("Bad '_subscript': Value cannot <= 0.");
 					return false;
 				}
 				else
 				{
-					subscript = _subscript;
-					subscriptSet = true;
-					return true;
+					if(_elemID < 0)		//_elemID input validation
+					{
+						_DEBUG_ERROR("Bad '_elemID': _elemID cannot < 0.");
+						return false;
+					}
+					else if(elements.size() < _elemID)
+					{
+						_DEBUG_ERROR("Bad '_elemID': There is no corresponding element for subscript.");
+						return false;
+					}
+					else
+					{
+						if(subscripts.size() < _elemID)
+						{
+							while(subscripts.size() < _elemID) subscripts.push_back(0);
+						}
+						subscripts[_elemID] = _subscript;
+						return true;
+					}
 				}
 			}
 			else
@@ -889,6 +905,8 @@ namespace var
 				_DEBUG_ERROR("Unable to set 'subscript', segment is initialized as a sub-segment.");
 				return false;
 			}
+			_DEBUG_ERROR("Error: Unknown case.  Values escaped validation tree, caught at end-of-function.");
+			return false;
 		}
 
 		bool compound::setAmount(int _amount)
@@ -910,8 +928,15 @@ namespace var
 		{
 			if(_name.length() == 0)
 			{
-				
+				_DEBUG_ERROR("Bad '_name': cannot be \"\"");
+				return false;
 			}
+			else
+			{
+				name = _name;
+				return true;
+			}
+			return false;
 		}
 
 		bool compound::setAtomicMass(float _atomicMass)
@@ -950,15 +975,16 @@ namespace var
 			}
 		}
 
-		bool compound::isElementSet()
+		bool compound::isElementSet(int _elemID = 0)
 		{
-			if(elements.size() == 0) return false;
+			if(elements.size() > _elemID) return true;
 			else return false;
 		}
 
-		bool compound::isSubscriptSet()
+		bool compound::isSubscriptSet(int _elemID = 0)
 		{
-			return subscriptSet;
+			if(subscripts.size() > _elemID && subscripts[_elemID] > 0) return true;
+			else return false;
 		}
 
 		bool compound::isAmountSet()

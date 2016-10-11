@@ -191,8 +191,8 @@ namespace var
 		public:
 			compound(bool isElement = true);	//If true, initializes as an element.  If false, sets as a vector of compounds.
 			compound(vector<element> _elements);
-			compound(vector<element> _elements, int _subscript);
-			compound(vector<element> _elements, int _subscript, int _amount);
+			compound(vector<element> _elements, vector<int> _subscripts);
+			compound(vector<element> _elements, vector<int> _subscripts, int _amount);
 			compound(vector<compound> _segments);
 			compound(vector<compound> _segments, int _amount);
 
@@ -204,8 +204,7 @@ namespace var
 			//Element specific values
 			bool isElement;
 			vector<element> elements;			//The elements
-			int subscript;			//The subscript on the element
-			bool subscriptSet = false;	//If the value of 'subscript' has been set
+			vector<int> subscripts {0};			//The subscript on the elements (subscripts[x] is attached to elements[x].)  If the subscript = 0, it has not been set.
 			
 			//Shared values
 			int amount;				//The amount on the compound (i.e. the 2 in (NO_3)_2 )
@@ -233,9 +232,11 @@ namespace var
 
 			//Setting values - Element specific values
 			bool setElements(vector<element> _elements);	//Sets the elements
-			bool addElement(element _element);		//Adds the element to the end
-			bool removeElement(int _elementID);		//Removes the element at '_elementID'
-			bool setSubscript(int _subscript);		//Sets the subscript
+			bool addElement(element _element);				//Adds the element
+			bool addElement(element _element, int _subscript);		//Adds the element
+			bool removeElement(int _elementID);				//Removes the element at '_elementID'
+			bool setSubscripts(vector<int> _subscripts);	//Sets the subscripts	
+			bool setSubscript(int _elemID, int _subscript);	//Sets the subscript at '_elemID'
 
 			//Setting values - Shared values
 			bool setAmount(int _amount);			//Sets the amount
@@ -246,8 +247,8 @@ namespace var
 			bool setMols(float _mols);				//Sets the mols
 
 			//Returning if values are defined
-			bool isElementSet();		//Returns if the value of 'element' is set
-			bool isSubscriptSet();		//Returns if the value of 'subscript' is set
+			bool isElementSet(int vectorID);		//Returns if the value of 'element' is set at 'vectorID'
+			bool isSubscriptSet(int vectorID);		//Returns if the value of 'subscript' is set for the element at 'vectorID'
 			bool isAmountSet();			//Returns if the value of 'amount' is set
 			bool isNameSet();			//Returns if the value of 'name' is set
 			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
@@ -259,8 +260,10 @@ namespace var
 			vector<compound> getSegments();		//Returns the value segments
 
 			//Retreving values - Element specific values
-			vector<element> getElements();		//Returns the element
-			int getSubscript();			//Returns the subscript
+			vector<element> getElements();		//Returns the elements
+			element getElement(int vectorID);	//Returns the element at 'vectorID'
+			vector<int> getSubscripts();		//Returns the subscripts
+			int getSubscript(int vectorID);		//Returns the subscript at 'vectorID'
 
 			//Retreving values - Shared values
 			int getAmount();			//Returns the amount
