@@ -783,7 +783,13 @@ namespace var
 			isSegment = true;
 			isElement = false;
 		}
-		
+
+		compound::compound(vector<compound> _segments, int _amount)
+		{
+			setSegments(_segments);
+			setAmount(_amount);
+		}
+
 		bool compound::getIsElement()
 		{
 			return isElement;
@@ -853,6 +859,13 @@ namespace var
 		{
 			elements.push_back(_element);
 			return true;
+		}
+
+		bool compound::addElement(element _element, int _subscript)
+		{
+			elements.push_back(_element);
+			return setSubscript(elements.size() - 1, _subscript);
+			return false;
 		}
 
 		bool compound::removeElement(int _elementID)
@@ -975,13 +988,13 @@ namespace var
 			}
 		}
 
-		bool compound::isElementSet(int _elemID = 0)
+		bool compound::isElementSet(int _elemID)
 		{
 			if(elements.size() > _elemID) return true;
 			else return false;
 		}
 
-		bool compound::isSubscriptSet(int _elemID = 0)
+		bool compound::isSubscriptSet(int _elemID)
 		{
 			if(subscripts.size() > _elemID && subscripts[_elemID] > 0) return true;
 			else return false;
@@ -1035,14 +1048,14 @@ namespace var
 			else return elements;
 		}
 
-		int compound::getSubscript()
+		int compound::getSubscript(int _elemID)
 		{
-			if(isSubscriptSet() == false)
+			if(isSubscriptSet(_elemID) == false)
 			{
 				_DEBUG_ERROR("'subscript' has not yet been set.\nReturning '1' in the place of 'subscript'.  This may result in errors.");
 				return 1;
 			}
-			else return subscript;
+			else return subscripts[_elemID];
 		}
 
 		int compound::getAmount()

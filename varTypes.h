@@ -207,7 +207,7 @@ namespace var
 			vector<int> subscripts {0};			//The subscript on the elements (subscripts[x] is attached to elements[x].)  If the subscript = 0, it has not been set.
 			
 			//Shared values
-			int amount;				//The amount on the compound (i.e. the 2 in (NO_3)_2 )
+			int amount;				//The coefficient on the compound, or the subscript on the sub-compound (i.e. the 2 in (NO_3)_2 )
 			bool amountSet = false;	//If the value of 'amount' has been set
 			string name;			//The element's name
 			bool nameSet = false;	//If the value of 'name' has been set
@@ -247,8 +247,8 @@ namespace var
 			bool setMols(float _mols);				//Sets the mols
 
 			//Returning if values are defined
-			bool isElementSet(int vectorID);		//Returns if the value of 'element' is set at 'vectorID'
-			bool isSubscriptSet(int vectorID);		//Returns if the value of 'subscript' is set for the element at 'vectorID'
+			bool isElementSet(int vectorID = 0);		//Returns if the value of 'element' is set at 'vectorID'
+			bool isSubscriptSet(int vectorID = 0);		//Returns if the value of 'subscript' is set for the element at 'vectorID'
 			bool isAmountSet();			//Returns if the value of 'amount' is set
 			bool isNameSet();			//Returns if the value of 'name' is set
 			bool isAtomicMassSet();		//Returns if the value of 'atomicMass' is set
@@ -261,9 +261,9 @@ namespace var
 
 			//Retreving values - Element specific values
 			vector<element> getElements();		//Returns the elements
-			element getElement(int vectorID);	//Returns the element at 'vectorID'
+			element getElement(int _elemID);	//Returns the element at 'vectorID'
 			vector<int> getSubscripts();		//Returns the subscripts
-			int getSubscript(int vectorID);		//Returns the subscript at 'vectorID'
+			int getSubscript(int _elemID);		//Returns the subscript at 'vectorID'
 
 			//Retreving values - Shared values
 			int getAmount();			//Returns the amount
