@@ -965,6 +965,7 @@ namespace var
 			else
 			{
 				atomicMass = _atomicMass;
+				atomicMassSet = true;
 				return true;
 			}
 		}
@@ -972,7 +973,8 @@ namespace var
 		bool compound::setCharge(int _charge)
 		{
 			charge = _charge;
-			return false;
+			chargeSet = true;
+			return true;
 		}
 
 		bool compound::setMass(float grams)
@@ -982,6 +984,7 @@ namespace var
 			{
 				mass = grams;
 				massSet = true;
+				return true;
 			}
 		}
 
@@ -992,6 +995,7 @@ namespace var
 			{
 				mols = _mols;
 				molsSet = true;
+				return true;
 			}
 		}
 
@@ -1250,7 +1254,7 @@ namespace var
 						if(getMass() / getAtomicMass() > 0)		//Verifys that the calculated value is valid
 						{
 							setMols(getMass() / getAtomicMass());
-							localChange == true;
+							localChange = true;
 						}
 						else _DEBUG_ERROR("Calculated mols is <= 0!  Either the mass or atomic mass is incorrect, if not both!");
 					}
