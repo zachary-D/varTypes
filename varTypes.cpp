@@ -747,7 +747,7 @@ namespace var
 			return output;
 		}
 
-		compound::compound(bool _isElement = true)
+		compound::compound(bool _isElement)
 		{
 			isElement = _isElement;
 			isSegment = !_isElement;
@@ -881,13 +881,23 @@ namespace var
 			}
 		}
 
+		bool compound::setSubscripts(vector<int> _subscripts)
+		{
+			bool ret = true;
+			for(int x = 0; x < _subscripts.size(); x++)
+			{
+				if(setSubscript(x, _subscripts[x]) == false) ret = false;
+			}
+			return ret;
+		}
+
 		bool compound::setSubscript(int _elemID, int _subscript)
 		{
 			if(getIsElement())
 			{
-				if(_subscript <= 0)		//_subscript input validation
+				if(_subscript < 0)		//_subscript input validation
 				{
-					_DEBUG_ERROR("Bad '_subscript': Value cannot <= 0.");
+					_DEBUG_ERROR("Bad '_subscript': Value cannot < 0.");
 					return false;
 				}
 				else
@@ -1007,17 +1017,17 @@ namespace var
 
 		bool compound::isNameSet()
 		{
-			return isNameSet;
+			return nameSet;
 		}
 
 		bool compound::isAtomicMassSet()
 		{
-			return isAtomicMassSet;
+			return atomicMassSet;
 		}
 
 		bool compound::isChargeSet()
 		{
-			return isChargeSet;
+			return chargeSet;
 		}
 
 		bool compound::isMassSet()
@@ -1048,6 +1058,24 @@ namespace var
 			else return elements;
 		}
 
+		element compound::getElement(int _elemID)
+		{
+			if(_elemID < 0)
+			{
+				_DEBUG_ERROR("Bad '_elemID': _elemID cannot be < 0.\nReturning a blank 'element' template in the place of 'element[_elemID]'.  This may result in errors.");
+				return element();
+			}
+			else if(_elemID > elements.size())
+			{
+				_DEBUG_ERROR("Bad '_elemID': there is no element for that value.\nReturning a blank 'element' template in the place of 'element[_elemID]'.  This may result in erros.");
+				return element();
+			}
+			else
+			{
+				return elements[_elemID];
+			}
+		}
+
 		int compound::getSubscript(int _elemID)
 		{
 			if(isSubscriptSet(_elemID) == false)
@@ -1056,6 +1084,11 @@ namespace var
 				return 1;
 			}
 			else return subscripts[_elemID];
+		}
+
+		vector<int> compound::getSubscripts()
+		{
+			return subscripts;
 		}
 
 		int compound::getAmount()

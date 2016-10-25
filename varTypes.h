@@ -261,9 +261,9 @@ namespace var
 
 			//Retreving values - Element specific values
 			vector<element> getElements();		//Returns the elements
-			element getElement(int _elemID);	//Returns the element at 'vectorID'
-			vector<int> getSubscripts();		//Returns the subscripts
+			element getElement(int _elemID);	//Returns the element at '_elemID'
 			int getSubscript(int _elemID);		//Returns the subscript at 'vectorID'
+			vector<int> getSubscripts();		//Returns the subscripts
 
 			//Retreving values - Shared values
 			int getAmount();			//Returns the amount
