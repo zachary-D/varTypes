@@ -914,10 +914,7 @@ namespace var
 					}
 					else
 					{
-						if(subscripts.size() < _elemID)
-						{
-							while(subscripts.size() < _elemID) subscripts.push_back(0);
-						}
+						while(subscripts.size() <= _elemID) subscripts.push_back(0);
 						subscripts[_elemID] = _subscript;
 						return true;
 					}
