@@ -1171,10 +1171,9 @@ namespace var
 					for(int x = 0; x < elements.size(); x++)
 					{
 						if(elements[x].inferValues()) localChange = true;
-						if(isAtomicMassSet() == false)
+						if(isAtomicMassSet() == false && elements[x].isAtomicMassSet() == true)
 						{
-							if(elements[x].isAtomicMassSet()) atomicMass += elements[x].getAtomicMass();
-							else canSetAtomicMass = false;
+							atomicMass += elements[x].getAtomicMass();
 						}
 						else canSetAtomicMass = false;
 						if(isChargeSet() == false)
