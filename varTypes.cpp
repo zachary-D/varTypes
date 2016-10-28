@@ -1161,6 +1161,7 @@ namespace var
 			float atomicMass = 0;
 			do
 			{
+				localChange = false;
 				if(getIsElement())			//Calulating traits that can be found as a sum of element properties
 				{
 					canSetAtomicMass = true;
@@ -1175,11 +1176,13 @@ namespace var
 							if(elements[x].isAtomicMassSet()) atomicMass += elements[x].getAtomicMass();
 							else canSetAtomicMass = false;
 						}
+						else canSetAtomicMass = false;
 						if(isChargeSet() == false)
 						{
 							if(elements[x].isChargeSet()) charge += elements[x].getCharge();
 							else canSetCharge = false;
 						}
+						else canSetCharge = false;
 					}
 					if(canSetAtomicMass)
 					{
@@ -1203,14 +1206,16 @@ namespace var
 						if(segments[x].calculateValues()) localChange = true;
 						if(isAtomicMassSet() == false)
 						{
-							if(segments[x].isAtomicMassSet()) atomicMass += segments[x].getAtomicMass();
+							if(segments[x].isAtomicMassSet() == true && segments[x].isAmountSet() == true) atomicMass += segments[x].getAmount() * segments[x].getAtomicMass();
 							else canSetAtomicMass = false;
 						}
+						else canSetAtomicMass = false;
 						if(isChargeSet() == false)
 						{
 							if(segments[x].isChargeSet()) charge += segments[x].getCharge();
 							else canSetCharge = false;
 						}
+						else canSetCharge = false;
 					}
 					if(canSetAtomicMass)
 					{
