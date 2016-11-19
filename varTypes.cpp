@@ -747,7 +747,7 @@ namespace var
 			return output;
 		}
 
-		compound::compound(bool _isElement = true)
+		compound::compound(bool _isElement)
 		{
 			isElement = _isElement;
 			isSegment = !_isElement;
@@ -952,17 +952,17 @@ namespace var
 
 		bool compound::isNameSet()
 		{
-			return isNameSet;
+			return nameSet;
 		}
 
 		bool compound::isAtomicMassSet()
 		{
-			return isAtomicMassSet;
+			return atomicMassSet;
 		}
 
 		bool compound::isChargeSet()
 		{
-			return isChargeSet;
+			return chargeSet;
 		}
 
 		bool compound::isMassSet()
