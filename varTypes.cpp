@@ -7,7 +7,6 @@ using namespace std;
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
 
-#include "debug.h"
 #include "varConv.h"
 #include "varTypes.h"
 
