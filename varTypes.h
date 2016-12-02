@@ -100,4 +100,14 @@ namespace var
 		coord2 getBottomLeft();
 		coord2 getBottomRight();
 	};
+
+	namespace math
+	{
+		class line
+		{
+			coord2 slope;
+			float yDisplacement;
+			float xDisplacement;
+		};
+	};
 };
