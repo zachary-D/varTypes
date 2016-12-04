@@ -316,13 +316,21 @@ namespace var
 		vector<coord2> line::getValuesBetweenBounds(float _interval)
 		{
 			vector<coord2> ret;
-			for(float x = lowBound; x < highBound; x += _interval)
+			for(float x = lowxBound; x < highxBound; x += _interval)
 			{
-				ret.push_back(var::coord2(x, getY(x)));
+				float y = getY(x);
+				if(lowyBound <= y && y <= highyBound)
+				{
+					ret.push_back(var::coord2(x, y));
+				}
 			}
-			if(highBound != ret[ret.size() - 1].x)
+			if(highxBound != ret[ret.size() - 1].x)
 			{
-				ret.push_back(var::coord2(highBound, getY(highBound)));
+				float y = getY(highxBound);
+				if(lowyBound <= y && y <= highyBound)
+				{
+					ret.push_back(var::coord2(highxBound, y));
+				}
 			}
 			return ret;
 		}
