@@ -105,9 +105,22 @@ namespace var
 	{
 		class line
 		{
-			coord2 slope;
-			float yDisplacement;
-			float xDisplacement;
+		public:
+			line(coord2 _slope = var::coord2(1, 1), coord2 _displacement = var::coord2(0, 0));
+			line(coord2 _slope = var::coord2(1, 1), float _xDisplacement = 0, float _yDisplacement = 0);
+			line(float _slope = 1, coord2 _displacement = var::coord2(0, 0));
+			line(float _slope = 1, float _xDisplacement = 0, float _yDisplacement = 0);
+
+			coord2 slope;			//The slope of the line.  Duh.
+			coord2 displacement;	//The displacement of the line from where it would be if it was calculated using only the slope
+			//float lowBound;			//The lower boundary of the line segment
+			//float highBound;		//The upper boundary of the line segment
+
+			float getSlope();		//Returns the slope of the line, as a float (slope.y / slope.x)
+			coord2 getSlopeCoord2();	//Returns the slope of the line, in x and y components
+
+			float getY(float _x);
+			vector<float> getY(vector<float> _x);
 		};
 	};
 };

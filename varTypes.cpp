@@ -261,4 +261,56 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
-}
+
+	namespace math
+	{
+		line::line(coord2 _slope, coord2 _displacement)
+		{
+			slope = _slope;
+			displacement = _displacement;
+		}
+
+		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement)
+		{
+			slope = _slope;
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+		}
+
+		line::line(float _slope, coord2 _displacement)
+		{
+			slope = var::coord2(1, _slope); 
+			displacement = _displacement;
+		}
+
+		line::line(float _slope, float _xDisplacement, float _yDisplacement)
+		{
+			slope = var::coord2(1, _slope);
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+		}
+
+		float line::getSlope()
+		{
+			return slope.y / slope.x;
+		}
+
+		coord2 line::getSlopeCoord2()
+		{
+			return coord2();
+		}
+
+		float line::getY(float _x)
+		{
+			return getSlope() * (_x - displacement.x) + displacement.y;
+		}
+
+		vector<float> line::getY(vector<float> _x)
+		{
+			vector<float> y;
+			for(int x = 0; x < _x.size(); x++)
+			{
+				y.push_back(getY(_x[x]));
+			}
+			return y;
+		}
+	};
+};
