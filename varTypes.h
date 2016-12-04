@@ -113,14 +113,16 @@ namespace var
 
 			coord2 slope;			//The slope of the line.  Duh.
 			coord2 displacement;	//The displacement of the line from where it would be if it was calculated using only the slope
-			//float lowBound;			//The lower boundary of the line segment
-			//float highBound;		//The upper boundary of the line segment
+			float lowBound;			//The lower boundary of the line segment
+			float highBound;		//The upper boundary of the line segment
 
 			float getSlope();		//Returns the slope of the line, as a float (slope.y / slope.x)
 			coord2 getSlopeCoord2();	//Returns the slope of the line, in x and y components
 
-			float getY(float _x);
-			vector<float> getY(vector<float> _x);
+			float getY(float _x);		//Returns the y coordinate associated with _x (ignoring the bounds)
+			vector<float> getY(vector<float> _x);		//Returns the y coordinates associated with the set of values in _x (ignoring the bounds)
+
+			vector<coord2> getValuesBetweenBounds(float _interval = 1);		//Returns a set of y values associated with x values, starting at 'lowBound' and increasing by '_interval', up until (and including) 'highBound'
 		};
 	};
 };

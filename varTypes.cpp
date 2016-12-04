@@ -312,5 +312,19 @@ namespace var
 			}
 			return y;
 		}
+
+		vector<coord2> line::getValuesBetweenBounds(float _interval)
+		{
+			vector<coord2> ret;
+			for(float x = lowBound; x < highBound; x += _interval)
+			{
+				ret.push_back(var::coord2(x, getY(x)));
+			}
+			if(highBound != ret[ret.size() - 1].x)
+			{
+				ret.push_back(var::coord2(highBound, getY(highBound)));
+			}
+			return ret;
+		}
 	};
 };
