@@ -107,14 +107,27 @@ namespace var
 		{
 		public:
 			line(coord2 _slope = var::coord2(1, 1), coord2 _displacement = var::coord2(0, 0));
-			line(coord2 _slope, float _xDisplacement = 0, float _yDisplacement = 0);
+			line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound);
+			line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement);
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound);
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+
 			line(float _slope, coord2 _displacement = var::coord2(0, 0));
-			line(float _slope, float _xDisplacement = 0, float _yDisplacement = 0);
+			line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound);
+			line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+			
+			line(float _slope, float _xDisplacement, float _yDisplacement);
+			line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound);
+			line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
 
 			coord2 slope;			//The slope of the line.  Duh.
 			coord2 displacement;	//The displacement of the line from where it would be if it was calculated using only the slope
+			bool xBounds;		//If the line has x boundaries
 			float lowxBound;	//The lower x boundary of the line segment
 			float highxBound;	//The upper x boundary of the line segment
+			bool yBounds;		//If the line has y boundaries
 			float lowyBound;	//The lower y boundary of the line segment
 			float highyBound;	//The upper y boundary of the line segment
 

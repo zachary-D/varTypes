@@ -268,29 +268,177 @@ namespace var
 		{
 			slope = _slope;
 			displacement = _displacement;
+			xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound)
+		{
+			slope = _slope;
+			displacement = _displacement;
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		{
+			slope = _slope;
+			displacement = _displacement;
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			if(_lowyBound < _highyBound)
+			{
+				yBounds = true;
+				lowyBound = _lowyBound;
+				highyBound = _highyBound;
+			}
+			else yBounds = false;
 		}
 
 		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement)
 		{
 			slope = _slope;
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
+		{
+			slope = _slope;
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		{
+			slope = _slope;
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			if(_lowyBound < _highyBound)
+			{
+				yBounds = true;
+				lowyBound = _lowyBound;
+				highyBound = _highyBound;
+			}
+			else yBounds = false;
 		}
 
 		line::line(float _slope, coord2 _displacement)
 		{
 			slope = var::coord2(1, _slope); 
 			displacement = _displacement;
+			xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound)
+		{
+			slope = var::coord2(1, _slope);
+			displacement = _displacement;
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		{
+			slope = var::coord2(1, _slope);
+			displacement = _displacement;
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			if(_lowyBound < _highyBound)
+			{
+				yBounds = true;
+				lowyBound = _lowyBound;
+				highyBound = _highyBound;
+			}
+			else yBounds = false;
 		}
 
 		line::line(float _slope, float _xDisplacement, float _yDisplacement)
 		{
 			slope = var::coord2(1, _slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
+		{
+			slope = var::coord2(1, _slope);
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			yBounds = false;
+		}
+
+		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		{
+			slope = var::coord2(1, _slope);
+			displacement = var::coord2(_xDisplacement, _yDisplacement);
+			if(_lowxBound < _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else xBounds = false;
+			if(_lowyBound < _highyBound)
+			{
+				yBounds = true;
+				lowyBound = _lowyBound;
+				highyBound = _highyBound;
+			}
+			else yBounds = false;
 		}
 
 		float line::getSlope()
 		{
-			return slope.y / slope.x;
+			if(slope.x != 0) return slope.y / slope.x;
+			else
+			{
+				_DEBUG_ERROR("SLOPE = y / 0");
+			}
 		}
 
 		coord2 line::getSlopeCoord2()
@@ -300,7 +448,8 @@ namespace var
 
 		float line::getY(float _x)
 		{
-			return getSlope() * (_x - displacement.x) + displacement.y;
+			if(slope.x == 0) return displacement.x;
+			else return getSlope() * (_x - displacement.x) + displacement.y;
 		}
 
 		vector<float> line::getY(vector<float> _x)
@@ -315,24 +464,28 @@ namespace var
 
 		vector<coord2> line::getValuesBetweenBounds(float _interval)
 		{
-			vector<coord2> ret;
-			for(float x = lowxBound; x < highxBound; x += _interval)
+			if(xBounds == true)
 			{
-				float y = getY(x);
-				if(lowyBound <= y && y <= highyBound)
+				vector<coord2> ret;
+				for(float x = lowxBound; x < highxBound; x += _interval)
 				{
-					ret.push_back(var::coord2(x, y));
+					float y = getY(x);
+					if(yBounds == false || lowyBound <= y && y <= highyBound)
+					{
+						ret.push_back(var::coord2(x, y));
+					}
 				}
-			}
-			if(highxBound != ret[ret.size() - 1].x)
-			{
-				float y = getY(highxBound);
-				if(lowyBound <= y && y <= highyBound)
+				if(highxBound != ret[ret.size() - 1].x)
 				{
-					ret.push_back(var::coord2(highxBound, y));
+					float y = getY(highxBound);
+					if(yBounds == false || lowyBound <= y && y <= highyBound)
+					{
+						ret.push_back(var::coord2(highxBound, y));
+					}
 				}
+				return ret;
 			}
-			return ret;
+			else _DEBUG_ERROR("Bounds not set!");
 		}
 	};
 };
