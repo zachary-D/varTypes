@@ -266,7 +266,7 @@ namespace var
 	{
 		line::line(coord2 _slope, coord2 _displacement)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = _displacement;
 			xBounds = false;
 			yBounds = false;
@@ -274,41 +274,23 @@ namespace var
 
 		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = _displacement;
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
+			setxBounds(_lowxBound, _highxBound);
 			yBounds = false;
 		}
 
 		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = _displacement;
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
-			if(_lowyBound < _highyBound)
-			{
-				yBounds = true;
-				lowyBound = _lowyBound;
-				highyBound = _highyBound;
-			}
-			else yBounds = false;
+			setxBounds(_lowxBound, _highxBound);
+			setyBounds(_lowyBound, _highyBound);
 		}
 
 		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
 			xBounds = false;
 			yBounds = false;
@@ -316,41 +298,23 @@ namespace var
 
 		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
+			setxBounds(_lowxBound, _highxBound);
 			yBounds = false;
 		}
 
 		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
 		{
-			slope = _slope;
+			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
-			if(_lowyBound < _highyBound)
-			{
-				yBounds = true;
-				lowyBound = _lowyBound;
-				highyBound = _highyBound;
-			}
-			else yBounds = false;
+			setxBounds(_lowxBound, _highxBound);
+			setyBounds(_lowyBound, _highyBound);
 		}
 
 		line::line(float _slope, coord2 _displacement)
 		{
-			slope = var::coord2(1, _slope); 
+			setSlope(coord2(1, _slope));
 			displacement = _displacement;
 			xBounds = false;
 			yBounds = false;
@@ -358,41 +322,23 @@ namespace var
 
 		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound)
 		{
-			slope = var::coord2(1, _slope);
+			setSlope(coord2(1, _slope));
 			displacement = _displacement;
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
+			setxBounds(_lowxBound, _highxBound);
 			yBounds = false;
 		}
 
 		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
 		{
-			slope = var::coord2(1, _slope);
+			setSlope(coord2(1, _slope));
 			displacement = _displacement;
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
-			if(_lowyBound < _highyBound)
-			{
-				yBounds = true;
-				lowyBound = _lowyBound;
-				highyBound = _highyBound;
-			}
-			else yBounds = false;
+			setxBounds(_lowxBound, _highxBound);
+			setyBounds(_lowyBound, _highyBound);
 		}
 
 		line::line(float _slope, float _xDisplacement, float _yDisplacement)
 		{
-			slope = var::coord2(1, _slope);
+			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
 			xBounds = false;
 			yBounds = false;
@@ -400,36 +346,18 @@ namespace var
 
 		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
 		{
-			slope = var::coord2(1, _slope);
+			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
+			setxBounds(_lowxBound, _highxBound);
 			yBounds = false;
 		}
 
 		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
 		{
-			slope = var::coord2(1, _slope);
+			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
-			if(_lowxBound < _highxBound)
-			{
-				xBounds = true;
-				lowxBound = _lowxBound;
-				highxBound = _highxBound;
-			}
-			else xBounds = false;
-			if(_lowyBound < _highyBound)
-			{
-				yBounds = true;
-				lowyBound = _lowyBound;
-				highyBound = _highyBound;
-			}
-			else yBounds = false;
+			setxBounds(_lowxBound, _highxBound);
+			setyBounds(_lowyBound, _highyBound);
 		}
 
 		float line::getSlope()
@@ -438,12 +366,60 @@ namespace var
 			else
 			{
 				_DEBUG_ERROR("SLOPE = y / 0");
+				return slope.y / (10 ^ -20);
 			}
 		}
 
 		coord2 line::getSlopeCoord2()
 		{
 			return coord2();
+		}
+
+		bool line::setSlope(coord2 _slope)
+		{
+			if(_slope.x == 0 && _slope.y == 0)
+			{
+				_DEBUG_ERROR("Bad slope - slope cannot be 0 / 0.  Defaulting to 1.");
+				slope = coord2(1, 1);
+				return false;
+			}
+			else
+			{
+				slope = _slope;
+				return true;
+			}
+		}
+
+		bool line::setxBounds(float _lowxBound, float _highxBound)
+		{
+			if(_lowxBound <= _highxBound)
+			{
+				xBounds = true;
+				lowxBound = _lowxBound;
+				highxBound = _highxBound;
+			}
+			else
+			{
+				_DEBUG_ERROR("Bad input , _lowxBound is greater than or equal to _highxBound.  Setting xBounds to false.");
+				xBounds = false;
+			}
+			return xBounds;
+		}
+
+		bool line::setyBounds(float _lowyBound, float _highyBound)
+		{
+			if(_lowyBound <= _highyBound)
+			{
+				yBounds = true;
+				lowyBound = _lowyBound;
+				highyBound = _highyBound;
+			}
+			else
+			{
+				_DEBUG_ERROR("Bad input , _lowyBound is greater than or equal to _highyBound.  Setting yBounds to false.");
+				yBounds = false;
+			}
+			return yBounds;
 		}
 
 		float line::getY(float _x)
@@ -486,6 +462,73 @@ namespace var
 				return ret;
 			}
 			else _DEBUG_ERROR("Bounds not set!");
+		}
+
+		bool line::isCoordWithinBounds(coord2 _pos)
+		{
+			bool withinBounds = true;
+			if(xBounds == true && (lowxBound > _pos.x || _pos.x > highxBound)) withinBounds = false;
+			return false;
+		}
+
+		bool line::hasIntercept(line _line)
+		{
+			if(slope.x == 0 && _line.slope.x == 0 && displacement.x == _line.displacement.x) return true;
+			else if(slope.y == 0 && _line.slope.y == 0 && displacement.y == _line.displacement.y) return true;
+			else if((slope.x == 0 && _line.slope.x != 0) || (_line.slope.x == 0 && slope.x != 0)) return true;
+			else if((slope.y == 0 && _line.slope.y != 0) || (_line.slope.y == 0 && slope.y != 0)) return true;
+			else if(slope == _line.slope)
+			{
+				if(displacement == _line.displacement) return true;
+				if(displacement != _line.displacement)
+				{		
+					//Checks if the displacement + the slope * a constant == the displacement of the argument, for x and y, and checks if the constant is the same for both x and y
+					if((_line.displacement.x - displacement.x) / slope.x == (_line.displacement.y - displacement.y) / slope.y) return true;
+				}
+			}
+		}
+
+		bool line::isInterceptWithinBounds(line _line)
+		{
+			if(hasIntercept(_line) == false) return false;
+			else
+			{
+				coord2 intercept = getIntercept(_line);
+				return isCoordWithinBounds(intercept) && _line.isCoordWithinBounds(intercept);
+			}
+		}
+
+		coord2 line::getIntercept(line _line)
+		{
+			if(hasIntercept(_line) == false)
+			{
+				_DEBUG_ERROR("No intercept!");
+				return coord2(0, 0);
+			}
+			else
+			{
+				if(slope.x == 0 && _line.slope.x != 0)
+				{
+					return coord2(displacement.x, getY(displacement.x));
+				}
+				else if(_line.slope.x == 0 && slope.x != 0)
+				{
+					return coord2(_line.displacement.x, getY(_line.displacement.x));
+				}
+				else if(slope.y == 0 && _line.slope.y != 0)
+				{
+					return coord2(displacement.y, displacement.y);
+				}
+				else if(_line.slope.y == 0 && slope.y != 0)
+				{
+					return coord2(_line.displacement.y, _line.displacement.y);
+				}
+				else
+				{
+					float x = (_line.displacement.y - displacement.y) / (getSlope() - _line.getSlope());
+					return var::coord2(x, getY(x));
+				}
+			}
 		}
 	};
 };
