@@ -424,7 +424,7 @@ namespace var
 
 		float line::getY(float _x)
 		{
-			if(slope.x == 0) return displacement.x;
+			if(slope.y == 0) return displacement.y;
 			else return getSlope() * (_x - displacement.x) + displacement.y;
 		}
 
@@ -477,6 +477,7 @@ namespace var
 			else if(slope.y == 0 && _line.slope.y == 0 && displacement.y == _line.displacement.y) return true;
 			else if((slope.x == 0 && _line.slope.x != 0) || (_line.slope.x == 0 && slope.x != 0)) return true;
 			else if((slope.y == 0 && _line.slope.y != 0) || (_line.slope.y == 0 && slope.y != 0)) return true;
+			else if(slope.x != 0 && slope.y != 0 && _line.slope.x != 0 && _line.slope.y != 0) return true;
 			else if(slope == _line.slope)
 			{
 				if(displacement == _line.displacement) return true;
@@ -486,6 +487,7 @@ namespace var
 					if((_line.displacement.x - displacement.x) / slope.x == (_line.displacement.y - displacement.y) / slope.y) return true;
 				}
 			}
+			return false;
 		}
 
 		bool line::isInterceptWithinBounds(line _line)
@@ -509,7 +511,7 @@ namespace var
 			{
 				if(slope.x == 0 && _line.slope.x != 0)
 				{
-					return coord2(displacement.x, getY(displacement.x));
+					return coord2(displacement.x, _line.getY(displacement.x));
 				}
 				else if(_line.slope.x == 0 && slope.x != 0)
 				{
@@ -525,7 +527,7 @@ namespace var
 				}
 				else
 				{
-					float x = (_line.displacement.y - displacement.y) / (getSlope() - _line.getSlope());
+					float x = (_line.displacement.y - displacement.y + (getSlope() * displacement.x) - (_line.getSlope() * _line.displacement.x)) / (getSlope() - _line.getSlope());
 					return var::coord2(x, getY(x));
 				}
 			}
