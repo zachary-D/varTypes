@@ -100,4 +100,56 @@ namespace var
 		coord2 getBottomLeft();
 		coord2 getBottomRight();
 	};
+
+	namespace math
+	{
+		class line
+		{
+		public:
+			line(coord2 _slope = var::coord2(1, 1), coord2 _displacement = var::coord2(0, 0));
+			line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound);
+			line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement);
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound);
+			line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+
+			line(float _slope, coord2 _displacement = var::coord2(0, 0));
+			line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound);
+			line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+			
+			line(float _slope, float _xDisplacement, float _yDisplacement);
+			line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound);
+			line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound);
+
+			coord2 slope;			//The slope of the line.  Duh.
+			coord2 displacement;	//The displacement of the line from where it would be if it was calculated using only the slope
+			bool xBounds;		//If the line has x boundaries
+			float lowxBound;	//The lower x boundary of the line segment
+			float highxBound;	//The upper x boundary of the line segment
+			bool yBounds;		//If the line has y boundaries
+			float lowyBound;	//The lower y boundary of the line segment
+			float highyBound;	//The upper y boundary of the line segment
+
+			float getSlope();	//Returns the slope of the line, as a float (slope.y / slope.x)
+			coord2 getSlopeCoord2();	//Returns the slope of the line, in x and y components
+
+			bool setSlope(coord2 _slope);	//Sets the slope and preforms basic input validation
+			bool setxBounds(float _lowxBound, float _highxBound);
+			bool setyBounds(float _lowyBound, float _highyBound);
+
+			float getY(float _x);		//Returns the y coordinate associated with _x (ignoring the bounds)
+			vector<float> getY(vector<float> _x);		//Returns the y coordinates associated with the set of values in _x (ignoring the bounds)
+
+			vector<coord2> getValuesBetweenBounds(float _interval = 1);		//Returns a set of y values associated with x values, starting at 'lowBound' and increasing by '_interval', up until (and including) 'highBound'
+
+			bool isCoordWithinBounds(coord2 _pos);		//Returns whether or not '_pos' is within the bounds of a segment. If no bounds are set, the point is within those bounds.
+
+			bool hasIntercept(line _line);
+			bool isInterceptWithinBounds(line _line);
+			coord2 getIntercept(line _line);
+
+			
+		};
+	};
 };
