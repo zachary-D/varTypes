@@ -392,15 +392,27 @@ namespace var
 
 		bool line::setxBounds(float _lowxBound, float _highxBound)
 		{
-			if(_lowxBound <= _highxBound)
+			if(_lowxBound < _highxBound)
 			{
-				xBounds = true;
 				lowxBound = _lowxBound;
 				highxBound = _highxBound;
+				xBounds = true;
+			}
+			else if(_lowxBound > _highxBound)
+			{
+				//_DEBUG_ERROR("Bad input, _lowxBound is greater than _highxBound.  Swapping low and high bounds.");
+				lowxBound = _highxBound;
+				highxBound = _lowxBound;
+				xBounds = true;
+			}
+			else if(_lowxBound == _highxBound)
+			{
+				_DEBUG_ERROR("Bad input, _lowxBound is equal to _highxBound.  Setting xboudns to false.");
+				xBounds = false;
 			}
 			else
 			{
-				_DEBUG_ERROR("Bad input , _lowxBound is greater than or equal to _highxBound.  Setting xBounds to false.");
+				_DEBUG_ERROR("Unspecified error.  Setting xBounds to false.");
 				xBounds = false;
 			}
 			return xBounds;
@@ -408,15 +420,27 @@ namespace var
 
 		bool line::setyBounds(float _lowyBound, float _highyBound)
 		{
-			if(_lowyBound <= _highyBound)
+			if(_lowyBound < _highyBound)
 			{
-				yBounds = true;
 				lowyBound = _lowyBound;
 				highyBound = _highyBound;
+				yBounds = true;
+			}
+			else if(_lowyBound > _highyBound)
+			{
+				//_DEBUG_ERROR("Bad input, _lowyBound is greater than _highyBound.  Swapping low and high bounds.");
+				lowyBound = _highyBound;
+				highyBound = _lowyBound;
+				yBounds = true;
+			}
+			else if(_lowyBound == _highyBound)
+			{
+				_DEBUG_ERROR("Bad input, _lowyBound is equal to _highyBound.  Setting yboudns to false.");
+				yBounds = false;
 			}
 			else
 			{
-				_DEBUG_ERROR("Bad input , _lowyBound is greater than or equal to _highyBound.  Setting yBounds to false.");
+				_DEBUG_ERROR("Unspecified error.  Setting yBounds to false.");
 				yBounds = false;
 			}
 			return yBounds;
@@ -468,7 +492,8 @@ namespace var
 		{
 			bool withinBounds = true;
 			if(xBounds == true && (lowxBound > _pos.x || _pos.x > highxBound)) withinBounds = false;
-			return false;
+			if(yBounds == true && (lowyBound > _pos.y || _pos.y > highyBound)) withinBounds = false;
+			return withinBounds;
 		}
 
 		bool line::hasIntercept(line _line)
@@ -488,16 +513,6 @@ namespace var
 				}
 			}
 			return false;
-		}
-
-		bool line::isInterceptWithinBounds(line _line)
-		{
-			if(hasIntercept(_line) == false) return false;
-			else
-			{
-				coord2 intercept = getIntercept(_line);
-				return isCoordWithinBounds(intercept) && _line.isCoordWithinBounds(intercept);
-			}
 		}
 
 		coord2 line::getIntercept(line _line)
@@ -530,6 +545,16 @@ namespace var
 					float x = (_line.displacement.y - displacement.y + (getSlope() * displacement.x) - (_line.getSlope() * _line.displacement.x)) / (getSlope() - _line.getSlope());
 					return var::coord2(x, getY(x));
 				}
+			}
+		}
+
+		bool line::isInterceptWithinBounds(line _line)
+		{
+			if(hasIntercept(_line) == false) return false;
+			else
+			{
+				coord2 intercept = getIntercept(_line);
+				return isCoordWithinBounds(intercept) && _line.isCoordWithinBounds(intercept);
 			}
 		}
 	};

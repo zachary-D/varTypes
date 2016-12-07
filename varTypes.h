@@ -146,10 +146,8 @@ namespace var
 			bool isCoordWithinBounds(coord2 _pos);		//Returns whether or not '_pos' is within the bounds of a segment. If no bounds are set, the point is within those bounds.
 
 			bool hasIntercept(line _line);
-			bool isInterceptWithinBounds(line _line);
 			coord2 getIntercept(line _line);
-
-			
+			bool isInterceptWithinBounds(line _line);
 		};
 	};
 };
