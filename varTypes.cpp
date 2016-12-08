@@ -448,7 +448,7 @@ namespace var
 
 		float line::getY(float _x)
 		{
-			if(slope.y == 0) return displacement.y;
+			if(slope.x == 0) return _x;
 			else return getSlope() * (_x - displacement.x) + displacement.y;
 		}
 
