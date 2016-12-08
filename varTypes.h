@@ -131,6 +131,7 @@ namespace var
 			float lowyBound;	//The lower y boundary of the line segment
 			float highyBound;	//The upper y boundary of the line segment
 
+			int getSlopeSign();			//Returns 1 or -1, based on the sign of the slope (positive slope = 1, negative slope = -1).  Returns 0 if slope hasn't been set, or is 0, 0.  Horizontal or vertical lines are also considered positive.
 			float getSlope();	//Returns the slope of the line, as a float (slope.y / slope.x)
 			coord2 getSlopeCoord2();	//Returns the slope of the line, in x and y components
 
@@ -152,9 +153,9 @@ namespace var
 			coord2 getIntercept(line _line);
 			bool isInterceptWithinBounds(line _line);
 
+			float getLengthBetween(float _x1, float _x2);		//Returns the length of the segment between _x1 and _x2, ignoring the bounds.
 			float getLengthBetweenBounds();						//Returns the distance (length) of the line segment between the set bounds.  If the lines are infinite (no bounds are set, no y bounds and a vertical line, etc.), 0 is returned. 
 			float getLengthToBounds(float _x, int _direction = 0);		//Returns the length of the line segment from _x to the boundary in _direction (only the sign of the argument is used.  1 would evalute the same as 10000).  If _direction is 0 (or not set) 1 is assumed.
-			float getLengthBetween(float _x1, float _x2);		//Returns the length of the segment between _x1 and _x2, ignoring the bounds.
 			
 			coord2 getCoordAtLength(coord2 _start, float _length);	//Returns the coordinate _length along the line from _start.  If _length is positive the coord to the right will be returned, if negative the coord to the left will be returned.
 
