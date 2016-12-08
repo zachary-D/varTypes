@@ -462,6 +462,22 @@ namespace var
 			return y;
 		}
 
+		float line::getX(float _y)
+		{
+			if(slope.y == 0) return _y;
+			else return (slope.x * (_y - displacement.y) / slope.y) + displacement.x;
+		}
+
+		vector<float> line::getX(vector<float> _y)
+		{
+			vector<float> x;
+			for(int y = 0; y < _y.size(); y++)
+			{
+				x.push_back(getX(_y[y]));
+			}
+			return x;
+		}
+
 		vector<coord2> line::getValuesBetweenBounds(float _interval)
 		{
 			if(xBounds == true)
@@ -556,6 +572,15 @@ namespace var
 				coord2 intercept = getIntercept(_line);
 				return isCoordWithinBounds(intercept) && _line.isCoordWithinBounds(intercept);
 			}
+		}
+
+		float line::getLengthBetweenBounds()
+		{
+			float x_lowy = getY(lowyBound);
+			float x_highy = getY(highyBound);
+			float x_bestLowyBound;
+			if(x_lowy >= x_highy) 
+			
 		}
 	};
 };
