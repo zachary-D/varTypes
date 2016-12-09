@@ -28,9 +28,9 @@ namespace var
 	{
 		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
 		//ci::app::console() << endl << "X_:" + conv::toString(coord2(x + other.x, y + other.y).x) + " Y_:" + conv::toString(coord2(x + other.x, y + other.y).y) << endl << endl;
-		return coord2( x + other.x, y + other.y);
+		return coord2(x + other.x, y + other.y);
 	}
-	
+
 	coord2 coord2::operator-(const coord2 & other)
 	{
 		return coord2(x - other.x, y - other.y);
@@ -90,7 +90,7 @@ namespace var
 		y /= other.y;
 		return coord2(x, y);
 	}
-	
+
 	coord2 coord2::operator/=(const float & other)
 	{
 		x /= other;
@@ -138,7 +138,7 @@ namespace var
 	int coord2::getQuadrant()
 	{
 		//$$
-		if(x >= 0 && y >= 0) return 1; 
+		if(x >= 0 && y >= 0) return 1;
 		else if(x < 0 && y >= 0) return 2;
 		else if(x < 0 && y < 0) return 3;
 		else if(x >= 0 && y < 0) return 4;
@@ -224,8 +224,9 @@ namespace var
 		return ci::Color(R, G, B);
 	}
 
-	square::square() {}
-	
+	square::square()
+	{}
+
 	square::square(coord2 _upperRight, coord2 _lowerLeft)
 	{
 		topY = _upperRight.y;
@@ -233,7 +234,7 @@ namespace var
 		bottomY = _lowerLeft.y;
 		leftX = _lowerLeft.x;
 	}
-	
+
 	square::square(float _leftX, float _rightX, float _bottomY, float _topY)
 	{
 		leftX = _leftX;
@@ -253,7 +254,7 @@ namespace var
 	}
 
 	coord2 square::getBottomLeft()
-	{ 
+	{
 		return coord2(leftX, bottomY);
 	}
 
@@ -360,6 +361,15 @@ namespace var
 			setyBounds(_lowyBound, _highyBound);
 		}
 
+		int line::getSlopeSign()
+		{
+			if(slope.x == 0 && slope.y == 0) return 0;
+			else if((slope.x >= 0 && slope.y >= 0) || (slope.x <= 0 && slope.y <= 0)) return 1;
+			else if((slope.x > 0 && slope.y < 0) || (slope.x < 0 && slope.y > 0)) return -1;
+			_DEBUG_ERROR("Unknown exception.  Returning 0.");
+			return 0;
+		}
+
 		float line::getSlope()
 		{
 			if(slope.x != 0) return slope.y / slope.x;
@@ -448,7 +458,7 @@ namespace var
 
 		float line::getY(float _x)
 		{
-			if(slope.y == 0) return displacement.y;
+			if(slope.x == 0) return _x;
 			else return getSlope() * (_x - displacement.x) + displacement.y;
 		}
 
@@ -460,6 +470,22 @@ namespace var
 				y.push_back(getY(_x[x]));
 			}
 			return y;
+		}
+
+		float line::getX(float _y)
+		{
+			if(slope.y == 0) return _y;
+			else return (slope.x * (_y - displacement.y) / slope.y) + displacement.x;
+		}
+
+		vector<float> line::getX(vector<float> _y)
+		{
+			vector<float> x;
+			for(int y = 0; y < _y.size(); y++)
+			{
+				x.push_back(getX(_y[y]));
+			}
+			return x;
 		}
 
 		vector<coord2> line::getValuesBetweenBounds(float _interval)
@@ -507,7 +533,7 @@ namespace var
 			{
 				if(displacement == _line.displacement) return true;
 				if(displacement != _line.displacement)
-				{		
+				{
 					//Checks if the displacement + the slope * a constant == the displacement of the argument, for x and y, and checks if the constant is the same for both x and y
 					if((_line.displacement.x - displacement.x) / slope.x == (_line.displacement.y - displacement.y) / slope.y) return true;
 				}
@@ -556,6 +582,96 @@ namespace var
 				coord2 intercept = getIntercept(_line);
 				return isCoordWithinBounds(intercept) && _line.isCoordWithinBounds(intercept);
 			}
+		}
+
+		float line::getLengthBetween(float _x1, float _x2)
+		{
+			return sqrt(pow((_x1 - _x2), 2) + pow(getY(_x1) - getY(_x2), 2));
+		}
+
+		float line::getLengthBetweenBounds()
+		{
+			if(yBounds == false && xBounds == false) return 0;		//The length would be infinite
+			float x_lowy;			//The greater value of x_lowy and x_highy
+			float x_highy;			//The lesser value of x_lowy and x_highy
+			float lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
+			if(yBounds)
+			{
+				if(getSlopeSign() > 0)
+				{
+					x_lowy = getX(lowxBound);
+					x_highy = getX(highyBound);
+				}
+				else if(getSlopeSign() < 0)
+				{
+					x_lowy = getX(highyBound);
+					x_highy = getX(lowyBound);
+				}
+			}
+			if(xBounds == true && yBounds == true)
+			{
+				if(lowxBound >= x_lowy) lowx = lowxBound;
+				else if(lowxBound < x_lowy) lowx = x_lowy;
+				else lowx = lowxBound;
+			}
+			else if(xBounds == false && yBounds == true)
+			{
+				lowx = x_lowy;
+				highx = x_highy;
+			}
+			else if(yBounds == false)
+			{
+				lowx = lowxBound;
+				highx = highxBound;
+			}
+			return getLengthBetween(lowx, highx);
+			return 0;		//An error value, incase something goes wrong
+		}
+
+		float line::getLengthToBounds(float _x, int _direction)
+		{
+			if(yBounds == false && xBounds == false) return 0;		//The length would be infinite
+			float x_lowy;			//The greater value of x_lowy and x_highy
+			float x_highy;			//The lesser value of x_lowy and x_highy
+			float lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
+			if(yBounds)
+			{
+				if(getSlopeSign() > 0)
+				{
+					x_lowy = getX(lowxBound);
+					x_highy = getX(highyBound);
+				}
+				else if(getSlopeSign() < 0)
+				{
+					x_lowy = getX(highyBound);
+					x_highy = getX(lowyBound);
+				}
+			}
+			if(xBounds == true && yBounds == true)
+			{
+				if(lowxBound >= x_lowy) lowx = lowxBound;
+				else if(lowxBound < x_lowy) lowx = x_lowy;
+				else lowx = lowxBound;
+			}
+			else if(xBounds == false && yBounds == true)
+			{
+				lowx = x_lowy;
+				highx = x_highy;
+			}
+			else if(yBounds == false)
+			{
+				lowx = lowxBound;
+				highx = highxBound;
+			}
+			if(_direction >= 0) lowx = _x;
+			else if(_direction < 0) highx = _x;
+			return getLengthBetween(lowx, highx);
+			return 0;		//An error value, incase something goes wrong
+		}
+
+		coord2 line::getCoordAtLength(coord2 _start, float _length)
+		{
+			return _start + (slope * (_length / sqrt(pow(slope.x, 2) + pow(slope.y, 2))));
 		}
 	};
 };
