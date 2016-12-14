@@ -160,5 +160,20 @@ namespace var
 			coord2 getCoordAtLength(coord2 _start, float _length);	//Returns the coordinate _length along the line from _start.  If _length is positive the coord to the right will be returned, if negative the coord to the left will be returned.
 
 		};
+
+		class circle
+		{
+		public:
+			circle(coord2 _center, float _radius = 1);
+
+			coord2 center;
+			float radius;
+
+			bool setCenter(coord2 _center);
+			bool setRadius(float _radius);
+
+			coord2 getCenter();
+			float getRadius();
+		};
 	};
 };
