@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES;
 
 #include <string>
 
@@ -103,6 +104,8 @@ namespace var
 
 	namespace math
 	{
+		const double pi = 4 * atan(1);
+
 		class line
 		{
 		public:
@@ -174,6 +177,12 @@ namespace var
 
 			coord2 getCenter();
 			float getRadius();
+
+			float getCircumference();
+			float getArea();
+
+			int getNumIntercepts(line _line);				//returns the number of intercept points the circle and the line passed to the function have.  (returns 0 if none, duh)
+			vector<coord2> getIntercept(line _line);	//Returns the intercept point(s) of the circle and the line passed to the function, if any
 		};
 	};
 };

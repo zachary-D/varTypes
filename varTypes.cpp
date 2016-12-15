@@ -673,5 +673,55 @@ namespace var
 		{
 			return _start + (slope * (_length / sqrt(pow(slope.x, 2) + pow(slope.y, 2))));
 		}
+
+		circle::circle(coord2 _center, float _radius)
+		{
+			setCenter(_center);
+			setRadius(_radius);
+		}
+
+		bool circle::setCenter(coord2 _center)
+		{
+			center = _center;
+			return true;
+		}
+
+		bool circle::setRadius(float _radius)
+		{
+			if(_radius > 0)
+			{
+				radius = _radius;
+				return true;
+			}
+			else radius = 1;
+			return false;
+		}
+
+		coord2 circle::getCenter()
+		{
+			return center;
+		}
+
+		float circle::getRadius()
+		{
+			return radius;
+		}
+
+		float circle::getCircumference()
+		{
+			return 2 * pi * getRadius();
+		}
+
+		float circle::getArea()
+		{
+			return pi * getRadius() * getRadius();
+		}
+
+		int circle::getNumIntercepts(line _line)
+		{
+			float rad 
+		}
+
+		
 	};
 };
