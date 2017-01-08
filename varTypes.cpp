@@ -4,9 +4,6 @@
 
 using namespace std;
 
-#include "cinder\Color.h"
-#include "cinder\app\AppNative.h"
-
 #include "varConv.h"
 #include "varTypes.h"
 
@@ -125,11 +122,6 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
-	ci::Vec2f coord2::toVec2f()
-	{
-		return ci::Vec2f(x, y);
-	}
-
 	string coord2::toString()
 	{
 		return("x: " + conv::toString(x) + ", y: " + conv::toString(y));
@@ -195,11 +187,6 @@ namespace var
 		else return false;
 	}
 
-	ci::Vec3f coord3::toVec3f()
-	{
-		return ci::Vec3f(x, y, z);
-	}
-
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -212,16 +199,6 @@ namespace var
 		R = r;
 		G = g;
 		B = b;
-	}
-
-	ci::Color color_RGB::toColor()
-	{
-		return ci::Color(R, G, B);
-	}
-
-	ci::Color color_RGB::toCinderColor()
-	{
-		return ci::Color(R, G, B);
 	}
 
 	square::square()
@@ -719,7 +696,7 @@ namespace var
 
 		int circle::getNumIntercepts(line _line)
 		{
-			float rad 
+			return 0;
 		}
 
 		

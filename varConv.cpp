@@ -11,23 +11,9 @@
 #include<vector>
 #include<new>
 
-#include "cinder/app/AppNative.h"
-#include "cinder/gl/gl.h"
-#include "cinder/gl/Texture.h"
-#include "cinder/Text.h"
-#include "cinder/app/App.h"
-#include "cinder/Font.h"
-#include "cinder/gl/Texture.h"
-#include "cinder/gl/TextureFont.h"
-#include "cinder/ImageIo.h"
-#include "cinder/app/window.h"
-
 #include "varTypes.h"
 
 using namespace std;
-
-using namespace ci;
-using namespace ci::app;
 
 stringstream convert;
 string strOut;

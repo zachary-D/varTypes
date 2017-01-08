@@ -1,12 +1,10 @@
 #pragma once
-#define _USE_MATH_DEFINES;
+#define _USE_MATH_DEFINES
 
 #include <string>
+#include <vector>
 
 using namespace std;
-
-#include "cinder\Color.h"
-#include "cinder\app\AppNative.h"
 
 namespace var
 {
@@ -36,7 +34,6 @@ namespace var
 		coord2 negatedX();
 		coord2 negatedY();
 		coord2 negated();
-		ci::Vec2f toVec2f();
 		string toString();
 		int getQuadrant();
 	};
@@ -66,7 +63,6 @@ namespace var
 		coord3 negatedXZ();
 		coord3 negatedYZ();
 		coord3 negated();*/
-		ci::Vec3f toVec3f();
 		//coord3 toString();
 	};
 
@@ -79,9 +75,6 @@ namespace var
 		float R;
 		float G;
 		float B;
-
-		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
-		ci::Color toCinderColor();	//Returns the color formatted in a way Cinder accepts
 	};
 
 	class square
