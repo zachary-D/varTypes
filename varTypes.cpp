@@ -738,8 +738,10 @@ namespace var
 			switch(getNumIntercepts(_line))
 			{
 				case 0:
+				{
 					return vector<coord2>();
 					break;
+				}
 				case 1:
 				{
 					double x = -B / 2 * A;
@@ -747,10 +749,12 @@ namespace var
 					break;
 				}
 				case 2:
+				{
 					double x1 = (-B + sqrt(discriminant)) / (2 * A);
 					double x2 = (-B - sqrt(discriminant)) / (2 * A);
 					return {coord2(x1, _line.getY(x1)), coord2(x2, _line.getY(x2))};
 					break;
+				}
 			}
 		}	
 	};
