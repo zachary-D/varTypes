@@ -18,7 +18,7 @@ namespace var
 		y = 0;
 	}
 
-	coord2::coord2(float X, float Y)
+	coord2::coord2(double X, double Y)
 	{
 		x = X;
 		y = Y;
@@ -41,7 +41,7 @@ namespace var
 		return coord2(x * other.x, y * other.y);
 	}
 
-	coord2 coord2::operator*(const float & other)
+	coord2 coord2::operator*(const double & other)
 	{
 		return coord2(x * other, y * other);
 	}
@@ -51,7 +51,7 @@ namespace var
 		return coord2(x / other.x, y / other.y);
 	}
 
-	coord2 coord2::operator/(const float & other)
+	coord2 coord2::operator/(const double & other)
 	{
 		return coord2(x / other, y / other);
 	}
@@ -77,7 +77,7 @@ namespace var
 		return coord2(x, y);
 	}
 
-	coord2 coord2::operator*=(const float & other)
+	coord2 coord2::operator*=(const double & other)
 	{
 		x *= other;
 		y *= other;
@@ -91,7 +91,7 @@ namespace var
 		return coord2(x, y);
 	}
 
-	coord2 coord2::operator/=(const float & other)
+	coord2 coord2::operator/=(const double & other)
 	{
 		x /= other;
 		y /= other;
@@ -152,7 +152,7 @@ namespace var
 		z = 0;
 	}
 
-	coord3::coord3(float X, float Y, float Z)
+	coord3::coord3(double X, double Y, double Z)
 	{
 		x = X;
 		y = Y;
@@ -174,7 +174,7 @@ namespace var
 		return coord3(x * other.x, y * other.y, z * other.z);
 	}
 
-	coord3 coord3::operator*(const float& other)
+	coord3 coord3::operator*(const double& other)
 	{
 		return coord3(x * other, y * other, z * other);
 	}
@@ -184,7 +184,7 @@ namespace var
 		return coord3(x / other.x, y / other.y, z / other.z);
 	}
 
-	coord3 coord3::operator/(const float& other)
+	coord3 coord3::operator/(const double& other)
 	{
 		return coord3(x / other, y / other, z / other);
 	}
@@ -207,7 +207,7 @@ namespace var
 		B = 0;
 	}
 
-	color_RGB::color_RGB(float r, float g, float b)
+	color_RGB::color_RGB(double r, double g, double b)
 	{
 		R = r;
 		G = g;
@@ -235,7 +235,7 @@ namespace var
 		leftX = _lowerLeft.x;
 	}
 
-	square::square(float _leftX, float _rightX, float _bottomY, float _topY)
+	square::square(double _leftX, double _rightX, double _bottomY, double _topY)
 	{
 		leftX = _leftX;
 		rightX = _rightX;
@@ -273,7 +273,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound)
+		line::line(coord2 _slope, coord2 _displacement, double _lowxBound, double _highxBound)
 		{
 			setSlope(_slope);
 			displacement = _displacement;
@@ -281,7 +281,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(coord2 _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		line::line(coord2 _slope, coord2 _displacement, double _lowxBound, double _highxBound, double _lowyBound, double _highyBound)
 		{
 			setSlope(_slope);
 			displacement = _displacement;
@@ -289,7 +289,7 @@ namespace var
 			setyBounds(_lowyBound, _highyBound);
 		}
 
-		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement)
+		line::line(coord2 _slope, double _xDisplacement, double _yDisplacement)
 		{
 			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -297,7 +297,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
+		line::line(coord2 _slope, double _xDisplacement, double _yDisplacement, double _lowxBound, double _highxBound)
 		{
 			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -305,7 +305,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(coord2 _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		line::line(coord2 _slope, double _xDisplacement, double _yDisplacement, double _lowxBound, double _highxBound, double _lowyBound, double _highyBound)
 		{
 			setSlope(_slope);
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -313,7 +313,7 @@ namespace var
 			setyBounds(_lowyBound, _highyBound);
 		}
 
-		line::line(float _slope, coord2 _displacement)
+		line::line(double _slope, coord2 _displacement)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = _displacement;
@@ -321,7 +321,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound)
+		line::line(double _slope, coord2 _displacement, double _lowxBound, double _highxBound)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = _displacement;
@@ -329,7 +329,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(float _slope, coord2 _displacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		line::line(double _slope, coord2 _displacement, double _lowxBound, double _highxBound, double _lowyBound, double _highyBound)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = _displacement;
@@ -337,7 +337,7 @@ namespace var
 			setyBounds(_lowyBound, _highyBound);
 		}
 
-		line::line(float _slope, float _xDisplacement, float _yDisplacement)
+		line::line(double _slope, double _xDisplacement, double _yDisplacement)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -345,7 +345,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound)
+		line::line(double _slope, double _xDisplacement, double _yDisplacement, double _lowxBound, double _highxBound)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -353,7 +353,7 @@ namespace var
 			yBounds = false;
 		}
 
-		line::line(float _slope, float _xDisplacement, float _yDisplacement, float _lowxBound, float _highxBound, float _lowyBound, float _highyBound)
+		line::line(double _slope, double _xDisplacement, double _yDisplacement, double _lowxBound, double _highxBound, double _lowyBound, double _highyBound)
 		{
 			setSlope(coord2(1, _slope));
 			displacement = var::coord2(_xDisplacement, _yDisplacement);
@@ -370,7 +370,7 @@ namespace var
 			return 0;
 		}
 
-		float line::getSlope()
+		double line::getSlope()
 		{
 			if(slope.x != 0) return slope.y / slope.x;
 			else
@@ -400,7 +400,7 @@ namespace var
 			}
 		}
 
-		bool line::setxBounds(float _lowxBound, float _highxBound)
+		bool line::setxBounds(double _lowxBound, double _highxBound)
 		{
 			if(_lowxBound < _highxBound)
 			{
@@ -428,7 +428,7 @@ namespace var
 			return xBounds;
 		}
 
-		bool line::setyBounds(float _lowyBound, float _highyBound)
+		bool line::setyBounds(double _lowyBound, double _highyBound)
 		{
 			if(_lowyBound < _highyBound)
 			{
@@ -456,15 +456,15 @@ namespace var
 			return yBounds;
 		}
 
-		float line::getY(float _x)
+		double line::getY(double _x)
 		{
 			if(slope.x == 0) return _x;
 			else return getSlope() * (_x - displacement.x) + displacement.y;
 		}
 
-		vector<float> line::getY(vector<float> _x)
+		vector<double> line::getY(vector<double> _x)
 		{
-			vector<float> y;
+			vector<double> y;
 			for(int x = 0; x < _x.size(); x++)
 			{
 				y.push_back(getY(_x[x]));
@@ -472,15 +472,15 @@ namespace var
 			return y;
 		}
 
-		float line::getX(float _y)
+		double line::getX(double _y)
 		{
 			if(slope.y == 0) return _y;
 			else return (slope.x * (_y - displacement.y) / slope.y) + displacement.x;
 		}
 
-		vector<float> line::getX(vector<float> _y)
+		vector<double> line::getX(vector<double> _y)
 		{
-			vector<float> x;
+			vector<double> x;
 			for(int y = 0; y < _y.size(); y++)
 			{
 				x.push_back(getX(_y[y]));
@@ -488,14 +488,14 @@ namespace var
 			return x;
 		}
 
-		vector<coord2> line::getValuesBetweenBounds(float _interval)
+		vector<coord2> line::getValuesBetweenBounds(double _interval)
 		{
 			if(xBounds == true)
 			{
 				vector<coord2> ret;
-				for(float x = lowxBound; x < highxBound; x += _interval)
+				for(double x = lowxBound; x < highxBound; x += _interval)
 				{
-					float y = getY(x);
+					double y = getY(x);
 					if(yBounds == false || lowyBound <= y && y <= highyBound)
 					{
 						ret.push_back(var::coord2(x, y));
@@ -503,7 +503,7 @@ namespace var
 				}
 				if(highxBound != ret[ret.size() - 1].x)
 				{
-					float y = getY(highxBound);
+					double y = getY(highxBound);
 					if(yBounds == false || lowyBound <= y && y <= highyBound)
 					{
 						ret.push_back(var::coord2(highxBound, y));
@@ -568,7 +568,7 @@ namespace var
 				}
 				else
 				{
-					float x = (_line.displacement.y - displacement.y + (getSlope() * displacement.x) - (_line.getSlope() * _line.displacement.x)) / (getSlope() - _line.getSlope());
+					double x = (_line.displacement.y - displacement.y + (getSlope() * displacement.x) - (_line.getSlope() * _line.displacement.x)) / (getSlope() - _line.getSlope());
 					return var::coord2(x, getY(x));
 				}
 			}
@@ -584,17 +584,17 @@ namespace var
 			}
 		}
 
-		float line::getLengthBetween(float _x1, float _x2)
+		double line::getLengthBetween(double _x1, double _x2)
 		{
 			return sqrt(pow((_x1 - _x2), 2) + pow(getY(_x1) - getY(_x2), 2));
 		}
 
-		float line::getLengthBetweenBounds()
+		double line::getLengthBetweenBounds()
 		{
 			if(yBounds == false && xBounds == false) return 0;		//The length would be infinite
-			float x_lowy;			//The greater value of x_lowy and x_highy
-			float x_highy;			//The lesser value of x_lowy and x_highy
-			float lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
+			double x_lowy;			//The greater value of x_lowy and x_highy
+			double x_highy;			//The lesser value of x_lowy and x_highy
+			double lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
 			if(yBounds)
 			{
 				if(getSlopeSign() > 0)
@@ -628,12 +628,12 @@ namespace var
 			return 0;		//An error value, incase something goes wrong
 		}
 
-		float line::getLengthToBounds(float _x, int _direction)
+		double line::getLengthToBounds(double _x, int _direction)
 		{
 			if(yBounds == false && xBounds == false) return 0;		//The length would be infinite
-			float x_lowy;			//The greater value of x_lowy and x_highy
-			float x_highy;			//The lesser value of x_lowy and x_highy
-			float lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
+			double x_lowy;			//The greater value of x_lowy and x_highy
+			double x_highy;			//The lesser value of x_lowy and x_highy
+			double lowx, highx;		//The best x and y values that represent the best bounds (basically the innermost boudnaries)
 			if(yBounds)
 			{
 				if(getSlopeSign() > 0)
@@ -669,15 +669,22 @@ namespace var
 			return 0;		//An error value, incase something goes wrong
 		}
 
-		coord2 line::getCoordAtLength(coord2 _start, float _length)
+		coord2 line::getCoordAtLength(coord2 _start, double _length)
 		{
 			return _start + (slope * (_length / sqrt(pow(slope.x, 2) + pow(slope.y, 2))));
 		}
 
-		circle::circle(coord2 _center, float _radius)
+		circle::circle(coord2 _center, double _radius)
 		{
 			setCenter(_center);
 			setRadius(_radius);
+		}
+
+		void circle::calculateQuad(line _line)
+		{
+			A = pow(_line.getSlope(), 2) + 1;
+			B = -2 * (center.x + (_line.displacement.x * pow(_line.getSlope(), 2)) - (_line.displacement.y * _line.getSlope()) + (center.y * _line.getSlope()));
+			C = pow(center.x, 2) + (pow(_line.displacement.x, 2) * pow(_line.getSlope(), 2)) - (2 * _line.displacement.x * _line.getSlope() * (_line.displacement.y - center.y)) + pow(_line.displacement.y - center.y, 2) - pow(radius, 2);
 		}
 
 		bool circle::setCenter(coord2 _center)
@@ -686,7 +693,7 @@ namespace var
 			return true;
 		}
 
-		bool circle::setRadius(float _radius)
+		bool circle::setRadius(double _radius)
 		{
 			if(_radius > 0)
 			{
@@ -702,26 +709,53 @@ namespace var
 			return center;
 		}
 
-		float circle::getRadius()
+		double circle::getRadius()
 		{
 			return radius;
 		}
 
-		float circle::getCircumference()
+		double circle::getCircumference()
 		{
 			return 2 * pi * getRadius();
 		}
 
-		float circle::getArea()
+		double circle::getArea()
 		{
 			return pi * getRadius() * getRadius();
 		}
 
 		int circle::getNumIntercepts(line _line)
 		{
-			float rad 
+			calculateQuad(_line);
+			discriminant = pow(B, 2) - (4 * A * C);
+			if(discriminant < 0) return 0;
+			else if(discriminant == 0) return 1;
+			else if(discriminant > 0) return 2;
 		}
 
-		
+		vector<coord2> circle::getIntercept(line _line)
+		{
+			switch(getNumIntercepts(_line))
+			{
+				case 0:
+				{
+					return vector<coord2>();
+					break;
+				}
+				case 1:
+				{
+					double x = -B / 2 * A;
+					return {coord2(x, _line.getY(x))};
+					break;
+				}
+				case 2:
+				{
+					double x1 = (-B + sqrt(discriminant)) / (2 * A);
+					double x2 = (-B - sqrt(discriminant)) / (2 * A);
+					return {coord2(x1, _line.getY(x1)), coord2(x2, _line.getY(x2))};
+					break;
+				}
+			}
+		}	
 	};
 };
