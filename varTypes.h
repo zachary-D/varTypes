@@ -6,8 +6,10 @@
 using namespace std;
 
 #ifdef USING_CINDER
-#include "cinder\Color.h"
-#include "cinder\app\AppNative.h"
+#include "cinder/Color.h"
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
 #endif
 
 namespace var
@@ -40,7 +42,7 @@ namespace var
 		coord2 negated();
 
 	#ifdef USING_CINDER
-		ci::Vec2f toVec2f();
+		glm::vec2 toVec2();
 	#endif
 		string toString();
 		int getQuadrant();
@@ -73,7 +75,7 @@ namespace var
 		coord3 negatedYZ();
 		coord3 negated();*/
 	#ifdef USING_CINDER
-		ci::Vec3f toVec3f();
+		glm::vec3 toVec3();
 	#endif
 		//coord3 toString();
 	};
@@ -111,6 +113,7 @@ namespace var
 		coord2 getBottomRight();
 	};
 
+#ifdef USING_VARTYPES_CHEM
 	namespace chem
 	{
 		class element
@@ -273,4 +276,5 @@ namespace var
 			bool calculateValues();		//claulates every value possible based of existing values
 		};
 	};
+#endif
 };

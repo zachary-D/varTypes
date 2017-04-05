@@ -134,7 +134,7 @@ namespace var
 #ifdef USING_CINDER
 	ci::Vec2f coord2::toVec2f()
 	{
-		return ci::Vec2f(x, y);
+		return glm::vec2(x, y);
 	}
 #endif
 
@@ -150,7 +150,11 @@ namespace var
 		else if(x < 0 && y >= 0) return 2;
 		else if(x < 0 && y < 0) return 3;
 		else if(x >= 0 && y < 0) return 4;
-		else _DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.");
+		else
+		{
+			_DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.  Defaulting to 1");
+			return 1;
+		}
 	}
 
 	coord3::coord3()
@@ -276,6 +280,7 @@ namespace var
 		return coord2(rightX, bottomY);
 	}
 
+#ifdef USING_VARTYPES_CHEM
 	namespace chem
 	{
 		element::element(bool autoFill)
@@ -1155,4 +1160,5 @@ namespace var
 			return totalChange;
 		}
 	}
+#endif
 }
