@@ -16,8 +16,10 @@ namespace conv
 	string toString(var::coord2 inp, bool multiLine = true);
 	string toString(var::color_RGB inp, bool multiLine = true);
 	string toString(bool inp);
-	string toLowercase(string& inp, bool changeArg = true);
-	string toUppercase(string& inp, bool changeArg = true);
+	string toLowercase(string & inp, bool changeArg = true);
+	char toLowercase(char & inp, bool changeArg = false);
+	string toUppercase(string & inp, bool changeArg = true);
+	char toUppercase(char & inp, bool changeArg = false);
 	bool isNum(string inp);
 	float toNum(string inp);
 	bool isBool(string inp);

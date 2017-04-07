@@ -108,6 +108,22 @@ namespace conv
 		return ret;
 	}
 
+	char toLowercase(char & inp, bool changeArg)
+	{
+		char ret;
+		if(changeArg)
+		{
+			inp = tolower(inp);
+			ret = inp;
+		}
+		else
+		{
+			ret = inp;
+			ret = tolower(ret);
+		}
+		return ret;
+	}
+
 	string toUppercase(string & inp, bool changeArg = true)		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES
 	{
 		string ret;
@@ -119,6 +135,22 @@ namespace conv
 		else
 		{
 			transform(inp.begin(), inp.end(), ret.begin(), toupper);
+		}
+		return ret;
+	}
+
+	char toUppercase(char & inp, bool changeArg)
+	{
+		char ret;
+		if(changeArg)
+		{
+			inp = toupper(inp);
+			ret = inp;
+		}
+		else
+		{
+			ret = inp;
+			ret = toupper(ret);
 		}
 		return ret;
 	}
