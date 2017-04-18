@@ -41,7 +41,7 @@ namespace var
 		coord2 negated();
 
 	#ifdef USING_CINDER
-		glm::vec2 toVec2();
+		ci::Vec2f toVec2f();
 	#endif
 		string toString();
 		int getQuadrant();
