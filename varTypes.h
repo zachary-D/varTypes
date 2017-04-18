@@ -11,6 +11,14 @@ using namespace std;
 #ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#include "cinder/Text.h"
+#include "cinder/app/App.h"
+#include "cinder/Font.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/gl/TextureFont.h"
+#include "cinder/ImageIo.h"
+#include "cinder/app/window.h"
+#include "cinder/gl/gl.h"
 #endif
 
 namespace var
@@ -20,6 +28,10 @@ namespace var
 	public:
 		coord2();
 		coord2(double X, double Y);
+#ifdef USING_CINDER
+		coord2(ci::Vec2f coordinate);
+		coord2(ci::Vec2i coordinate);
+#endif
 
 		coord2 operator+(const coord2 & other);
 		coord2 operator-(const coord2 & other);
