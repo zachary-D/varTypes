@@ -1,6 +1,8 @@
 #pragma once
 #define _USE_MATH_DEFINES
 
+//In order to use the cinder-compatable functions, enable the USING_CINDER preprocessor directive
+
 #include <string>
 #include <vector>
 
