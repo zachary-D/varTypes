@@ -4,10 +4,11 @@
 
 using namespace std;
 
+#ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#endif
 
-#include "varConv.h"
 #include "varTypes.h"
 
 namespace var
@@ -125,10 +126,12 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
+#ifdef USING_CINDER
 	ci::Vec2f coord2::toVec2f()
 	{
 		return ci::Vec2f(x, y);
 	}
+#endif
 
 	string coord2::toString()
 	{
@@ -195,10 +198,12 @@ namespace var
 		else return false;
 	}
 
+#ifdef USING_CINDER
 	ci::Vec3f coord3::toVec3f()
 	{
 		return ci::Vec3f(x, y, z);
 	}
+#ifdef
 
 	color_RGB::color_RGB()
 	{
@@ -214,6 +219,7 @@ namespace var
 		B = b;
 	}
 
+#ifdef USING_CINDER
 	ci::Color color_RGB::toColor()
 	{
 		return ci::Color(R, G, B);
@@ -223,6 +229,7 @@ namespace var
 	{
 		return ci::Color(R, G, B);
 	}
+#endif
 
 	square::square()
 	{}

@@ -6,8 +6,10 @@
 
 using namespace std;
 
+#ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#endif
 
 namespace var
 {
@@ -67,7 +69,9 @@ namespace var
 		coord3 negatedXZ();
 		coord3 negatedYZ();
 		coord3 negated();*/
+	#ifdef USING_CINDER
 		ci::Vec3f toVec3f();
+	#endif
 		//coord3 toString();
 	};
 
@@ -77,12 +81,14 @@ namespace var
 		color_RGB();
 		color_RGB(double r, double g, double b);
 
-
 		double R;
 		double G;
 		double B;
+
+	#ifdef USING_CINDER
 		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
 		ci::Color toCinderColor();	//Returns the color formatted in a way Cinder accepts
+	#endif
 	};
 
 	class square
