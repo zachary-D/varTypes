@@ -14,6 +14,7 @@ using namespace std;
 #endif
 
 #include "varTypes.h"
+#include "varConv.h"
 
 namespace var
 {
