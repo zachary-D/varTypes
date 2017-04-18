@@ -133,7 +133,7 @@ namespace var
 #ifdef USING_CINDER
 	ci::Vec2f coord2::toVec2f()
 	{
-		return glm::vec2(x, y);
+		return ci::Vec2f(x, y);
 	}
 #endif
 
