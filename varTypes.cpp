@@ -1,5 +1,8 @@
 #pragma once
 
+//Written by and copyright Zachary Damato
+//varTypes.cpp is part of the varTypes submodule
+
 #include <string>
 
 using namespace std;
