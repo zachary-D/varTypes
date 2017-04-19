@@ -1,5 +1,8 @@
 #pragma once
 
+//Written by and copyright Zachary Damato
+//varConv.cpp is part of the varTypes submodule
+
 #include<iostream>
 #include<sstream>
 #include<string>

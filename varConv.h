@@ -1,9 +1,12 @@
 #pragma once
 
+//Written by and copyright Zachary Damato
+//varConv.h is part of the varTypes submodule
+
 #include<string>
 #include<time.h>
 
-#include "varTypes.h"
+#include "varTypes/varTypes.h"
 
 using namespace std;
 

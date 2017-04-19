@@ -1,6 +1,9 @@
 #pragma once
 #define _USE_MATH_DEFINES
 
+//Written by and copyright Zachary Damato
+//varTypes.h is part of the varTypes submodule
+
 //Preprocessor directives for enabling different code sections
 //		Directive				Description
 //		USING_CINDER			Enables Cinder-exclusive functions (i.e. conversion from internal color type to Cinder's color type)
