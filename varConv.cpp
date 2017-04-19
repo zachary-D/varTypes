@@ -11,6 +11,18 @@
 #include<vector>
 #include<new>
 
+#ifdef USING_CINDER
+#include "cinder/app/AppNative.h"
+#include "cinder/Text.h"
+#include "cinder/app/App.h"
+#include "cinder/Font.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/gl/TextureFont.h"
+#include "cinder/ImageIo.h"
+#include "cinder/app/window.h"
+#include "cinder/gl/gl.h"
+#endif
+
 #include "varTypes.h"
 
 using namespace std;
@@ -200,4 +212,11 @@ namespace conv
 		else if(inp == 0) return false;
 		else return false;
 	}
+
+#ifdef USING_CINDER
+	var::coord2 toCoord2(ci::Vec2f coordinate)
+	{
+		return var::coord2(coordinate.x, coordinate.y);
+	}
+#endif
 }

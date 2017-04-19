@@ -1,7 +1,10 @@
 #pragma once
 #define _USE_MATH_DEFINES
 
-//In order to use the cinder-compatable functions, enable the USING_CINDER preprocessor directive
+//Preprocessor directives for enabling different code sections
+//		Directive				Description
+//		USING_CINDER			Enables Cinder-exclusive functions (i.e. conversion from internal color type to Cinder's color type)
+//		USING_VARTYPES_CHEM		Enables chemistry based variables and functions (Very much incomplete)
 
 #include <string>
 #include <vector>
@@ -11,6 +14,14 @@ using namespace std;
 #ifdef USING_CINDER
 #include "cinder\Color.h"
 #include "cinder\app\AppNative.h"
+#include "cinder/Text.h"
+#include "cinder/app/App.h"
+#include "cinder/Font.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/gl/TextureFont.h"
+#include "cinder/ImageIo.h"
+#include "cinder/app/window.h"
+#include "cinder/gl/gl.h"
 #endif
 
 namespace var
@@ -20,6 +31,10 @@ namespace var
 	public:
 		coord2();
 		coord2(double X, double Y);
+#ifdef USING_CINDER
+		coord2(ci::Vec2f coordinate);
+		coord2(ci::Vec2i coordinate);
+#endif
 
 		coord2 operator+(const coord2 & other);
 		coord2 operator-(const coord2 & other);

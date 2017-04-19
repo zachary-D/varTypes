@@ -29,7 +29,19 @@ namespace var
 		x = X;
 		y = Y;
 	}
+#ifdef USING_CINDER
+	coord2::coord2(ci::Vec2f coordinate)
+	{
+		x = coordinate.x;
+		y = coordinate.y;
+	}
 
+	coord2::coord2(ci::Vec2i coordinate)
+	{
+		x = coordinate.x;
+		y = coordinate.y;
+	}
+#endif
 	coord2 coord2::operator+(const coord2 & other)
 	{
 		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
