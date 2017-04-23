@@ -65,6 +65,7 @@ namespace var
 	#endif
 		string toString();
 		int getQuadrant();
+		double distanceTo(coord2 other);
 	};
 
 	class coord3
