@@ -172,6 +172,11 @@ namespace var
 		}
 	}
 
+	double coord2::distanceTo(coord2 other)
+	{
+		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
+	}
+
 	coord3::coord3()
 	{
 		x = 0;
