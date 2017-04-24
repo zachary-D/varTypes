@@ -47,8 +47,6 @@ namespace var
 #endif
 	coord2 coord2::operator+(const coord2 & other)
 	{
-		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
-		//ci::app::console() << endl << "X_:" + conv::toString(coord2(x + other.x, y + other.y).x) + " Y_:" + conv::toString(coord2(x + other.x, y + other.y).y) << endl << endl;
 		return coord2(x + other.x, y + other.y);
 	}
 
@@ -160,7 +158,6 @@ namespace var
 
 	int coord2::getQuadrant()
 	{
-		//$$
 		if(x >= 0 && y >= 0) return 1;
 		else if(x < 0 && y >= 0) return 2;
 		else if(x < 0 && y < 0) return 3;
@@ -451,7 +448,6 @@ namespace var
 			}
 			else if(_lowxBound > _highxBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowxBound is greater than _highxBound.  Swapping low and high bounds.");
 				lowxBound = _highxBound;
 				highxBound = _lowxBound;
 				xBounds = true;
@@ -479,7 +475,6 @@ namespace var
 			}
 			else if(_lowyBound > _highyBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowyBound is greater than _highyBound.  Swapping low and high bounds.");
 				lowyBound = _highyBound;
 				highyBound = _lowyBound;
 				yBounds = true;
