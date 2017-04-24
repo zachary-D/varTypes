@@ -47,8 +47,6 @@ namespace var
 #endif
 	coord2 coord2::operator+(const coord2 & other)
 	{
-		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
-		//ci::app::console() << endl << "X_:" + conv::toString(coord2(x + other.x, y + other.y).x) + " Y_:" + conv::toString(coord2(x + other.x, y + other.y).y) << endl << endl;
 		return coord2(x + other.x, y + other.y);
 	}
 
@@ -160,7 +158,6 @@ namespace var
 
 	int coord2::getQuadrant()
 	{
-		//$$
 		if(x >= 0 && y >= 0) return 1;
 		else if(x < 0 && y >= 0) return 2;
 		else if(x < 0 && y < 0) return 3;
@@ -170,6 +167,11 @@ namespace var
 			_DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.  Defaulting to 1");
 			return 1;
 		}
+	}
+
+	double coord2::distanceTo(coord2 other)
+	{
+		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
 	}
 
 	coord3::coord3()
@@ -252,6 +254,11 @@ namespace var
 	ci::Color color_RGB::toCinderColor()
 	{
 		return ci::Color(R, G, B);
+	}
+	ci::ColorA color_RGB::toCinderColorA()
+	{
+		if (0 <= A && A <= 1) return ci::ColorA(R, G, B, A);
+		return ci::ColorA(R, G, B, 1);
 	}
 #endif
 
@@ -441,7 +448,6 @@ namespace var
 			}
 			else if(_lowxBound > _highxBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowxBound is greater than _highxBound.  Swapping low and high bounds.");
 				lowxBound = _highxBound;
 				highxBound = _lowxBound;
 				xBounds = true;
@@ -469,7 +475,6 @@ namespace var
 			}
 			else if(_lowyBound > _highyBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowyBound is greater than _highyBound.  Swapping low and high bounds.");
 				lowyBound = _highyBound;
 				highyBound = _lowyBound;
 				yBounds = true;
