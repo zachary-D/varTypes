@@ -109,10 +109,12 @@ namespace var
 		double R;
 		double G;
 		double B;
+		double A;
 
 	#ifdef USING_CINDER
 		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
-		ci::Color toCinderColor();	//Returns the color formatted in a way Cinder accepts
+		ci::Color toCinderColor();		//Returns the color in Cinder's format, without opacity
+		ci::ColorA toCinderColorA();	//Returns the color in Cinder's format, with opacity
 	#endif
 	};
 

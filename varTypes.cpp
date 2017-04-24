@@ -258,6 +258,11 @@ namespace var
 	{
 		return ci::Color(R, G, B);
 	}
+	ci::ColorA color_RGB::toCinderColorA()
+	{
+		if (0 <= A && A <= 1) return ci::ColorA(R, G, B, A);
+		return ci::ColorA(R, G, B, 1);
+	}
 #endif
 
 	square::square()
