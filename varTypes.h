@@ -86,18 +86,9 @@ namespace var
 		double y;
 		double z;
 
-		//To be defined
-		/*coord3 negatedX();
-		coord3 negatedY();
-		coord3 negatedZ();
-		coord3 negatedXY();
-		coord3 negatedXZ();
-		coord3 negatedYZ();
-		coord3 negated();*/
 	#ifdef USING_CINDER
 		ci::Vec3f toVec3f();
 	#endif
-		//coord3 toString();
 	};
 
 	class color_RGB
