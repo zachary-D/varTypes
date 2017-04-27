@@ -31,9 +31,12 @@ namespace conv
 
 	bool isBool(string inp);
 	bool toBool(string inp);
-	bool toBool(float inp);
+	bool toBool(double inp);
 
 #ifdef USING_CINDER
 	var::coord2 toCoord2(ci::Vec2f coordinate);
 #endif
+
+	double toDegrees(double radians);
+	double toRadians(double degrees);
 }

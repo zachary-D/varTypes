@@ -35,9 +35,6 @@ string strOut;
 float floatOut;
 bool boolOut;
 
-string a;
-
-
 namespace conv
 {
 	string toString(int inp)
@@ -209,7 +206,7 @@ namespace conv
 		else return false;
 	}
 
-	bool toBool(float inp)
+	bool toBool(double inp)
 	{
 		if(inp == 1) return true;
 		else if(inp == 0) return false;
@@ -222,4 +219,14 @@ namespace conv
 		return var::coord2(coordinate.x, coordinate.y);
 	}
 #endif
+
+	double toDegrees(double radians)
+	{
+		return radians * 180 / var::math::pi;
+	}
+
+	double toRadians(double degrees)
+	{
+		return degrees * var::math::pi / 180;
+	}
 }
