@@ -245,6 +245,14 @@ namespace var
 		B = b;
 	}
 
+	color_RGB::color_RGB(double r, double g, double b, double a)
+	{
+		R = r;
+		G = g;
+		B = b;
+		A = a;
+	}
+
 #ifdef USING_CINDER
 	ci::Color color_RGB::toColor()
 	{
@@ -255,6 +263,7 @@ namespace var
 	{
 		return ci::Color(R, G, B);
 	}
+	
 	ci::ColorA color_RGB::toCinderColorA()
 	{
 		if (0 <= A && A <= 1) return ci::ColorA(R, G, B, A);

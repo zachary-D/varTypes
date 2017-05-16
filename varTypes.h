@@ -96,14 +96,15 @@ namespace var
 	public:
 		color_RGB();
 		color_RGB(double r, double g, double b);
+		color_RGB(double r, double g, double b, double a);
 
-		double R;
-		double G;
-		double B;
-		double A;
+		double R = -1;
+		double G = -1;
+		double B = -1;
+		double A = -1;
 
 	#ifdef USING_CINDER
-		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
+		ci::Color toColor();			//BEING REMOVED.  use toCinderColor() istead
 		ci::Color toCinderColor();		//Returns the color in Cinder's format, without opacity
 		ci::ColorA toCinderColorA();	//Returns the color in Cinder's format, with opacity
 	#endif
