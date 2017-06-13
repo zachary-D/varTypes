@@ -53,6 +53,16 @@ namespace var
 		coord2 operator/=(const double & other);
 		bool operator==(const coord2 & other);
 		bool operator!=(const coord2 & other);
+		//When being compared to another coordinate pair, the X and Y pairs BOTH must satisfy the comparison individually
+		//When being compared to a number, both the X and Y values must satisfy the comparison to the number
+		bool operator>(const coord2 & other);
+		bool operator>(const double & other);
+		bool operator<(const coord2 & other);
+		bool operator<(const double & other);
+		bool operator>=(const coord2 & other);
+		bool operator>=(const double & other);
+		bool operator<=(const coord2 & other);
+		bool operator<=(const double & other);
 
 		double x, y;
 
@@ -66,6 +76,7 @@ namespace var
 		string toString();
 		int getQuadrant();
 		double distanceTo(coord2 other);
+		bool isWithin(coord2 first, coord2 second);
 	};
 
 	class coord3

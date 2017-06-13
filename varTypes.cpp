@@ -129,6 +129,46 @@ namespace var
 		else return false;
 	}
 
+	bool coord2::operator>(const coord2 & other)
+	{
+		return (x > other.x) && (y > other.y);
+	}
+
+	bool coord2::operator>(const double & other)
+	{
+		return (x > other) && (y > other);
+	}
+
+	bool coord2::operator<(const coord2 & other)
+	{
+		return (x < other.x) && (y < other.y);
+	}
+
+	bool coord2::operator<(const double & other)
+	{
+		return (x < other) && (y < other);
+	}
+
+	bool coord2::operator>=(const coord2 & other)
+	{
+		return (x >= other.x) && (y >= other.y);
+	}
+
+	bool coord2::operator>=(const double & other)
+	{
+		return (x >= other) && (y >= other);
+	}
+
+	bool coord2::operator<=(const coord2 & other)
+	{
+		return (x <= other.x) && (y <= other.y);
+	}
+
+	bool coord2::operator<=(const double & other)
+	{
+		return (x <= other) && (y <= other);
+	}
+
 	coord2 coord2::negatedX()
 	{
 		return coord2(x * -1, y);
@@ -172,6 +212,39 @@ namespace var
 	double coord2::distanceTo(coord2 other)
 	{
 		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
+	}
+
+	bool coord2::isWithin(coord2 first, coord2 second)
+	{
+		double highX = 0;
+		double lowX = 0;
+		double highY = 0;
+		double lowY = 0;
+
+		if (first.x > second.x)
+		{
+			highX = first.x;
+			lowX = second.x;
+		}
+		else
+		{
+			lowX = first.x;
+			highX = second.x;
+		}
+
+		if (first.y > second.y)
+		{
+			highY = first.y;
+			lowY = second.y;
+		}
+		else
+		{
+			lowY = first.y;
+			highY = second.y;
+		}
+
+		return (lowX < x && x < highX) && (lowY < y && y < highY);
+
 	}
 
 	coord3::coord3()
