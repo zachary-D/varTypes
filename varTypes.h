@@ -76,6 +76,7 @@ namespace var
 		string toString();
 		int getQuadrant();
 		double distanceTo(coord2 other);
+		bool isWithin(coord2 first, coord2 second);
 	};
 
 	class coord3
