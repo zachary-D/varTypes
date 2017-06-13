@@ -129,6 +129,46 @@ namespace var
 		else return false;
 	}
 
+	bool coord2::operator>(const coord2 & other)
+	{
+		return (x > other.x) && (y > other.y);
+	}
+
+	bool coord2::operator>(const double & other)
+	{
+		return (x > other) && (y > other);
+	}
+
+	bool coord2::operator<(const coord2 & other)
+	{
+		return (x < other.x) && (y < other.y);
+	}
+
+	bool coord2::operator<(const double & other)
+	{
+		return (x < other) && (y < other);
+	}
+
+	bool coord2::operator>=(const coord2 & other)
+	{
+		return (x >= other.x) && (y >= other.y);
+	}
+
+	bool coord2::operator>=(const double & other)
+	{
+		return (x >= other) && (y >= other);
+	}
+
+	bool coord2::operator<=(const coord2 & other)
+	{
+		return (x <= other.x) && (y <= other.y);
+	}
+
+	bool coord2::operator<=(const double & other)
+	{
+		return (x <= other) && (y <= other);
+	}
+
 	coord2 coord2::negatedX()
 	{
 		return coord2(x * -1, y);
