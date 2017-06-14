@@ -33,13 +33,19 @@ namespace var
 		y = Y;
 	}
 #ifdef USING_CINDER
+	coord2::coord2(ci::Vec2i coordinate)
+	{
+		x = coordinate.x;
+		y = coordinate.y;
+	}
+
 	coord2::coord2(ci::Vec2f coordinate)
 	{
 		x = coordinate.x;
 		y = coordinate.y;
 	}
 
-	coord2::coord2(ci::Vec2i coordinate)
+	coord2::coord2(ci::Vec2d coordinate)
 	{
 		x = coordinate.x;
 		y = coordinate.y;
@@ -185,9 +191,19 @@ namespace var
 	}
 
 #ifdef USING_CINDER
+	ci::Vec2i coord2::toVec2i()
+	{
+		return ci::Vec2i(x, y);
+	}
+
 	ci::Vec2f coord2::toVec2f()
 	{
 		return ci::Vec2f(x, y);
+	}
+
+	ci::Vec2d coord2::toVec2d()
+	{
+		return ci::Vec2d(x, y);
 	}
 #endif
 
