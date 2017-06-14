@@ -35,8 +35,9 @@ namespace var
 		coord2();
 		coord2(double X, double Y);
 #ifdef USING_CINDER
-		coord2(ci::Vec2f coordinate);
 		coord2(ci::Vec2i coordinate);
+		coord2(ci::Vec2f coordinate);
+		coord2(ci::Vec2d coordinate);
 #endif
 
 		coord2 operator+(const coord2 & other);
@@ -71,7 +72,9 @@ namespace var
 		coord2 negated();
 
 	#ifdef USING_CINDER
+		ci::Vec2i toVec2i();
 		ci::Vec2f toVec2f();
+		ci::Vec2d toVec2d();
 	#endif
 		string toString();
 		int getQuadrant();
