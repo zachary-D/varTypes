@@ -104,7 +104,7 @@ namespace conv
 		else if(inp == false) return "false";
 	}
 
-	string toLowercase(string & inp, bool changeArg = true)		//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES
+	string toLowercase(string & inp, bool changeArg = true)		//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		string ret;
 		if(changeArg)
@@ -120,7 +120,7 @@ namespace conv
 		return ret;
 	}
 
-	char toLowercase(char & inp, bool changeArg)
+	char toLowercase(char & inp, bool changeArg)				//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		char ret;
 		if(changeArg)
@@ -136,7 +136,7 @@ namespace conv
 		return ret;
 	}
 
-	string toUppercase(string & inp, bool changeArg = true)		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES
+	string toUppercase(string & inp, bool changeArg = true)		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		string ret;
 		if(changeArg)
@@ -151,7 +151,7 @@ namespace conv
 		return ret;
 	}
 
-	char toUppercase(char & inp, bool changeArg)
+	char toUppercase(char & inp, bool changeArg)				//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		char ret;
 		if(changeArg)
