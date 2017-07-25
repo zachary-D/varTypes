@@ -33,6 +33,7 @@ using namespace std;
 stringstream convert;
 string strOut;
 float floatOut;
+double doubleOut;
 bool boolOut;
 
 namespace conv
@@ -183,14 +184,40 @@ namespace conv
 			return true;
 		}
 	}
-	
-	float toNum(string inp)
+
+	bool isNum(char inp)
 	{
 		convert.clear();
 		convert << inp;
 		convert >> floatOut;
+		if (convert.fail())
+		{
+			convert.clear();
+			return false;
+		}
+		else
+		{
+			convert.clear();
+			return true;
+		}
+	}
+	
+	double toNum(string inp)
+	{
 		convert.clear();
-		return floatOut;
+		convert << inp;
+		convert >> doubleOut;
+		convert.clear();
+		return doubleOut;
+	}
+
+	double toNum(char inp)
+	{
+		convert.clear();
+		convert << inp;
+		convert >> doubleOut;
+		convert.clear();
+		return doubleOut;
 	}
 
 	bool isBool(string inp)
