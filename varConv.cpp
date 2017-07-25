@@ -184,6 +184,23 @@ namespace conv
 			return true;
 		}
 	}
+
+	bool isNum(char inp)
+	{
+		convert.clear();
+		convert << inp;
+		convert >> floatOut;
+		if (convert.fail())
+		{
+			convert.clear();
+			return false;
+		}
+		else
+		{
+			convert.clear();
+			return true;
+		}
+	}
 	
 	double toNum(string inp)
 	{

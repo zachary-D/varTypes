@@ -27,6 +27,7 @@ namespace conv
 	char toUppercase(char & inp, bool changeArg = false);		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 
 	bool isNum(string inp);
+	bool isNum(char inp);
 	double toNum(string inp);
 	double toNum(char inp);
 
