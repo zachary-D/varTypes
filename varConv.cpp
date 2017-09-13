@@ -240,6 +240,32 @@ namespace conv
 		else return false;
 	}
 
+
+	string sanitizeChangeInput(string & data)
+	{
+		const string slash = "\\";	//here because it's clearer than having a double backslash everywhere.
+									//Effectivley represents for a single backslash, because of the slash needs to be escaped here
+
+		int lastPos = 0;
+
+		//Loop while a backslash is found in the string after the position at which the last one was found.
+		while (data.find(slash, lastPos) != string::npos)
+		{
+
+		}
+
+	}
+
+	string sanitize(string & data, bool changeInput)		//See header
+	{
+		
+
+		if (changeInput)
+		{
+			data = "abcd";
+		}
+	}
+
 #ifdef USING_CINDER
 	var::coord2 toCoord2(ci::Vec2f coordinate)
 	{

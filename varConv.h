@@ -36,6 +36,9 @@ namespace conv
 	bool toBool(string inp);
 	bool toBool(double inp);
 
+	string sanitize(string & data, bool changeInput = false);		//Sanitizes the string passed to it (escapes escape characters)  i.e. "\n" becomes "\\n"
+	string desanitize(string & data, bool changeInput = false);		//Desanitizes the string passed to it (de-escapes escape characters) i.e. "\\n" becomes "\n"
+
 #ifdef USING_CINDER
 	var::coord2 toCoord2(ci::Vec2f coordinate);
 #endif
