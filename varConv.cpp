@@ -247,22 +247,28 @@ namespace conv
 									//Effectivley represents for a single backslash, because of the slash needs to be escaped here
 
 		int lastPos = 0;
+		int slashPos = data.find(slash, lastPos);
 
 		//Loop while a backslash is found in the string after the position at which the last one was found.
-		while (data.find(slash, lastPos) != string::npos)
+		while (slashPos != string::npos)
 		{
-
+			//Add a slash to make "\" -> "\\"
+			data.insert(lastPos, slash);
+			//Set lastPos to be directly infront of the slash we just added
+			lastPos = slashPos + 1;
+			//Find the next slashPos (if it exists)
+			slashPos = data.find(slash, lastPos);
 		}
-
+		return data;
 	}
 
 	string sanitize(string & data, bool changeInput)		//See header
 	{
-		
-
-		if (changeInput)
+		if (changeInput) return sanitizeChangeInput(data);
+		else
 		{
-			data = "abcd";
+			string _data = data;
+			return sanitizeChangeInput(_data);
 		}
 	}
 
