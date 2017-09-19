@@ -225,11 +225,6 @@ namespace var
 		}
 	}
 
-	double coord2::distanceTo(coord2 other)
-	{
-		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
-	}
-
 	bool coord2::isWithin(coord2 first, coord2 second)
 	{
 		double highX = 0;
@@ -262,6 +257,18 @@ namespace var
 		return (lowX < x && x < highX) && (lowY < y && y < highY);
 
 	}
+
+	double coord2::distanceTo(coord2 first, coord2 second)
+	{
+		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
+	}
+
+	double coord2::angleTo(coord2 first, coord2 second)
+	{
+		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
+	}
+
+
 
 	coord3::coord3()
 	{
@@ -320,6 +327,8 @@ namespace var
 	}
 #endif
 
+
+
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -360,6 +369,8 @@ namespace var
 	}
 #endif
 
+
+
 	square::square()
 	{}
 
@@ -398,6 +409,8 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
+
+
 
 	namespace math
 	{
@@ -892,6 +905,8 @@ namespace var
 			}
 		}	
 	};
+
+
 
 #ifdef USING_VARTYPES_CHEM
 	namespace chem
