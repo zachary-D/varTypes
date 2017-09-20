@@ -190,6 +190,22 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
+	void coord2::negateX()
+	{
+		x *= -1;
+	}
+
+	void coord2::negateY()
+	{
+		y *= -1;
+	}
+
+	void coord2::negate()
+	{
+		x *= -1;
+		y *= -1;
+	}
+
 #ifdef USING_CINDER
 	ci::Vec2i coord2::toVec2i()
 	{

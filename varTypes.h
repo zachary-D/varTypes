@@ -67,9 +67,15 @@ namespace var
 
 		double x, y;
 
-		coord2 negatedX();
-		coord2 negatedY();
-		coord2 negated();
+		//These function DO NOT affect this object
+		coord2 negatedX();		//Return the object with x negated
+		coord2 negatedY();		//Return the object with y negated
+		coord2 negated();		//Return the object with both x and y negated
+
+		//These functions DO affect this object
+		void negateX();			//Negate x
+		void negateY();			//Negate y
+		void negate();			//Negate x and y
 
 	#ifdef USING_CINDER
 		ci::Vec2i toVec2i();
