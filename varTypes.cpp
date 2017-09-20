@@ -125,13 +125,13 @@ namespace var
 
 	bool coord2::operator==(const coord2 & other)
 	{
-		if(x == other.x && y == other.y) return true;
+		if (x == other.x && y == other.y) return true;
 		else return false;
 	}
 
 	bool coord2::operator!=(const coord2 & other)
 	{
-		if(x != other.x || y != other.y) return true;
+		if (x != other.x || y != other.y) return true;
 		else return false;
 	}
 
@@ -230,10 +230,10 @@ namespace var
 
 	int coord2::getQuadrant()
 	{
-		if(x >= 0 && y >= 0) return 1;
-		else if(x < 0 && y >= 0) return 2;
-		else if(x < 0 && y < 0) return 3;
-		else if(x >= 0 && y < 0) return 4;
+		if (x >= 0 && y >= 0) return 1;
+		else if (x < 0 && y >= 0) return 2;
+		else if (x < 0 && y < 0) return 3;
+		else if (x >= 0 && y < 0) return 4;
 		else
 		{
 			_DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.  Defaulting to 1");
@@ -277,6 +277,16 @@ namespace var
 	double coord2::getMagnitude()
 	{
 		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
+	double coord2::getAngle()
+	{
+		return conv::toDegrees(atan2(y, x));
+	}
+
+	double coord2::getAngleRadians()
+	{
+		return atan2(y, x);
 	}
 
 	double coord2::distanceTo(coord2 first, coord2 second)

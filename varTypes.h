@@ -86,7 +86,9 @@ namespace var
 		int getQuadrant();
 		bool isWithin(coord2 first, coord2 second);
 
-		double getMagnitude();
+		double getMagnitude();		//Returns the magnitude of the coordinate as if it were a vector
+		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate
+		double getAngleRadians();	//getAngle(), but in radians.
 
 		static double distanceTo(coord2 first, coord2 second);	//Returns the distance between to points
 		static double angleTo(coord2 first, coord2 second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
