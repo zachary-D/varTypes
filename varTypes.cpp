@@ -274,6 +274,11 @@ namespace var
 
 	}
 
+	double coord2::getMagnitude()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
 	double coord2::distanceTo(coord2 first, coord2 second)
 	{
 		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));

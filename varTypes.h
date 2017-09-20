@@ -86,6 +86,8 @@ namespace var
 		int getQuadrant();
 		bool isWithin(coord2 first, coord2 second);
 
+		double getMagnitude();
+
 		static double distanceTo(coord2 first, coord2 second);	//Returns the distance between to points
 		static double angleTo(coord2 first, coord2 second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
 	};
