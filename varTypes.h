@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
 
 #ifdef USING_CINDER
 #include "cinder\Color.h"
@@ -26,6 +26,8 @@ using namespace std;
 #include "cinder/app/window.h"
 #include "cinder/gl/gl.h"
 #endif
+		
+//Note: Unless otherwise specified, all angles are assumed to be in degrees
 
 namespace var
 {
@@ -87,11 +89,27 @@ namespace var
 		bool isWithin(coord2 first, coord2 second);
 
 		double getMagnitude();		//Returns the magnitude of the coordinate as if it were a vector
-		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate
+		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate (In degrees)
 		double getAngleRadians();	//getAngle(), but in radians.
 
 		static double distanceTo(coord2 first, coord2 second);	//Returns the distance between to points
 		static double angleTo(coord2 first, coord2 second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+
+		static coord2 createFromVector(double &magnitude, double &angle);		//Decodes a coordinate pair from a radius and an angle (in degrees)
+	};
+
+	class mVector	//The math version of a vector, not the infinite-array version
+	{
+	public:
+		mVector() {}
+		mVector(double &_magnitude, double &_angle);
+		mVector(coord2 &coordinate);
+
+		double magnitude;
+		double angle;
+
+		coord2 toCoord2();
+
 	};
 
 	class coord3

@@ -299,6 +299,35 @@ namespace var
 		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
 	}
 
+	coord2 coord2::createFromVector(double &magnitude, double &angle)
+	{
+		return coord2(magnitude * cos(conv::toRadians(angle)), magnitude * sin(conv::toRadians(angle)));
+	}
+
+	mVector::mVector(coord2 &coordinate)
+	{
+		magnitude = coordinate.getMagnitude();
+		magnitude = coordinate.getAngle();
+	}
+
+	coord2 mVector::toCoord2()
+	{
+		return
+			coord2(
+				magnitude * cos(conv::toRadians(angle)),
+				magnitude * sin(conv::toRadians(angle))
+			);
+	}
+
+
+
+
+	mVector::mVector(double &_magnitude, double &_angle)
+	{
+		magnitude = _magnitude;
+		angle = _angle;
+	}
+
 
 
 	coord3::coord3()
@@ -360,6 +389,8 @@ namespace var
 
 
 
+
+
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -402,6 +433,8 @@ namespace var
 
 
 
+
+
 	square::square()
 	{}
 
@@ -440,6 +473,8 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
+
+
 
 
 
@@ -936,6 +971,8 @@ namespace var
 			}
 		}	
 	};
+
+
 
 
 
