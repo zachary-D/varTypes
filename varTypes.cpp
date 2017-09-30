@@ -289,25 +289,49 @@ namespace var
 		return atan2(y, x);
 	}
 
-	double coord2::distanceTo(coord2 first, coord2 second)
+	mVector coord2::toMVector()
+	{
+		return mVector(*this);
+	}
+
+	double coord2::distanceTo(coord2 &point)
+	{
+		return distanceTo(*this, point);
+	}
+
+	double coord2::angleTo(coord2 &point)
+	{
+		return angleTo(*this, point);
+	}
+
+	double coord2::distanceTo(coord2 &first, coord2 &second)
 	{
 		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
 	}
 
-	double coord2::angleTo(coord2 first, coord2 second)
+	double coord2::angleTo(coord2 &first, coord2 &second)
 	{
 		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
 	}
 
-	coord2 coord2::createFromVector(double &magnitude, double &angle)
+
+
+	mVector::mVector(double &_magnitude, double &_angle)
 	{
-		return coord2(magnitude * cos(conv::toRadians(angle)), magnitude * sin(conv::toRadians(angle)));
+		magnitude = _magnitude;
+		angle = _angle;
 	}
 
 	mVector::mVector(coord2 &coordinate)
 	{
 		magnitude = coordinate.getMagnitude();
 		magnitude = coordinate.getAngle();
+	}
+
+	mVector::mVector(coord2 &first, coord2 &second)
+	{
+		coord2 diff = second - first;
+		*this = mVector(diff);
 	}
 
 	coord2 mVector::toCoord2()
@@ -317,20 +341,6 @@ namespace var
 				magnitude * cos(conv::toRadians(angle)),
 				magnitude * sin(conv::toRadians(angle))
 			);
-	}
-
-	coord2 mVector::toCoord2(double magnitude, double angle)
-	{
-
-	}
-
-
-
-
-	mVector::mVector(double &_magnitude, double &_angle)
-	{
-		magnitude = _magnitude;
-		angle = _angle;
 	}
 
 

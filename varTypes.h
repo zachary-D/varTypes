@@ -92,10 +92,13 @@ namespace var
 		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate (In degrees)
 		double getAngleRadians();	//getAngle(), but in radians.
 
-		static double distanceTo(coord2 first, coord2 second);	//Returns the distance between to points
-		static double angleTo(coord2 first, coord2 second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+		mVector toMVector();		//Converts the coordinates to a vector, with 0,0 as the center
 
-		static coord2 createFromVector(double &magnitude, double &angle);		//Decodes a coordinate pair from a radius and an angle (in degrees)
+		double distanceTo(coord2 &point);		//Returns the distance between this coord and 'point'
+		double angleTo(coord2 &point);			//Returns the angle measured CCW between the x+ axis and the line from this coord to 'point'
+
+		static double distanceTo(coord2 &first, coord2 &second);	//Returns the distance between to points
+		static double angleTo(coord2 &first, coord2 &second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
 	};
 
 	class mVector	//The math version of a vector, not the infinite-array version
@@ -103,15 +106,13 @@ namespace var
 	public:
 		mVector() {}
 		mVector(double &_magnitude, double &_angle);
-		mVector(coord2 &coordinate);
+		mVector(coord2 &coordinate);					//Creates a vector based from the origin to 'coordinate'
+		mVector(coord2 &first, coord2 &second);			//Creates a vector from 'first' to 'second'
 
 		double magnitude;
 		double angle;
 
-		coord2 toCoord2();
-
-		static coord2 toCoord2(double magnitude, double angle);			//Converts the vector made by 'magnitude' and 'angle' to vector coordinates
-
+		coord2 toCoord2();			//Converts the vector to coordinates
 	};
 
 	class coord3
