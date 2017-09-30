@@ -13,6 +13,7 @@
 #include <vector>
 
 using std::string;
+using std::vector;
 
 #ifdef USING_CINDER
 #include "cinder\Color.h"
@@ -31,6 +32,8 @@ using std::string;
 
 namespace var
 {
+	class mVector;	//Forward declaration
+
 	class coord2
 	{
 	public:
