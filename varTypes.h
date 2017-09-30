@@ -110,6 +110,8 @@ namespace var
 
 		coord2 toCoord2();
 
+		static coord2 toCoord2(double magnitude, double angle);			//Converts the vector made by 'magnitude' and 'angle' to vector coordinates
+
 	};
 
 	class coord3

@@ -319,6 +319,11 @@ namespace var
 			);
 	}
 
+	coord2 mVector::toCoord2(double magnitude, double angle)
+	{
+
+	}
+
 
 
 
