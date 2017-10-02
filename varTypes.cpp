@@ -322,19 +322,13 @@ namespace var
 		angle = _angle;
 	}
 
-	mVector::mVector(double &_magnitude, double &_angle)
-	{
-		magnitude = _magnitude;
-		angle = _angle;
-	}
-
-	mVector::mVector(coord2 &coordinate)
+	mVector::mVector(coord2 coordinate)
 	{
 		magnitude = coordinate.getMagnitude();
 		magnitude = coordinate.getAngle();
 	}
 
-	mVector::mVector(coord2 &first, coord2 &second)
+	mVector::mVector(coord2 first, coord2 second)
 	{
 		coord2 diff = second - first;
 		*this = mVector(diff);
