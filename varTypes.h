@@ -108,6 +108,7 @@ namespace var
 	{
 	public:
 		mVector() {}
+		mVector(double _magnitude, double _angle);
 		mVector(double &_magnitude, double &_angle);
 		mVector(coord2 &coordinate);					//Creates a vector based from the origin to 'coordinate'
 		mVector(coord2 &first, coord2 &second);			//Creates a vector from 'first' to 'second'

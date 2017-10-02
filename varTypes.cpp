@@ -316,6 +316,12 @@ namespace var
 
 
 
+	mVector::mVector(double _magnitude, double _angle)
+	{
+		magnitude = _magnitude;
+		angle = _angle;
+	}
+
 	mVector::mVector(double &_magnitude, double &_angle)
 	{
 		magnitude = _magnitude;
