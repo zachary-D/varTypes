@@ -125,13 +125,13 @@ namespace var
 
 	bool coord2::operator==(const coord2 & other)
 	{
-		if(x == other.x && y == other.y) return true;
+		if (x == other.x && y == other.y) return true;
 		else return false;
 	}
 
 	bool coord2::operator!=(const coord2 & other)
 	{
-		if(x != other.x || y != other.y) return true;
+		if (x != other.x || y != other.y) return true;
 		else return false;
 	}
 
@@ -190,6 +190,22 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
+	void coord2::negateX()
+	{
+		x *= -1;
+	}
+
+	void coord2::negateY()
+	{
+		y *= -1;
+	}
+
+	void coord2::negate()
+	{
+		x *= -1;
+		y *= -1;
+	}
+
 #ifdef USING_CINDER
 	ci::Vec2i coord2::toVec2i()
 	{
@@ -214,20 +230,15 @@ namespace var
 
 	int coord2::getQuadrant()
 	{
-		if(x >= 0 && y >= 0) return 1;
-		else if(x < 0 && y >= 0) return 2;
-		else if(x < 0 && y < 0) return 3;
-		else if(x >= 0 && y < 0) return 4;
+		if (x >= 0 && y >= 0) return 1;
+		else if (x < 0 && y >= 0) return 2;
+		else if (x < 0 && y < 0) return 3;
+		else if (x >= 0 && y < 0) return 4;
 		else
 		{
 			_DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.  Defaulting to 1");
 			return 1;
 		}
-	}
-
-	double coord2::distanceTo(coord2 other)
-	{
-		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
 	}
 
 	bool coord2::isWithin(coord2 first, coord2 second)
@@ -262,6 +273,77 @@ namespace var
 		return (lowX < x && x < highX) && (lowY < y && y < highY);
 
 	}
+
+	double coord2::getMagnitude()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
+	double coord2::getAngle()
+	{
+		return conv::toDegrees(atan2(y, x));
+	}
+
+	double coord2::getAngleRadians()
+	{
+		return atan2(y, x);
+	}
+
+	mVector coord2::toMVector()
+	{
+		return mVector(*this);
+	}
+
+	double coord2::distanceTo(coord2 &point)
+	{
+		return distanceTo(*this, point);
+	}
+
+	double coord2::angleTo(coord2 &point)
+	{
+		return angleTo(*this, point);
+	}
+
+	double coord2::distanceTo(coord2 &first, coord2 &second)
+	{
+		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
+	}
+
+	double coord2::angleTo(coord2 &first, coord2 &second)
+	{
+		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
+	}
+
+
+
+	mVector::mVector(double _magnitude, double _angle)
+	{
+		magnitude = _magnitude;
+		angle = _angle;
+	}
+
+	mVector::mVector(coord2 coordinate)
+	{
+		magnitude = coordinate.getMagnitude();
+		magnitude = coordinate.getAngle();
+	}
+
+	mVector::mVector(coord2 first, coord2 second)
+	{
+		coord2 diff = second - first;
+		*this = mVector(diff);
+	}
+
+	coord2 mVector::toCoord2()
+	{
+		return
+			coord2(
+				magnitude * cos(conv::toRadians(angle)),
+				magnitude * sin(conv::toRadians(angle))
+			);
+	}
+
+
 
 	coord3::coord3()
 	{
@@ -320,6 +402,10 @@ namespace var
 	}
 #endif
 
+
+
+
+
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -360,6 +446,10 @@ namespace var
 	}
 #endif
 
+
+
+
+
 	square::square()
 	{}
 
@@ -398,6 +488,10 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
+
+
+
+
 
 	namespace math
 	{
@@ -892,6 +986,10 @@ namespace var
 			}
 		}	
 	};
+
+
+
+
 
 #ifdef USING_VARTYPES_CHEM
 	namespace chem
