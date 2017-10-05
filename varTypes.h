@@ -12,7 +12,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 #ifdef USING_CINDER
 #include "cinder\Color.h"
@@ -26,9 +27,13 @@ using namespace std;
 #include "cinder/app/window.h"
 #include "cinder/gl/gl.h"
 #endif
+		
+//Note: Unless otherwise specified, all angles are assumed to be in degrees
 
 namespace var
 {
+	class mVector;	//Forward declaration
+
 	class coord2
 	{
 	public:
@@ -86,8 +91,31 @@ namespace var
 		int getQuadrant();
 		bool isWithin(coord2 first, coord2 second);
 
-		static double distanceTo(coord2 first, coord2 second);	//Returns the distance between to points
-		static double angleTo(coord2 first, coord2 second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+		double getMagnitude();		//Returns the magnitude of the coordinate as if it were a vector
+		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate (In degrees)
+		double getAngleRadians();	//getAngle(), but in radians.
+
+		mVector toMVector();		//Converts the coordinates to a vector, with 0,0 as the center
+
+		double distanceTo(coord2 &point);		//Returns the distance between this coord and 'point'
+		double angleTo(coord2 &point);			//Returns the angle measured CCW between the x+ axis and the line from this coord to 'point'
+
+		static double distanceTo(coord2 &first, coord2 &second);	//Returns the distance between to points
+		static double angleTo(coord2 &first, coord2 &second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+	};
+
+	class mVector	//The math version of a vector, not the infinite-array version
+	{
+	public:
+		mVector() {}
+		mVector(double _magnitude, double _angle);
+		mVector(coord2 coordinate);						//Creates a vector based from the origin to 'coordinate'
+		mVector(coord2 first, coord2 second);			//Creates a vector from 'first' to 'second'
+
+		double magnitude;
+		double angle;
+
+		coord2 toCoord2();			//Converts the vector to coordinates
 	};
 
 	class coord3
