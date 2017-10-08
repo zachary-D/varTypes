@@ -33,13 +33,19 @@ namespace var
 		y = Y;
 	}
 #ifdef USING_CINDER
+	coord2::coord2(ci::Vec2i coordinate)
+	{
+		x = coordinate.x;
+		y = coordinate.y;
+	}
+
 	coord2::coord2(ci::Vec2f coordinate)
 	{
 		x = coordinate.x;
 		y = coordinate.y;
 	}
 
-	coord2::coord2(ci::Vec2i coordinate)
+	coord2::coord2(ci::Vec2d coordinate)
 	{
 		x = coordinate.x;
 		y = coordinate.y;
@@ -47,8 +53,6 @@ namespace var
 #endif
 	coord2 coord2::operator+(const coord2 & other)
 	{
-		//ci::app::console() << endl << "X :" + conv::toString(x + other.x) + " Y :"  + conv::toString(y + other.y) << endl << endl;
-		//ci::app::console() << endl << "X_:" + conv::toString(coord2(x + other.x, y + other.y).x) + " Y_:" + conv::toString(coord2(x + other.x, y + other.y).y) << endl << endl;
 		return coord2(x + other.x, y + other.y);
 	}
 
@@ -121,14 +125,54 @@ namespace var
 
 	bool coord2::operator==(const coord2 & other)
 	{
-		if(x == other.x && y == other.y) return true;
+		if (x == other.x && y == other.y) return true;
 		else return false;
 	}
 
 	bool coord2::operator!=(const coord2 & other)
 	{
-		if(x != other.x || y != other.y) return true;
+		if (x != other.x || y != other.y) return true;
 		else return false;
+	}
+
+	bool coord2::operator>(const coord2 & other)
+	{
+		return (x > other.x) && (y > other.y);
+	}
+
+	bool coord2::operator>(const double & other)
+	{
+		return (x > other) && (y > other);
+	}
+
+	bool coord2::operator<(const coord2 & other)
+	{
+		return (x < other.x) && (y < other.y);
+	}
+
+	bool coord2::operator<(const double & other)
+	{
+		return (x < other) && (y < other);
+	}
+
+	bool coord2::operator>=(const coord2 & other)
+	{
+		return (x >= other.x) && (y >= other.y);
+	}
+
+	bool coord2::operator>=(const double & other)
+	{
+		return (x >= other) && (y >= other);
+	}
+
+	bool coord2::operator<=(const coord2 & other)
+	{
+		return (x <= other.x) && (y <= other.y);
+	}
+
+	bool coord2::operator<=(const double & other)
+	{
+		return (x <= other) && (y <= other);
 	}
 
 	coord2 coord2::negatedX()
@@ -146,10 +190,36 @@ namespace var
 		return coord2(x * -1, y * -1);
 	}
 
+	void coord2::negateX()
+	{
+		x *= -1;
+	}
+
+	void coord2::negateY()
+	{
+		y *= -1;
+	}
+
+	void coord2::negate()
+	{
+		x *= -1;
+		y *= -1;
+	}
+
 #ifdef USING_CINDER
+	ci::Vec2i coord2::toVec2i()
+	{
+		return ci::Vec2i(x, y);
+	}
+
 	ci::Vec2f coord2::toVec2f()
 	{
 		return ci::Vec2f(x, y);
+	}
+
+	ci::Vec2d coord2::toVec2d()
+	{
+		return ci::Vec2d(x, y);
 	}
 #endif
 
@@ -160,11 +230,10 @@ namespace var
 
 	int coord2::getQuadrant()
 	{
-		//$$
-		if(x >= 0 && y >= 0) return 1;
-		else if(x < 0 && y >= 0) return 2;
-		else if(x < 0 && y < 0) return 3;
-		else if(x >= 0 && y < 0) return 4;
+		if (x >= 0 && y >= 0) return 1;
+		else if (x < 0 && y >= 0) return 2;
+		else if (x < 0 && y < 0) return 3;
+		else if (x >= 0 && y < 0) return 4;
 		else
 		{
 			_DEBUG_ERROR("Error determining quadrant.  Coordinates may be improperly defined.  Defaulting to 1");
@@ -172,10 +241,109 @@ namespace var
 		}
 	}
 
-	double coord2::distanceTo(coord2 other)
+	bool coord2::isWithin(coord2 first, coord2 second)
 	{
-		return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
+		double highX = 0;
+		double lowX = 0;
+		double highY = 0;
+		double lowY = 0;
+
+		if (first.x > second.x)
+		{
+			highX = first.x;
+			lowX = second.x;
+		}
+		else
+		{
+			lowX = first.x;
+			highX = second.x;
+		}
+
+		if (first.y > second.y)
+		{
+			highY = first.y;
+			lowY = second.y;
+		}
+		else
+		{
+			lowY = first.y;
+			highY = second.y;
+		}
+
+		return (lowX < x && x < highX) && (lowY < y && y < highY);
+
 	}
+
+	double coord2::getMagnitude()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
+	double coord2::getAngle()
+	{
+		return conv::toDegrees(atan2(y, x));
+	}
+
+	double coord2::getAngleRadians()
+	{
+		return atan2(y, x);
+	}
+
+	mVector coord2::toMVector()
+	{
+		return mVector(*this);
+	}
+
+	double coord2::distanceTo(coord2 &point)
+	{
+		return distanceTo(*this, point);
+	}
+
+	double coord2::angleTo(coord2 &point)
+	{
+		return angleTo(*this, point);
+	}
+
+	double coord2::distanceTo(coord2 &first, coord2 &second)
+	{
+		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
+	}
+
+	double coord2::angleTo(coord2 &first, coord2 &second)
+	{
+		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
+	}
+
+
+
+	mVector::mVector(double _magnitude, double _angle)
+	{
+		magnitude = _magnitude;
+		angle = _angle;
+	}
+
+	mVector::mVector(coord2 coordinate)
+	{
+		magnitude = coordinate.getMagnitude();
+		magnitude = coordinate.getAngle();
+	}
+
+	mVector::mVector(coord2 first, coord2 second)
+	{
+		coord2 diff = second - first;
+		*this = mVector(diff);
+	}
+
+	coord2 mVector::toCoord2()
+	{
+		return
+			coord2(
+				magnitude * cos(conv::toRadians(angle)),
+				magnitude * sin(conv::toRadians(angle))
+			);
+	}
+
+
 
 	coord3::coord3()
 	{
@@ -234,6 +402,10 @@ namespace var
 	}
 #endif
 
+
+
+
+
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -248,6 +420,14 @@ namespace var
 		B = b;
 	}
 
+	color_RGB::color_RGB(double r, double g, double b, double a)
+	{
+		R = r;
+		G = g;
+		B = b;
+		A = a;
+	}
+
 #ifdef USING_CINDER
 	ci::Color color_RGB::toColor()
 	{
@@ -258,12 +438,17 @@ namespace var
 	{
 		return ci::Color(R, G, B);
 	}
+	
 	ci::ColorA color_RGB::toCinderColorA()
 	{
 		if (0 <= A && A <= 1) return ci::ColorA(R, G, B, A);
 		return ci::ColorA(R, G, B, 1);
 	}
 #endif
+
+
+
+
 
 	square::square()
 	{}
@@ -303,6 +488,10 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
+
+
+
+
 
 	namespace math
 	{
@@ -451,7 +640,6 @@ namespace var
 			}
 			else if(_lowxBound > _highxBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowxBound is greater than _highxBound.  Swapping low and high bounds.");
 				lowxBound = _highxBound;
 				highxBound = _lowxBound;
 				xBounds = true;
@@ -479,7 +667,6 @@ namespace var
 			}
 			else if(_lowyBound > _highyBound)
 			{
-				//_DEBUG_ERROR("Bad input, _lowyBound is greater than _highyBound.  Swapping low and high bounds.");
 				lowyBound = _highyBound;
 				highyBound = _lowyBound;
 				yBounds = true;
@@ -799,6 +986,10 @@ namespace var
 			}
 		}	
 	};
+
+
+
+
 
 #ifdef USING_VARTYPES_CHEM
 	namespace chem

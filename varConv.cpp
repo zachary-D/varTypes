@@ -33,10 +33,8 @@ using namespace std;
 stringstream convert;
 string strOut;
 float floatOut;
+double doubleOut;
 bool boolOut;
-
-string a;
-
 
 namespace conv
 {
@@ -107,7 +105,7 @@ namespace conv
 		else if(inp == false) return "false";
 	}
 
-	string toLowercase(string & inp, bool changeArg = true)		//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES
+	string toLowercase(string & inp, bool changeArg = true)		//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		string ret;
 		if(changeArg)
@@ -123,7 +121,7 @@ namespace conv
 		return ret;
 	}
 
-	char toLowercase(char & inp, bool changeArg)
+	char toLowercase(char & inp, bool changeArg)				//Coverts 'inp' to lowercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		char ret;
 		if(changeArg)
@@ -139,7 +137,7 @@ namespace conv
 		return ret;
 	}
 
-	string toUppercase(string & inp, bool changeArg = true)		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES
+	string toUppercase(string & inp, bool changeArg = true)		//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		string ret;
 		if(changeArg)
@@ -154,7 +152,7 @@ namespace conv
 		return ret;
 	}
 
-	char toUppercase(char & inp, bool changeArg)
+	char toUppercase(char & inp, bool changeArg)				//Coverts 'inp' to uppercase.  USES POINTERS TO CHANGE ARGUMENT VALUES WHEN 'changeArg' IS TRUE
 	{
 		char ret;
 		if(changeArg)
@@ -186,14 +184,40 @@ namespace conv
 			return true;
 		}
 	}
-	
-	float toNum(string inp)
+
+	bool isNum(char inp)
 	{
 		convert.clear();
 		convert << inp;
 		convert >> floatOut;
+		if (convert.fail())
+		{
+			convert.clear();
+			return false;
+		}
+		else
+		{
+			convert.clear();
+			return true;
+		}
+	}
+	
+	double toNum(string inp)
+	{
 		convert.clear();
-		return floatOut;
+		convert << inp;
+		convert >> doubleOut;
+		convert.clear();
+		return doubleOut;
+	}
+
+	double toNum(char inp)
+	{
+		convert.clear();
+		convert << inp;
+		convert >> doubleOut;
+		convert.clear();
+		return doubleOut;
 	}
 
 	bool isBool(string inp)
@@ -209,7 +233,7 @@ namespace conv
 		else return false;
 	}
 
-	bool toBool(float inp)
+	bool toBool(double inp)
 	{
 		if(inp == 1) return true;
 		else if(inp == 0) return false;
@@ -222,4 +246,14 @@ namespace conv
 		return var::coord2(coordinate.x, coordinate.y);
 	}
 #endif
+
+	double toDegrees(double radians)
+	{
+		return radians * 180 / var::math::pi;
+	}
+
+	double toRadians(double degrees)
+	{
+		return degrees * var::math::pi / 180;
+	}
 }

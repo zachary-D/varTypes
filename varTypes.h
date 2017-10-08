@@ -12,7 +12,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 #ifdef USING_CINDER
 #include "cinder\Color.h"
@@ -26,17 +27,22 @@ using namespace std;
 #include "cinder/app/window.h"
 #include "cinder/gl/gl.h"
 #endif
+		
+//Note: Unless otherwise specified, all angles are assumed to be in degrees
 
 namespace var
 {
+	class mVector;	//Forward declaration
+
 	class coord2
 	{
 	public:
 		coord2();
 		coord2(double X, double Y);
 #ifdef USING_CINDER
-		coord2(ci::Vec2f coordinate);
 		coord2(ci::Vec2i coordinate);
+		coord2(ci::Vec2f coordinate);
+		coord2(ci::Vec2d coordinate);
 #endif
 
 		coord2 operator+(const coord2 & other);
@@ -53,19 +59,63 @@ namespace var
 		coord2 operator/=(const double & other);
 		bool operator==(const coord2 & other);
 		bool operator!=(const coord2 & other);
+		//When being compared to another coordinate pair, the X and Y pairs BOTH must satisfy the comparison individually
+		//When being compared to a number, both the X and Y values must satisfy the comparison to the number
+		bool operator>(const coord2 & other);
+		bool operator>(const double & other);
+		bool operator<(const coord2 & other);
+		bool operator<(const double & other);
+		bool operator>=(const coord2 & other);
+		bool operator>=(const double & other);
+		bool operator<=(const coord2 & other);
+		bool operator<=(const double & other);
 
 		double x, y;
 
-		coord2 negatedX();
-		coord2 negatedY();
-		coord2 negated();
+		//These function DO NOT affect this object
+		coord2 negatedX();		//Return the object with x negated
+		coord2 negatedY();		//Return the object with y negated
+		coord2 negated();		//Return the object with both x and y negated
+
+		//These functions DO affect this object
+		void negateX();			//Negate x
+		void negateY();			//Negate y
+		void negate();			//Negate x and y
 
 	#ifdef USING_CINDER
+		ci::Vec2i toVec2i();
 		ci::Vec2f toVec2f();
+		ci::Vec2d toVec2d();
 	#endif
 		string toString();
 		int getQuadrant();
-		double distanceTo(coord2 other);
+		bool isWithin(coord2 first, coord2 second);
+
+		double getMagnitude();		//Returns the magnitude of the coordinate as if it were a vector
+		double getAngle();			//Returns the angle formed by the x+ axis proceeding CCW until it intersects the hypotenuse of the triangle representing this coordinate (In degrees)
+		double getAngleRadians();	//getAngle(), but in radians.
+
+		mVector toMVector();		//Converts the coordinates to a vector, with 0,0 as the center
+
+		double distanceTo(coord2 &point);		//Returns the distance between this coord and 'point'
+		double angleTo(coord2 &point);			//Returns the angle measured CCW between the x+ axis and the line from this coord to 'point'
+
+		static double distanceTo(coord2 &first, coord2 &second);	//Returns the distance between to points
+		static double angleTo(coord2 &first, coord2 &second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+	};
+
+	class mVector	//The math version of a vector, not the infinite-array version
+	{
+	public:
+		mVector() {}
+		mVector(double _magnitude, double _angle);
+		mVector(coord2 coordinate);						//Creates a vector based from the origin to 'coordinate'
+		mVector(coord2 first, coord2 second);			//Creates a vector from 'first' to 'second'
+
+		double magnitude;
+		double angle;
+
+		coord2 toCoord2();			//Converts the vector to coordinates
 	};
 
 	class coord3
@@ -86,18 +136,9 @@ namespace var
 		double y;
 		double z;
 
-		//To be defined
-		/*coord3 negatedX();
-		coord3 negatedY();
-		coord3 negatedZ();
-		coord3 negatedXY();
-		coord3 negatedXZ();
-		coord3 negatedYZ();
-		coord3 negated();*/
 	#ifdef USING_CINDER
 		ci::Vec3f toVec3f();
 	#endif
-		//coord3 toString();
 	};
 
 	class color_RGB
@@ -105,14 +146,15 @@ namespace var
 	public:
 		color_RGB();
 		color_RGB(double r, double g, double b);
+		color_RGB(double r, double g, double b, double a);
 
-		double R;
-		double G;
-		double B;
-		double A;
+		double R = -1;
+		double G = -1;
+		double B = -1;
+		double A = -1;
 
 	#ifdef USING_CINDER
-		ci::Color toColor();	//BEING REMOVED.  use toCinderColor() istead
+		ci::Color toColor();			//BEING REMOVED.  use toCinderColor() istead
 		ci::Color toCinderColor();		//Returns the color in Cinder's format, without opacity
 		ci::ColorA toCinderColorA();	//Returns the color in Cinder's format, with opacity
 	#endif
