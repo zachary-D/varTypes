@@ -148,6 +148,8 @@ namespace var
 		color_RGB(double r, double g, double b);
 		color_RGB(double r, double g, double b, double a);
 
+		bool operator == (const color_RGB & other);
+
 		double R = -1;
 		double G = -1;
 		double B = -1;
