@@ -148,10 +148,16 @@ namespace var
 		color_RGB(double r, double g, double b);
 		color_RGB(double r, double g, double b, double a);
 
+		bool operator == (const color_RGB & other);
+
 		double R = -1;
 		double G = -1;
 		double B = -1;
 		double A = -1;
+
+		bool isDefined() { return R != -1 && G != -1 && B != -1; }			//True when the color is defined (not checking the opacity)
+		bool isOpacityDefined() { return  A != -1; }						//True when the opacity is defined
+		bool areAllDefined() { return isDefined() && isOpacityDefined(); }	//True when the opacity and color is
 
 	#ifdef USING_CINDER
 		ci::Color toColor();			//BEING REMOVED.  use toCinderColor() istead

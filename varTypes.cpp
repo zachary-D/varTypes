@@ -428,6 +428,11 @@ namespace var
 		A = a;
 	}
 
+	bool color_RGB::operator== (const color_RGB & other)
+	{
+		return R == other.R && G == other.G && B == other.B && A == other.A;
+	}
+
 #ifdef USING_CINDER
 	ci::Color color_RGB::toColor()
 	{
