@@ -299,9 +299,9 @@ namespace var
 		return distanceTo(*this, point);
 	}
 
-	double coord2::angleTo(coord2 &point)
+	double coord2::angleBetween(coord2 &point)
 	{
-		return angleTo(*this, point);
+		return angleBetween(*this, point);
 	}
 
 	double coord2::distanceTo(coord2 &first, coord2 &second)
@@ -309,9 +309,9 @@ namespace var
 		return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
 	}
 
-	double coord2::angleTo(coord2 &first, coord2 &second)
+	double coord2::angleBetween(coord2 &first, coord2 &second)
 	{
-		return conv::toDegrees(atan2(first.y - second.y, first.x - second.x));
+		return conv::toDegrees(atan2(second.y - first.y, second.x - first.x));
 	}
 
 

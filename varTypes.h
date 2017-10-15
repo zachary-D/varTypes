@@ -98,10 +98,10 @@ namespace var
 		mVector toMVector();		//Converts the coordinates to a vector, with 0,0 as the center
 
 		double distanceTo(coord2 &point);		//Returns the distance between this coord and 'point'
-		double angleTo(coord2 &point);			//Returns the angle measured CCW between the x+ axis and the line from this coord to 'point'
+		double angleBetween(coord2 &point);			//Returns the angle measured CCW between the x+ axis and the line from this coord to 'point'
 
 		static double distanceTo(coord2 &first, coord2 &second);	//Returns the distance between to points
-		static double angleTo(coord2 &first, coord2 &second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
+		static double angleBetween(coord2 &first, coord2 &second);		//Returns the angle of a line from 'first' to 'second' (the angle being the angle CCW from Y=0, x+)
 	};
 
 	class mVector	//The math version of a vector, not the infinite-array version
