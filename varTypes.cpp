@@ -51,19 +51,37 @@ namespace var
 		y = coordinate.y;
 	}
 #endif
+
 	coord2 coord2::operator+(const coord2 & other)
 	{
 		return coord2(x + other.x, y + other.y);
 	}
+
+	coord2 coord2::operator+(mVector & other)
+	{
+		return (*this) + other.toCoord2();
+	}
+
 
 	coord2 coord2::operator-(const coord2 & other)
 	{
 		return coord2(x - other.x, y - other.y);
 	}
 
+	coord2 coord2::operator-(mVector & other)
+	{
+		return (*this) - other.toCoord2();
+	}
+
+
 	coord2 coord2::operator*(const coord2 & other)
 	{
 		return coord2(x * other.x, y * other.y);
+	}
+
+	coord2 coord2::operator*(mVector & other)
+	{
+		return (*this) * other.toCoord2();
 	}
 
 	coord2 coord2::operator*(const double & other)
@@ -71,15 +89,22 @@ namespace var
 		return coord2(x * other, y * other);
 	}
 
+
 	coord2 coord2::operator/(const coord2 & other)
 	{
 		return coord2(x / other.x, y / other.y);
+	}
+
+	coord2 coord2::operator/(mVector & other)
+	{
+		return (*this) / other.toCoord2();
 	}
 
 	coord2 coord2::operator/(const double & other)
 	{
 		return coord2(x / other, y / other);
 	}
+
 
 	coord2 coord2::operator+=(const coord2 & other)
 	{
@@ -88,6 +113,12 @@ namespace var
 		return coord2(x, y);
 	}
 
+	coord2 coord2::operator+=(mVector & other)
+	{
+		return coord2((*this) += other.toCoord2());
+	}
+
+
 	coord2 coord2::operator-=(const coord2 & other)
 	{
 		x -= other.x;
@@ -95,11 +126,22 @@ namespace var
 		return coord2(x, y);
 	}
 
+	coord2 coord2::operator-=(mVector & other)
+	{
+		return (*this) -= other.toCoord2();
+	}
+
+
 	coord2 coord2::operator*=(const coord2 & other)
 	{
 		x *= other.x;
 		y *= other.y;
 		return coord2(x, y);
+	}
+
+	coord2 coord2::operator*=(mVector & other)
+	{
+		return (*this) *= other.toCoord2();
 	}
 
 	coord2 coord2::operator*=(const double & other)
@@ -109,11 +151,17 @@ namespace var
 		return coord2(x, y);
 	}
 
+
 	coord2 coord2::operator/=(const coord2 & other)
 	{
 		x /= other.x;
 		y /= other.y;
 		return coord2(x, y);
+	}
+
+	coord2 coord2::operator/=(mVector & other)
+	{
+		return (*this) /= other.toCoord2();
 	}
 
 	coord2 coord2::operator/=(const double & other)
@@ -122,6 +170,7 @@ namespace var
 		y /= other;
 		return coord2(x, y);
 	}
+	
 
 	bool coord2::operator==(const coord2 & other)
 	{
@@ -129,12 +178,14 @@ namespace var
 		else return false;
 	}
 
+	
 	bool coord2::operator!=(const coord2 & other)
 	{
 		if (x != other.x || y != other.y) return true;
 		else return false;
 	}
 
+	
 	bool coord2::operator>(const coord2 & other)
 	{
 		return (x > other.x) && (y > other.y);
@@ -145,6 +196,7 @@ namespace var
 		return (x > other) && (y > other);
 	}
 
+	
 	bool coord2::operator<(const coord2 & other)
 	{
 		return (x < other.x) && (y < other.y);
@@ -155,6 +207,7 @@ namespace var
 		return (x < other) && (y < other);
 	}
 
+	
 	bool coord2::operator>=(const coord2 & other)
 	{
 		return (x >= other.x) && (y >= other.y);
@@ -165,6 +218,7 @@ namespace var
 		return (x >= other) && (y >= other);
 	}
 
+	
 	bool coord2::operator<=(const coord2 & other)
 	{
 		return (x <= other.x) && (y <= other.y);
@@ -175,6 +229,7 @@ namespace var
 		return (x <= other) && (y <= other);
 	}
 
+	
 	coord2 coord2::negatedX()
 	{
 		return coord2(x * -1, y);
@@ -316,6 +371,7 @@ namespace var
 
 
 
+
 	mVector::mVector(double _magnitude, double _angle)
 	{
 		magnitude = _magnitude;
@@ -334,6 +390,16 @@ namespace var
 		*this = mVector(diff);
 	}
 
+	mVector mVector::operator* (double & other)
+	{
+		return mVector(magnitude * other, angle);
+	}
+
+	mVector mVector::operator/ (double & other)
+	{
+		return mVector(magnitude / other, angle);
+	}
+
 	coord2 mVector::toCoord2()
 	{
 		return
@@ -342,6 +408,7 @@ namespace var
 				magnitude * sin(conv::toRadians(angle))
 			);
 	}
+
 
 
 
@@ -405,7 +472,6 @@ namespace var
 
 
 
-
 	color_RGB::color_RGB()
 	{
 		R = 1;
@@ -454,7 +520,6 @@ namespace var
 
 
 
-
 	square::square()
 	{}
 
@@ -493,7 +558,6 @@ namespace var
 	{
 		return coord2(rightX, bottomY);
 	}
-
 
 
 
@@ -991,7 +1055,6 @@ namespace var
 			}
 		}	
 	};
-
 
 
 

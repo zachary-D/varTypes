@@ -46,27 +46,49 @@ namespace var
 #endif
 
 		coord2 operator+(const coord2 & other);
+		coord2 operator+(mVector & other);
+
 		coord2 operator-(const coord2 & other);
+		coord2 operator-(mVector & other);
+		
 		coord2 operator*(const coord2 & other);
+		coord2 operator*(mVector & other);
 		coord2 operator*(const double & other);
+		
 		coord2 operator/(const coord2 & other);
+		coord2 operator/(mVector & other);
 		coord2 operator/(const double & other);
+		
 		coord2 operator+=(const coord2 & other);
+		coord2 operator+=(mVector & other);
+		
 		coord2 operator-=(const coord2 & other);
+		coord2 operator-=(mVector & other);
+		
 		coord2 operator*=(const coord2 & other);
+		coord2 operator*=(mVector & other);
 		coord2 operator*=(const double & other);
+
 		coord2 operator/=(const coord2 & other);
+		coord2 operator/=(mVector & other);
 		coord2 operator/=(const double & other);
-		bool operator==(const coord2 & other);
-		bool operator!=(const coord2 & other);
+		
+		
 		//When being compared to another coordinate pair, the X and Y pairs BOTH must satisfy the comparison individually
 		//When being compared to a number, both the X and Y values must satisfy the comparison to the number
+		bool operator==(const coord2 & other);
+		
+		bool operator!=(const coord2 & other);
+		
 		bool operator>(const coord2 & other);
 		bool operator>(const double & other);
+		
 		bool operator<(const coord2 & other);
 		bool operator<(const double & other);
+		
 		bool operator>=(const coord2 & other);
 		bool operator>=(const double & other);
+		
 		bool operator<=(const coord2 & other);
 		bool operator<=(const double & other);
 
@@ -111,6 +133,9 @@ namespace var
 		mVector(double _magnitude, double _angle);
 		mVector(coord2 coordinate);						//Creates a vector based from the origin to 'coordinate'
 		mVector(coord2 first, coord2 second);			//Creates a vector from 'first' to 'second'
+
+		mVector operator* (double &other);
+		mVector operator/ (double &other);
 
 		double magnitude;
 		double angle;
