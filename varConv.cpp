@@ -75,6 +75,16 @@ namespace conv
 		return strOut;
 	}
 
+	string toString(size_t inp)
+	{
+		convert.clear();
+		convert << inp;
+		strOut = "";
+		convert >> strOut;
+		convert.clear();
+		return strOut;
+	}
+
 	string toString(var::coord2 inp, bool multiLine = true)
 	{
 		if(multiLine == false)

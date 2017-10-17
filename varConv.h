@@ -16,6 +16,7 @@ namespace conv
 	string toString(float inp);
 	string toString(double inp);
 	string toString(time_t inp);
+	string toString(size_t inp);
 	string toString(var::coord2 inp, bool multiLine = true);
 	string toString(var::color_RGB inp, bool multiLine = true);
 	string toString(bool inp);
