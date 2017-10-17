@@ -1016,12 +1016,12 @@ namespace var
 
 		double circle::getCircumference()
 		{
-			return 2 * pi * getRadius();
+			return 2 * math::pi * getRadius();
 		}
 
 		double circle::getArea()
 		{
-			return pi * getRadius() * getRadius();
+			return math::pi * getRadius() * getRadius();
 		}
 
 		int circle::getNumIntercepts(line _line)
