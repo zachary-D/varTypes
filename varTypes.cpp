@@ -520,49 +520,7 @@ namespace var
 
 
 
-	square::square()
-	{}
-
-	square::square(coord2 _upperRight, coord2 _lowerLeft)
-	{
-		topY = _upperRight.y;
-		rightX = _upperRight.x;
-		bottomY = _lowerLeft.y;
-		leftX = _lowerLeft.x;
-	}
-
-	square::square(double _leftX, double _rightX, double _bottomY, double _topY)
-	{
-		leftX = _leftX;
-		rightX = _rightX;
-		bottomY = _bottomY;
-		topY = _topY;
-	}
-
-	coord2 square::getTopLeft()
-	{
-		return coord2(leftX, topY);
-	}
-
-	coord2 square::getTopRight()
-	{
-		return coord2(rightX, topY);
-	}
-
-	coord2 square::getBottomLeft()
-	{
-		return coord2(leftX, bottomY);
-	}
-
-	coord2 square::getBottomRight()
-	{
-		return coord2(rightX, bottomY);
-	}
-
-
-
-
-	namespace math
+	namespace geom	//As in geometry
 	{
 		line::line(coord2 _slope, coord2 _displacement)
 		{
@@ -970,6 +928,51 @@ namespace var
 		{
 			return _start + (slope * (_length / sqrt(pow(slope.x, 2) + pow(slope.y, 2))));
 		}
+
+
+
+
+		square::square()
+		{}
+
+		square::square(coord2 _upperRight, coord2 _lowerLeft)
+		{
+			topY = _upperRight.y;
+			rightX = _upperRight.x;
+			bottomY = _lowerLeft.y;
+			leftX = _lowerLeft.x;
+		}
+
+		square::square(double _leftX, double _rightX, double _bottomY, double _topY)
+		{
+			leftX = _leftX;
+			rightX = _rightX;
+			bottomY = _bottomY;
+			topY = _topY;
+		}
+
+		coord2 square::getTopLeft()
+		{
+			return coord2(leftX, topY);
+		}
+
+		coord2 square::getTopRight()
+		{
+			return coord2(rightX, topY);
+		}
+
+		coord2 square::getBottomLeft()
+		{
+			return coord2(leftX, bottomY);
+		}
+
+		coord2 square::getBottomRight()
+		{
+			return coord2(rightX, bottomY);
+		}
+
+
+
 
 		circle::circle(coord2 _center, double _radius)
 		{

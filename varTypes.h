@@ -191,25 +191,7 @@ namespace var
 	#endif
 	};
 
-	class square
-	{
-	public:
-		square();
-		square(coord2 _upperRight, coord2 _lowerLeft);
-		square(double _leftX, double _rightX, double _bottomY, double _topY);
-
-		double leftX = 0;	//The X coordinate of every point along the left side of the square
-		double rightX = 0;	//The X coordinate of every point along the right side of the square
-		double bottomY = 0;	//The Y coordinate of every point along the bottom of the square
-		double topY = 0;		//The Y coordinate of every point along the top of the square
-
-		coord2 getTopLeft();
-		coord2 getTopRight();
-		coord2 getBottomLeft();
-		coord2 getBottomRight();
-	};
-
-	namespace math
+	namespace geom	//As in geometry
 	{
 		const double pi = 4 * atan(1);
 
@@ -270,6 +252,26 @@ namespace var
 			coord2 getCoordAtLength(coord2 _start, double _length);	//Returns the coordinate _length along the line from _start.  If _length is positive the coord to the right will be returned, if negative the coord to the left will be returned.
 
 		};
+
+
+		class square
+		{
+		public:
+			square();
+			square(coord2 _upperRight, coord2 _lowerLeft);
+			square(double _leftX, double _rightX, double _bottomY, double _topY);
+
+			double leftX = 0;	//The X coordinate of every point along the left side of the square
+			double rightX = 0;	//The X coordinate of every point along the right side of the square
+			double bottomY = 0;	//The Y coordinate of every point along the bottom of the square
+			double topY = 0;		//The Y coordinate of every point along the top of the square
+
+			coord2 getTopLeft();
+			coord2 getTopRight();
+			coord2 getBottomLeft();
+			coord2 getBottomRight();
+		};
+
 
 		class circle
 		{
