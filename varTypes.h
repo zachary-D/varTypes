@@ -191,10 +191,13 @@ namespace var
 	#endif
 	};
 
-	namespace geom	//As in geometry
+	namespace math
 	{
 		const double pi = 4 * atan(1);
+	}
 
+	namespace geom	//As in geometry
+	{
 		class line
 		{
 		public:
